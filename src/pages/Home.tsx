@@ -16,25 +16,31 @@ const Home: React.FC = () => {
   useEffect(() => {
     // Basic GSAP reveal animations for sections
     const sections = document.querySelectorAll(`.${styles.scrollSection}`);
+    const scroller = `.${styles.homeContainer}`;
 
-    sections.forEach((section) => {
-      gsap.fromTo(
-        section.children,
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.2,
-          scrollTrigger: {
-            trigger: section,
-            start: "top center",
-            end: "bottom center",
-            toggleActions: "play none none reverse",
+    const ctx = gsap.context(() => {
+      sections.forEach((section) => {
+        gsap.fromTo(
+          section.children,
+          { y: 50, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2,
+            scrollTrigger: {
+              trigger: section,
+              scroller: scroller,
+              start: "top center",
+              end: "bottom center",
+              toggleActions: "play none none reverse",
+            },
           },
-        },
-      );
+        );
+      });
     });
+
+    return () => ctx.revert();
   }, []);
 
   return (
