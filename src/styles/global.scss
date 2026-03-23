@@ -1,0 +1,55 @@
+@import "variables";
+
+// Import Bootstrap SCSS
+@import "bootstrap/scss/bootstrap";
+
+// Custom Global Styles
+body {
+  background-color: $bg-color;
+  color: $text-color;
+  font-family: $font-family-base;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-family-heading;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: $secondary-color;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: lighten($secondary-color, 15%);
+  }
+}
+
+// Custom scrollbar for premium feel
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-color;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}

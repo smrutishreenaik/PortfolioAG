@@ -1,0 +1,29 @@
+// Custom SCSS Variables for Portfolio
+
+// Colors
+$primary-color: #0f172a;
+$secondary-color: #3b82f6;
+$accent-color: #f59e0b;
+$text-color: #f8fafc;
+$text-muted: #94a3b8;
+$bg-color: #020617;
+$bg-surface: #0f172a;
+
+// Typography
+$font-family-base:
+  "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-heading: "Outfit", "Segoe UI", Roboto, sans-serif;
+
+// Bootstrap Overrides
+$primary: $secondary-color;
+$body-bg: $bg-color;
+$body-color: $text-color;
+$font-family-sans-serif: $font-family-base;
+
+// Glassmorphism Utils
+@mixin glassmorphism {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,89 @@
+@import "../styles/variables";
+
+.detailWrapper {
+  min-height: 100vh;
+  padding-bottom: 5rem;
+}
+
+.heroHeader {
+  padding-top: 150px;
+  padding-bottom: 100px;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.backLink {
+  color: $text-color;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  font-size: 1.1rem;
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.contentContainer {
+  margin-top: -50px;
+  position: relative;
+  z-index: 2;
+}
+
+.mainContent {
+  @include glassmorphism;
+  padding: 4rem;
+  border-radius: 1rem;
+
+  h2,
+  h3,
+  h4 {
+    color: $text-color;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    color: $accent-color;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  p,
+  li {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba($text-color, 0.9);
+    margin-bottom: 1.5rem;
+  }
+
+  ul,
+  ol {
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin: 2rem 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .heroHeader {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .mainContent {
+    padding: 2rem;
+  }
+}

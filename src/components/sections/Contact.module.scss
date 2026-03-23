@@ -1,0 +1,34 @@
+@import "../../styles/variables";
+
+.contactSection {
+  padding: 8rem 0;
+  background-color: $bg-color;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.formContainer {
+  @include glassmorphism;
+  padding: 3rem;
+  border-radius: 1.5rem;
+}
+
+.formInput {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: $text-color;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: $text-color;
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 0.25rem rgba($secondary-color, 0.25);
+  }
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+  }
+}

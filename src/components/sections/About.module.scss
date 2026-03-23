@@ -1,0 +1,50 @@
+@import "../../styles/variables";
+
+.aboutSection {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: darken($bg-color, 3%);
+  position: relative;
+}
+
+.textContainer {
+  @include glassmorphism;
+  padding: 3rem;
+  border-radius: 1rem;
+}
+
+.skillsContainer {
+  padding: 3rem;
+}
+
+.skillBadge {
+  font-size: 1rem;
+  padding: 0.7rem 1.2rem;
+  font-weight: 500;
+  border-radius: 2rem;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.socialLink {
+  @include glassmorphism;
+  border-radius: 2rem;
+  padding: 0.5rem 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  color: $text-color;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $accent-color;
+  }
+}

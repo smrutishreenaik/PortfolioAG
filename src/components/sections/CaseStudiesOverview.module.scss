@@ -1,0 +1,33 @@
+@import "../../styles/variables";
+
+.caseStudiesSection {
+  padding: 8rem 0;
+  background-color: darken($bg-color, 2%);
+  min-height: 100vh;
+}
+
+.studyCard {
+  @include glassmorphism;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    border-color: rgba($secondary-color, 0.4);
+  }
+}
+
+.cardImg {
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cardBody {
+  padding: 2rem;
+}

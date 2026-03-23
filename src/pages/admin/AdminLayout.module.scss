@@ -1,0 +1,102 @@
+@import "../../styles/variables";
+
+.adminWrapper {
+  background-color: $bg-color;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background-color: rgba(20, 20, 20, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 2rem 0;
+}
+
+.sidebarHeader {
+  padding: 0 1.5rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navLink {
+  color: rgba($text-color, 0.7);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  text-decoration: none;
+
+  &:hover {
+    color: $text-color;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  &.active {
+    color: $primary-color;
+    background-color: rgba($primary-color, 0.1);
+    border-right: 3px solid $primary-color;
+  }
+}
+
+.icon {
+  margin-right: 1rem;
+  font-size: 1.1rem;
+}
+
+.sidebarFooter {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logoutBtn {
+  background: transparent;
+  border: none;
+  color: #dc3545; // Bootstrap danger color
+  padding: 0.8rem 1.5rem;
+  width: 100%;
+  text-align: left;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.mainContent {
+  padding: 2rem 3rem;
+  height: 100vh;
+  overflow-y: auto;
+
+  // Custom scrollbar for main content
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+  }
+}
+
+.contentHeader {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: $text-color;
+}
+
+.contentBody {
+  // Container for nested routes
+}

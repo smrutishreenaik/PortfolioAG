@@ -1,0 +1,43 @@
+@import "../../styles/variables";
+
+.projectsSection {
+  padding: 8rem 0;
+  background-color: $bg-color;
+  min-height: 100vh;
+}
+
+.projectCard {
+  @include glassmorphism;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.cardImg {
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.techBadge {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba($secondary-color, 0.1);
+  color: $secondary-color;
+  border: 1px solid rgba($secondary-color, 0.2);
+  border-radius: 2rem;
+}

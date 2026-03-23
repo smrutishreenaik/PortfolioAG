@@ -1,0 +1,40 @@
+@import "../styles/variables";
+
+.navbarContainer {
+  @include glassmorphism;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+.brand {
+  font-family: $font-family-heading;
+  font-weight: 700;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: $text-color !important;
+}
+
+.navLink {
+  font-family: $font-family-base;
+  font-weight: 500;
+  margin-left: 1.5rem;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: $accent-color;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
