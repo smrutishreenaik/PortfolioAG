@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { Container, Row, Col, Form, Alert } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
 import styles from "./Contact.module.scss";
+import { motion } from "framer-motion";
 
 const Contact: React.FC = () => {
   const form = useRef<HTMLFormElement>(null);
@@ -35,13 +36,25 @@ const Contact: React.FC = () => {
       <Container>
         <Row className="justify-content-center">
           <Col md={8} lg={6}>
-            <div className={styles.formContainer}>
-              <div className="text-center mb-5">
+            <motion.div
+              className={styles.formContainer}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <motion.div
+                className="text-center mb-5"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              >
                 <h2 className="display-5 fw-bold mb-3">Get In Touch</h2>
                 <p className="lead text-muted">
                   Ready to discuss your next project? Drop a message below.
                 </p>
-              </div>
+              </motion.div>
 
               {status === "success" && (
                 <Alert variant="success">
@@ -97,7 +110,7 @@ const Contact: React.FC = () => {
                   {status === "sending" ? "Sending..." : "Send Message"}
                 </button>
               </Form>
-            </div>
+            </motion.div>
           </Col>
         </Row>
       </Container>

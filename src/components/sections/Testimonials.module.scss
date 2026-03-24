@@ -6,16 +6,19 @@
   min-height: 100vh;
 }
 
+.testimonialsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
 .testimonialCard {
   @include glassmorphism;
-  height: 100%;
   border-radius: 1rem;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  }
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
 }
 
 .avatar {

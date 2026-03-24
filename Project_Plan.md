@@ -81,6 +81,7 @@
 - [ ] **Manage Case Studies (CRUD):**
   - List all existing case studies with edit/delete options.
   - Form to add a new case study (title and content).
+  - Input field to add url link of the image.
   - Include a text editor which can add text, images, gifs and various fonts.
 - [ ] **Manage Experience (CRUD):**
   - List all existing experience with edit/delete options.

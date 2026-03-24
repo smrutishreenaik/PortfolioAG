@@ -6,19 +6,20 @@
   min-height: 100vh;
 }
 
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
 .projectCard {
   @include glassmorphism;
   height: 100%;
   border-radius: 1rem;
   overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-  }
+  display: flex;
+  flex-direction: column;
+  cursor: default;
 }
 
 .cardImg {

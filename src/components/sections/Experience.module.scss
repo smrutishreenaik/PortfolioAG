@@ -10,16 +10,21 @@
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 20px;
-    width: 2px;
-    background: rgba(255, 255, 255, 0.1);
-  }
+.timelineLine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 20px;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.15),
+    rgba(255, 255, 255, 0.05)
+  );
+  transform-origin: top;
 }
 
 .timelineItem {

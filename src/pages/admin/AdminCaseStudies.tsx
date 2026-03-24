@@ -8,8 +8,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../services/firebase";
+import { db } from "../../services/firebase";
 import { CaseStudy } from "../../types";
 import useToast from "../../context/useToast";
 import ToastContainer from "../../components/ToastContainer";
@@ -20,7 +19,7 @@ const AdminCaseStudies: React.FC = () => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
   const [currentStudy, setCurrentStudy] = useState<Partial<CaseStudy>>({});
-  const [imageFile, setImageFile] = useState<File | null>(null);
+
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
@@ -51,7 +50,6 @@ const AdminCaseStudies: React.FC = () => {
   const handleClose = () => {
     setShowModal(false);
     setCurrentStudy({});
-    setImageFile(null);
     setIsEditing(false);
   };
 
@@ -63,22 +61,11 @@ const AdminCaseStudies: React.FC = () => {
     setShowModal(true);
   };
 
-  const uploadImage = async (file: File) => {
-    if (file.size > 2 * 1024 * 1024)
-      throw new Error("Image size must be less than 2MB.");
-    const imageRef = ref(storage, `casestudies/${file.name}_${Date.now()}`);
-    await uploadBytes(imageRef, file);
-    return getDownloadURL(imageRef);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     try {
-      let imageUrl = currentStudy.imageUrl || "";
-      if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
-      }
+      const imageUrl = currentStudy.imageUrl || "";
 
       if (isEditing && currentStudy.id) {
         const csDoc = doc(db, "caseStudies", currentStudy.id);
@@ -210,20 +197,19 @@ const AdminCaseStudies: React.FC = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Cover Image</Form.Label>
+              <Form.Label>Cover Image URL</Form.Label>
               <Form.Control
-                type="file"
-                accept="image/*"
-                required={!isEditing && !currentStudy.imageUrl}
-                onChange={(e: any) => setImageFile(e.target.files[0])}
-                className="bg-dark text-white border-secondary"
+                type="url"
+                value={currentStudy.imageUrl || ""}
+                onChange={(e) =>
+                  setCurrentStudy({ ...currentStudy, imageUrl: e.target.value })
+                }
+                className="bg-transparent text-white border-secondary"
+                placeholder="https://example.com/cover-image.jpg"
               />
-              <Form.Text className="text-muted">Max file size: 2MB.</Form.Text>
-              {currentStudy.imageUrl && !imageFile && (
-                <div className="mt-2">
-                  <small className="text-info">✓ Image already uploaded.</small>
-                </div>
-              )}
+              <Form.Text className="text-muted">
+                Paste a direct URL to your cover image.
+              </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>

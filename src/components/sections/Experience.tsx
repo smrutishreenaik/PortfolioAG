@@ -3,6 +3,7 @@ import { Container, Spinner } from "react-bootstrap";
 import styles from "./Experience.module.scss";
 import { Experience as ExperienceType } from "../../types";
 import { useCollection } from "../../hooks/useCollection";
+import { motion } from "framer-motion";
 
 const Experience: React.FC = () => {
   const {
@@ -14,7 +15,15 @@ const Experience: React.FC = () => {
   return (
     <section className={styles.experienceSection} id="experience">
       <Container>
-        <h2 className="display-5 fw-bold mb-5 text-center">Work Experience</h2>
+        <motion.h2
+          className="display-5 fw-bold mb-5 text-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          Work Experience
+        </motion.h2>
         {loading ? (
           <div className="text-center py-5">
             <Spinner animation="border" variant="primary" />
@@ -25,9 +34,24 @@ const Experience: React.FC = () => {
           </p>
         ) : (
           <div className={styles.timeline}>
-            {experiences.map((exp) => (
-              <div key={exp.id} className={styles.timelineItem}>
-                <div className={styles.timelineMarker}></div>
+            <motion.div
+              className={styles.timelineLine}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 1.2, ease: "easeInOut" }}
+              style={{ originY: 0 }}
+            />
+            {experiences.map((exp, i) => (
+              <motion.div
+                key={exp.id}
+                className={styles.timelineItem}
+                initial={{ opacity: 0, x: -60 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ delay: i * 0.18, duration: 0.7 }}
+              >
+                <div className={styles.timelineMarker} />
                 <div className={styles.timelineContent}>
                   <div className="d-flex justify-content-between align-items-center mb-2">
                     <h3 className="h4 fw-bold text-white mb-0">{exp.role}</h3>
@@ -64,7 +88,7 @@ const Experience: React.FC = () => {
                     ))}
                   </ul>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         )}

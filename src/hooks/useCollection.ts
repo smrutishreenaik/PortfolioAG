@@ -20,7 +20,7 @@ export const useCollection = <T>(collectionName: string) => {
           id: doc.id,
         })) as T[];
         setData(results);
-      } catch (_err: any) {
+      } catch {
         // Fallback if index is missing or without orderBy
         try {
           const snapshot = await getDocs(collection(db, collectionName));
