@@ -24,9 +24,6 @@ const Navbar: React.FC = () => {
             <Nav.Link as={Link} to="/case-studies" className={styles.navLink}>
               Case Studies
             </Nav.Link>
-            <Nav.Link as={Link} to="/admin" className={styles.navLink}>
-              Admin
-            </Nav.Link>
           </Nav>
         </BootstrapNavbar.Collapse>
       </Container>
