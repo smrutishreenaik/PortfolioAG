@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Container, Badge } from "react-bootstrap";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../services/firebase";
 import styles from "./CaseStudyDetail.module.scss";
 import { CaseStudy } from "../types";
 
@@ -11,42 +13,23 @@ const CaseStudyDetail: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Simulate fetching from Firestore
-    setTimeout(() => {
-      setCaseStudy({
-        id: id || "1",
-        title:
-          id === "1"
-            ? "Redesigning the Payment Flow"
-            : id === "2"
-              ? "Scaling the Backend Architecture"
-              : "Building a Premium Portfolio",
-        content: `
-          <h2>Overview</h2>
-          <p>This is a detailed placeholder for the case study content. Here we can describe the problem, the solution, and the outcomes. It can include rich text, images, and other formatted content.</p>
-          
-          <h3>The Challenge</h3>
-          <p>Users were dropping off during the payment process. We needed to identify the friction points and smooth them out.</p>
-          
-          <h3>The Solution</h3>
-          <p>We implemented a single-page checkout, added more payment options, and improved loading times.</p>
-          
-          <h3>Results</h3>
-          <ul>
-            <li>Conversion rate increased by 15%</li>
-            <li>Checkout time decreased by 30 seconds</li>
-            <li>Positive feedback from user testing sessions</li>
-          </ul>
-        `,
-        imageUrl:
-          id === "1"
-            ? "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=1200"
-            : id === "2"
-              ? "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200"
-              : "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
-      });
-      setLoading(false);
-    }, 500);
+    const fetchCaseStudy = async () => {
+      if (!id) return;
+      try {
+        const docRef = doc(db, "caseStudies", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setCaseStudy({ id: docSnap.id, ...docSnap.data() } as CaseStudy);
+        } else {
+          setCaseStudy(null);
+        }
+      } catch (error) {
+        console.error("Error fetching case study:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCaseStudy();
   }, [id]);
 
   if (loading) {

@@ -8,8 +8,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../../services/firebase";
+import { db } from "../../services/firebase";
 import { Project } from "../../types";
 import useToast from "../../context/useToast";
 import ToastContainer from "../../components/ToastContainer";
@@ -24,7 +23,6 @@ const AdminProjects: React.FC = () => {
   const [currentProject, setCurrentProject] = useState<Partial<Project>>({});
   const [featuresStr, setFeaturesStr] = useState("");
   const [techStackStr, setTechStackStr] = useState("");
-  const [imageFile, setImageFile] = useState<File | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
@@ -57,7 +55,6 @@ const AdminProjects: React.FC = () => {
     setCurrentProject({});
     setFeaturesStr("");
     setTechStackStr("");
-    setImageFile(null);
     setIsEditing(false);
   };
 
@@ -71,14 +68,6 @@ const AdminProjects: React.FC = () => {
     setShowModal(true);
   };
 
-  const uploadImage = async (file: File) => {
-    if (file.size > 2 * 1024 * 1024)
-      throw new Error("Image size must be less than 2MB.");
-    const imageRef = ref(storage, `projects/${file.name}_${Date.now()}`);
-    await uploadBytes(imageRef, file);
-    return getDownloadURL(imageRef);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -88,11 +77,7 @@ const AdminProjects: React.FC = () => {
         .split(",")
         .map((t) => t.trim())
         .filter((t) => t !== "");
-      let imageUrl = currentProject.imageUrl || "";
-
-      if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
-      }
+      const imageUrl = currentProject.imageUrl || "";
 
       if (isEditing && currentProject.id) {
         const projDoc = doc(db, "projects", currentProject.id);
@@ -329,21 +314,22 @@ const AdminProjects: React.FC = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Cover Image</Form.Label>
+              <Form.Label>
+                Cover Image URL <span className="text-danger">*</span>
+              </Form.Label>
               <Form.Control
-                type="file"
-                accept="image/*"
-                onChange={(e: any) => setImageFile(e.target.files[0])}
-                className="bg-dark text-white border-secondary"
+                type="url"
+                required
+                value={currentProject.imageUrl || ""}
+                onChange={(e) =>
+                  setCurrentProject({
+                    ...currentProject,
+                    imageUrl: e.target.value,
+                  })
+                }
+                className="bg-transparent text-white border-secondary"
+                placeholder="https://example.com/image.png"
               />
-              <Form.Text className="text-muted">
-                Max file size: 2MB. Accepts JPG, PNG, WebP.
-              </Form.Text>
-              {currentProject.imageUrl && !imageFile && (
-                <div className="mt-2">
-                  <small className="text-info">✓ Image already uploaded.</small>
-                </div>
-              )}
             </Form.Group>
           </Modal.Body>
           <Modal.Footer className="border-secondary">

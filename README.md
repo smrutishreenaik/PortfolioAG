@@ -4,13 +4,13 @@ A visually premium portfolio website built with React, TypeScript, Vite, and Fir
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18, TypeScript |
-| Routing | React Router DOM v6 |
-| Styling | Bootstrap 5 + SCSS Modules |
+| Layer        | Technology                          |
+| ------------ | ----------------------------------- |
+| Frontend     | React 18, TypeScript                |
+| Routing      | React Router DOM v6                 |
+| Styling      | Bootstrap 5 + SCSS Modules          |
 | Backend/BaaS | Firebase (Auth, Firestore, Storage) |
-| Build Tool | Vite |
+| Build Tool   | Vite                                |
 
 ## Project Structure
 
@@ -42,6 +42,7 @@ src/
 ## Features
 
 ### Public Portfolio
+
 - **Hero** — Introduction and call-to-action
 - **About** — Personal bio, skills (grouped by category), resume download, social links (GitHub, LinkedIn, LeetCode)
 - **Projects** — Dynamically fetched from Firestore; includes title, description, features, tech stack, GitHub & live links, cover image
@@ -51,6 +52,7 @@ src/
 - **Contact** — Form powered by EmailJS
 
 ### Admin Panel (`/admin`) — Protected Route
+
 - Full CRUD for Skills, Projects, Case Studies, Experience, and Testimonials
 - Image upload to Firebase Storage (with 2MB size validation)
 - Toast notifications (success/error/info) with auto-dismiss
@@ -67,12 +69,12 @@ npm run dev
 
 ## Available Scripts
 
-| Script | Description |
-|--------|-------------|
-| `npm run dev` | Start dev server |
-| `npm run build` | Production build (TypeScript + Vite) |
-| `npm run lint` | Run ESLint |
-| `npm run preview` | Preview production build locally |
+| Script            | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start dev server                     |
+| `npm run build`   | Production build (TypeScript + Vite) |
+| `npm run lint`    | Run ESLint                           |
+| `npm run preview` | Preview production build locally     |
 
 ## Environment Variables
 

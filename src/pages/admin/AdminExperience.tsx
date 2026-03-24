@@ -71,14 +71,17 @@ const AdminExperience: React.FC = () => {
       .filter((achievement) => achievement.trim() !== "");
 
     try {
+      const logoUrl = currentExp.logoUrl || "";
+
       if (isEditing && currentExp.id) {
         const expDoc = doc(db, "experience", currentExp.id);
-        await updateDoc(expDoc, { ...currentExp, achievements });
+        await updateDoc(expDoc, { ...currentExp, achievements, logoUrl });
         showToast("Experience updated successfully!", "success");
       } else {
         await addDoc(expCollectionRef, {
           ...currentExp,
           achievements,
+          logoUrl,
           createdAt: new Date(),
         });
         showToast("Experience added successfully!", "success");
@@ -253,16 +256,20 @@ const AdminExperience: React.FC = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
-                Logo URL <span className="text-muted">(Optional)</span>
+                Logo Image URL <span className="text-danger">*</span>
               </Form.Label>
               <Form.Control
                 type="url"
+                required
                 value={currentExp.logoUrl || ""}
                 onChange={(e) =>
-                  setCurrentExp({ ...currentExp, logoUrl: e.target.value })
+                  setCurrentExp({
+                    ...currentExp,
+                    logoUrl: e.target.value,
+                  })
                 }
                 className="bg-transparent text-white border-secondary"
-                placeholder="https://..."
+                placeholder="https://example.com/logo.png"
               />
             </Form.Group>
             <Form.Group className="mb-3">

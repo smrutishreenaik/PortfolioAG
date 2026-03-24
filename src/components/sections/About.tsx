@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Badge } from "react-bootstrap";
+import React, { useMemo } from "react";
+import { Container, Row, Col, Badge, Spinner } from "react-bootstrap";
 import styles from "./About.module.scss";
 import { Skill } from "../../types";
+import { useCollection } from "../../hooks/useCollection";
 
 const About: React.FC = () => {
-  const [skills, setSkills] = useState<Skill[]>([]);
+  const { data: skills, loading, error } = useCollection<Skill>("skills");
 
-  useEffect(() => {
-    const loadData = async () => {
-      setSkills([
-        { id: "1", name: "React", type: "frontend" },
-        { id: "2", name: "TypeScript", type: "frontend" },
-        { id: "3", name: "Firebase", type: "backend" },
-        { id: "4", name: "Bootstrap", type: "frontend" },
-      ]);
-    };
-    loadData();
-  }, []);
+  const groupedSkills = useMemo(() => {
+    return skills.reduce(
+      (acc, skill) => {
+        const type = skill.type || "other";
+        if (!acc[type]) acc[type] = [];
+        acc[type].push(skill);
+        return acc;
+      },
+      {} as Record<string, Skill[]>,
+    );
+  }, [skills]);
 
   return (
     <section className={styles.aboutSection} id="about">
@@ -54,23 +55,46 @@ const About: React.FC = () => {
                 >
                   LinkedIn
                 </a>
+                <a
+                  href="https://leetcode.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.socialLink}
+                >
+                  LeetCode
+                </a>
               </div>
             </div>
           </Col>
           <Col md={6}>
             <div className={styles.skillsContainer}>
               <h3 className="h4 mb-3">Core Skills</h3>
-              <div className="d-flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <Badge
-                    bg="secondary"
-                    key={skill.id}
-                    className={styles.skillBadge}
-                  >
-                    {skill.name}
-                  </Badge>
-                ))}
-              </div>
+              {loading ? (
+                <Spinner animation="border" variant="primary" />
+              ) : error ? (
+                <p className="text-danger">Failed to load skills.</p>
+              ) : (
+                <div className="d-flex flex-column gap-4">
+                  {Object.entries(groupedSkills).map(([type, groupSkills]) => (
+                    <div key={type}>
+                      <h4 className="h6 text-capitalize text-secondary mb-2">
+                        {type}
+                      </h4>
+                      <div className="d-flex flex-wrap gap-2">
+                        {groupSkills.map((skill) => (
+                          <Badge
+                            bg="secondary"
+                            key={skill.id}
+                            className={styles.skillBadge}
+                          >
+                            {skill.name}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </Col>
         </Row>

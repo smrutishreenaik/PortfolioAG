@@ -1,33 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./CaseStudiesOverview.module.scss";
 import { CaseStudy } from "../../types";
+import { useCollection } from "../../hooks/useCollection";
 
 const CaseStudiesOverview: React.FC = () => {
-  const [caseStudies, setCaseStudies] = useState<CaseStudy[]>([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      setCaseStudies([
-        {
-          id: "1",
-          title: "Redesigning the Payment Flow",
-          content: "Brief excerpt of the case study...",
-          imageUrl:
-            "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
-        },
-        {
-          id: "2",
-          title: "Scaling the Backend Architecture",
-          content: "Brief excerpt of the case study...",
-          imageUrl:
-            "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800",
-        },
-      ]);
-    };
-    loadData();
-  }, []);
+  const {
+    data: caseStudies,
+    loading,
+    error,
+  } = useCollection<CaseStudy>("caseStudies");
 
   return (
     <section className={styles.caseStudiesSection} id="case-studies">
@@ -41,34 +24,46 @@ const CaseStudiesOverview: React.FC = () => {
             View All
           </Link>
         </div>
-        <Row className="g-4">
-          {caseStudies.map((study) => (
-            <Col md={6} key={study.id}>
-              <Link
-                to={`/case-studies/${study.id}`}
-                className="text-decoration-none"
-              >
-                <Card className={styles.studyCard}>
-                  {study.imageUrl && (
-                    <Card.Img
-                      variant="top"
-                      src={study.imageUrl}
-                      className={styles.cardImg}
-                    />
-                  )}
-                  <Card.Body className={styles.cardBody}>
-                    <Card.Title className="h4 fw-bold">
-                      {study.title}
-                    </Card.Title>
-                    <Card.Text className="text-muted">
-                      {study.content}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
-          ))}
-        </Row>
+        {loading ? (
+          <div className="text-center py-5">
+            <Spinner animation="border" variant="primary" />
+          </div>
+        ) : error ? (
+          <p className="text-center text-danger">
+            Failed to load case studies: {error}
+          </p>
+        ) : (
+          <Row className="g-4">
+            {caseStudies.map((study) => (
+              <Col md={6} key={study.id}>
+                <Link
+                  to={`/case-studies/${study.id}`}
+                  className="text-decoration-none"
+                >
+                  <Card className={styles.studyCard}>
+                    {study.imageUrl && (
+                      <Card.Img
+                        variant="top"
+                        src={study.imageUrl}
+                        className={styles.cardImg}
+                      />
+                    )}
+                    <Card.Body className={styles.cardBody}>
+                      <Card.Title className="h4 fw-bold">
+                        {study.title}
+                      </Card.Title>
+                      <Card.Text className="text-muted">
+                        {study.content && study.content.length > 100
+                          ? study.content.substring(0, 100) + "..."
+                          : study.content}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </Col>
+            ))}
+          </Row>
+        )}
       </Container>
     </section>
   );

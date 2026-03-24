@@ -69,13 +69,19 @@ const AdminTestimonials: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      const profilePicUrl = currentTestimonial.profilePicUrl || "";
+
       if (isEditing && currentTestimonial.id) {
         const testimonialDoc = doc(db, "testimonials", currentTestimonial.id);
-        await updateDoc(testimonialDoc, { ...currentTestimonial });
+        await updateDoc(testimonialDoc, {
+          ...currentTestimonial,
+          profilePicUrl,
+        });
         showToast("Testimonial updated successfully!", "success");
       } else {
         await addDoc(testimonialsCollectionRef, {
           ...currentTestimonial,
+          profilePicUrl,
           createdAt: new Date(),
         });
         showToast("Testimonial added successfully!", "success");
@@ -262,11 +268,11 @@ const AdminTestimonials: React.FC = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
-                Profile Picture URL{" "}
-                <span className="text-muted">(Optional)</span>
+                Profile Picture URL <span className="text-danger">*</span>
               </Form.Label>
               <Form.Control
                 type="url"
+                required
                 value={currentTestimonial.profilePicUrl || ""}
                 onChange={(e) =>
                   setCurrentTestimonial({
@@ -275,7 +281,24 @@ const AdminTestimonials: React.FC = () => {
                   })
                 }
                 className="bg-transparent text-white border-secondary"
-                placeholder="https://..."
+                placeholder="https://example.com/profile.png"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>
+                Date Recommended <span className="text-danger">*</span>
+              </Form.Label>
+              <Form.Control
+                type="date"
+                required
+                value={currentTestimonial.recommendedDate || ""}
+                onChange={(e) =>
+                  setCurrentTestimonial({
+                    ...currentTestimonial,
+                    recommendedDate: e.target.value,
+                  })
+                }
+                className="bg-transparent text-white border-secondary"
               />
             </Form.Group>
             <Form.Group className="mb-3">

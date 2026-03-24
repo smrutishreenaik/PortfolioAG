@@ -16,10 +16,10 @@ const Contact: React.FC = () => {
     setStatus("sending");
     emailjs
       .sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID",
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID",
         form.current,
-        "YOUR_PUBLIC_KEY",
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY",
       )
       .then(() => {
         setStatus("success");

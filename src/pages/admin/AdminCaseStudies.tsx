@@ -214,6 +214,7 @@ const AdminCaseStudies: React.FC = () => {
               <Form.Control
                 type="file"
                 accept="image/*"
+                required={!isEditing && !currentStudy.imageUrl}
                 onChange={(e: any) => setImageFile(e.target.files[0])}
                 className="bg-dark text-white border-secondary"
               />
