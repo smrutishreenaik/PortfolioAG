@@ -19,6 +19,7 @@ import AdminProjects from "./pages/admin/AdminProjects";
 import AdminCaseStudies from "./pages/admin/AdminCaseStudies";
 import AdminExperience from "./pages/admin/AdminExperience";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
+import SmoothScroll from "./components/SmoothScroll";
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -73,7 +74,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <AuthProvider>
-        <AppContent />
+        <SmoothScroll>
+          <AppContent />
+        </SmoothScroll>
       </AuthProvider>
     </Router>
   );

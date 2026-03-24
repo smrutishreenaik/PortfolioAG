@@ -16,7 +16,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     // Basic GSAP reveal animations for sections
     const sections = document.querySelectorAll(`.${styles.scrollSection}`);
-    const scroller = `.${styles.homeContainer}`;
 
     const ctx = gsap.context(() => {
       sections.forEach((section) => {
@@ -30,7 +29,6 @@ const Home: React.FC = () => {
             stagger: 0.2,
             scrollTrigger: {
               trigger: section,
-              scroller: scroller,
               start: "top center",
               end: "bottom center",
               toggleActions: "play none none reverse",
