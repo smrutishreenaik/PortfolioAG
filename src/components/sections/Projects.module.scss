@@ -1,44 +1,159 @@
 @import "../../styles/variables";
 
 .projectsSection {
-  padding: 8rem 0;
-  background-color: $bg-color;
-  min-height: 100vh;
+  position: relative;
+  padding: 10rem 0;
+  background-color: $bg-surface-lowest;
+  overflow: hidden;
+}
+
+.backgroundOrb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  right: -150px;
+  bottom: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba($primary-color, 0.1) 0%,
+    transparent 70%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 4rem;
+  text-align: center;
+  color: $text-color;
+
+  span {
+    background: $nebula-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 2rem;
 }
 
 .projectCard {
   @include glassmorphism;
-  height: 100%;
-  border-radius: 1rem;
+  border-radius: 1.25rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   cursor: default;
+  will-change: transform;
+  transition:
+    border-color 0.4s $ease-cinematic,
+    box-shadow 0.4s $ease-cinematic;
+
+  &:hover {
+    border-color: rgba($primary-color, 0.25);
+    box-shadow: 0 8px 60px rgba($primary-color, 0.15);
+  }
 }
 
 .cardImg {
-  height: 250px;
+  width: 100%;
+  height: 220px;
   object-fit: cover;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba($outline-color, 0.2);
 }
 
 .cardBody {
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  flex: 1;
+}
+
+.cardTitle {
+  font-family: $font-family-heading;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $text-color;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.cardDescription {
+  color: $text-muted;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.techWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
 }
 
 .techBadge {
-  font-size: 0.75rem;
-  padding: 0.4rem 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
   background: rgba($secondary-color, 0.1);
   color: $secondary-color;
   border: 1px solid rgba($secondary-color, 0.2);
-  border-radius: 2rem;
+  border-radius: 100px;
+}
+
+.cardActions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.btnLive {
+  display: inline-block;
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  background: $nebula-gradient;
+  color: #fff;
+  text-decoration: none;
+  transition: box-shadow 0.4s $ease-cinematic;
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba($primary-color, 0.4);
+    color: #fff;
+  }
+}
+
+.btnGithub {
+  display: inline-block;
+  flex: 1;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid rgba($outline-color, 0.4);
+  color: $text-muted;
+  text-decoration: none;
+  background: rgba($bg-surface, 0.4);
+  transition: all 0.3s $ease-cinematic;
+
+  &:hover {
+    border-color: rgba($primary-color, 0.4);
+    color: $text-color;
+    background: rgba($primary-color, 0.08);
+  }
 }

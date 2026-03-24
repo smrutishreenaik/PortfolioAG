@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { Container } from "react-bootstrap";
 import styles from "./Hero.module.scss";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Stars } from "@react-three/drei";
@@ -13,61 +12,100 @@ const Hero: React.FC = () => {
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.4]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.6]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
+  const orb1Y = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
     <section className={styles.heroSection} id="home" ref={sectionRef}>
-      <div className={styles.canvasContainer}>
+      <motion.div className={styles.canvasContainer} style={{ scale: bgScale }}>
         <Canvas camera={{ position: [0, 0, 5] }}>
           <ambientLight intensity={0.5} />
           <Stars
-            radius={100}
-            depth={50}
-            count={5000}
-            factor={4}
+            radius={120}
+            depth={60}
+            count={7000}
+            factor={5}
             saturation={0}
             fade
-            speed={1}
+            speed={0.8}
           />
-          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
+          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.3} />
         </Canvas>
-      </div>
+      </motion.div>
+
+      <motion.div className={styles.orb1} style={{ y: orb1Y }} />
+      <motion.div className={styles.orb2} style={{ y: orb2Y }} />
 
       <motion.div
-        style={{ scale, opacity, y }}
         className={styles.contentWrapper}
+        style={{ y: contentY, opacity: contentOpacity }}
       >
-        <Container className={styles.contentContainer}>
+        <div className={styles.contentInner}>
+          <motion.p
+            className={styles.tagline}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            ✦ Software Engineer &amp; Digital Creator
+          </motion.p>
+
           <motion.h1
-            className="display-1 fw-bold mb-4"
-            initial={{ opacity: 0, y: 40 }}
+            className={styles.headline}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            Hello, I'm <span className="text-secondary">Smruti</span>
+            Hello, I'm <span className={styles.glowName}>Smruti</span>
           </motion.h1>
-          <motion.h2
-            className="h3 mb-5 text-muted"
-            initial={{ opacity: 0, y: 40 }}
+
+          <motion.p
+            className={styles.subheadline}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
-            Crafting exceptional digital experiences.
-          </motion.h2>
-          <motion.a
-            href="#projects"
-            className="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg"
-            initial={{ opacity: 0, y: 40 }}
+            Crafting exceptional digital experiences that live at the
+            intersection of design &amp; engineering.
+          </motion.p>
+
+          <motion.div
+            className={styles.ctaGroup}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.9, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            View My Work
-          </motion.a>
-        </Container>
+            <motion.a
+              href="#projects"
+              className={styles.btnPrimary}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              View My Work
+            </motion.a>
+            <motion.a
+              href="#contact"
+              className={styles.btnGhost}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Get In Touch
+            </motion.a>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className={styles.scrollIndicator}
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        style={{ opacity: contentOpacity }}
+      >
+        <span className={styles.scrollLine} />
+        <span className={styles.scrollLabel}>Scroll</span>
       </motion.div>
     </section>
   );

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import styles from "./Experience.module.scss";
 import { Experience as ExperienceType } from "../../types";
 import { useCollection } from "../../hooks/useCollection";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Experience: React.FC = () => {
   const {
@@ -12,21 +12,37 @@ const Experience: React.FC = () => {
     error,
   } = useCollection<ExperienceType>("experience");
 
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const orbY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+
   return (
-    <section className={styles.experienceSection} id="experience">
+    <section
+      className={styles.experienceSection}
+      id="experience"
+      ref={sectionRef}
+    >
+      <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
+
       <Container>
         <motion.h2
-          className="display-5 fw-bold mb-5 text-center"
-          initial={{ opacity: 0, y: 30 }}
+          className={styles.sectionTitle}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          Work Experience
+          Work <span>Experience</span>
         </motion.h2>
+
         {loading ? (
           <div className="text-center py-5">
-            <Spinner animation="border" variant="primary" />
+            <Spinner animation="border" style={{ color: "#7c3aed" }} />
           </div>
         ) : error ? (
           <p className="text-center text-danger">
@@ -38,53 +54,49 @@ const Experience: React.FC = () => {
               className={styles.timelineLine}
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
               style={{ originY: 0 }}
             />
             {experiences.map((exp, i) => (
               <motion.div
                 key={exp.id}
                 className={styles.timelineItem}
-                initial={{ opacity: 0, x: -60 }}
+                initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
-                transition={{ delay: i * 0.18, duration: 0.7 }}
+                transition={{
+                  delay: i * 0.15,
+                  duration: 0.7,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
               >
                 <div className={styles.timelineMarker} />
                 <div className={styles.timelineContent}>
-                  <div className="d-flex justify-content-between align-items-center mb-2">
-                    <h3 className="h4 fw-bold text-white mb-0">{exp.role}</h3>
-                    <span className="badge bg-primary rounded-pill">
-                      {exp.timePeriod}
-                    </span>
+                  <div className="d-flex justify-content-between align-items-start gap-2 mb-1 flex-wrap">
+                    <h3 className={styles.roleTitle}>{exp.role}</h3>
+                    <span className={styles.timeBadge}>{exp.timePeriod}</span>
                   </div>
-                  <h4 className="h5 text-secondary mb-3">
+                  <div className={styles.companyRow}>
                     <a
                       href={exp.companyWebsite || "#"}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-secondary text-decoration-none d-flex align-items-center gap-2"
+                      className={styles.companyLink}
                     >
                       {exp.logoUrl && (
                         <img
                           src={exp.logoUrl}
                           alt={`${exp.companyName} logo`}
-                          style={{
-                            width: "24px",
-                            height: "24px",
-                            objectFit: "contain",
-                          }}
+                          className={styles.companyLogo}
                         />
                       )}
                       {exp.companyName}
                     </a>
-                  </h4>
-                  <ul className="text-muted">
+                  </div>
+                  <ul className={styles.achievementList}>
                     {exp.achievements?.map((achieve, idx) => (
-                      <li key={idx} className="mb-1">
-                        {achieve}
-                      </li>
+                      <li key={idx}>{achieve}</li>
                     ))}
                   </ul>
                 </div>

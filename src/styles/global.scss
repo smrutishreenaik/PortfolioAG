@@ -1,9 +1,18 @@
 @import "variables";
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap");
 
 // Import Bootstrap SCSS
 @import "bootstrap/scss/bootstrap";
 
-// Custom Global Styles
+// ─── Global Base ───────────────────────────────────────────────────────────────
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: $bg-color;
   color: $text-color;
@@ -15,6 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+// ─── Typography ───────────────────────────────────────────────────────────────
 h1,
 h2,
 h3,
@@ -24,32 +34,71 @@ h6 {
   font-family: $font-family-heading;
   font-weight: 700;
   letter-spacing: -0.02em;
+  color: $text-color;
 }
 
 a {
-  color: $secondary-color;
+  color: $primary-color;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.4s $ease-cinematic;
 
   &:hover {
-    color: lighten($secondary-color, 15%);
+    color: lighten($primary-color, 15%);
   }
 }
 
-// Custom scrollbar for premium feel
+p {
+  color: $text-muted;
+  line-height: 1.75;
+}
+
+// ─── Scrollbar ────────────────────────────────────────────────────────────────
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: $bg-color;
+  background: $bg-surface-lowest;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
+  background: rgba($primary-color, 0.5);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba($primary-color, 0.8);
+}
+
+// ─── Utility: Nebula text glow ─────────────────────────────────────────────────
+.text-glow {
+  background: $nebula-gradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// ─── Floating Orbs (ambient animated glows — used globally) ───────────────────
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+
+  &--primary {
+    background: radial-gradient(
+      circle,
+      rgba($primary-color, 0.18) 0%,
+      transparent 70%
+    );
+  }
+
+  &--secondary {
+    background: radial-gradient(
+      circle,
+      rgba($secondary-color, 0.14) 0%,
+      transparent 70%
+    );
+  }
 }

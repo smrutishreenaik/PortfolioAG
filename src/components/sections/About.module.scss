@@ -1,50 +1,150 @@
 @import "../../styles/variables";
 
 .aboutSection {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background-color: darken($bg-color, 3%);
   position: relative;
+  padding: 10rem 0;
+  background-color: $bg-color;
+  overflow: hidden;
 }
 
-.textContainer {
-  @include glassmorphism;
-  padding: 3rem;
-  border-radius: 1rem;
+.backgroundOrb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  left: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba($secondary-color, 0.12) 0%,
+    transparent 70%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
 }
 
-.skillsContainer {
-  padding: 3rem;
-}
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  color: $text-color;
 
-.skillBadge {
-  font-size: 1rem;
-  padding: 0.7rem 1.2rem;
-  font-weight: 500;
-  border-radius: 2rem;
-  transition: transform 0.2s ease;
-
-  &:hover {
-    transform: scale(1.05);
+  span {
+    background: $nebula-gradient;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 
+.bioText {
+  font-size: 1.05rem;
+  color: $text-muted;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
 .socialLink {
-  @include glassmorphism;
-  border-radius: 2rem;
-  padding: 0.5rem 1.5rem;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  text-decoration: none;
+  gap: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: $text-color;
+  font-family: $font-family-base;
+  border: 1px solid rgba($outline-color, 0.4);
+  color: $text-muted;
+  background: rgba($bg-surface, 0.4);
+  text-decoration: none;
+  transition: all 0.4s $ease-cinematic;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: $accent-color;
+    border-color: rgba($primary-color, 0.5);
+    color: $text-color;
+    background: rgba($primary-color, 0.1);
+    box-shadow: 0 0 20px rgba($primary-color, 0.15);
+  }
+}
+
+.resumeBtn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 100px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: $font-family-base;
+  background: $nebula-gradient;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba($primary-color, 0.3);
+  transition: box-shadow 0.4s $ease-cinematic;
+
+  &:hover {
+    box-shadow: 0 8px 40px rgba($primary-color, 0.5);
+    color: #fff;
+  }
+}
+
+.skillsPanel {
+  @include glassmorphism;
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+}
+
+.skillsTitle {
+  font-family: $font-family-heading;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: $text-color;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.skillGroup {
+  margin-bottom: 1.5rem;
+
+  h4 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: $primary-color;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.skillsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skillBadge {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.9rem;
+  border-radius: 100px;
+  background: rgba($primary-color, 0.12);
+  color: $text-muted;
+  border: 1px solid rgba($primary-color, 0.2);
+  transition: all 0.3s $ease-cinematic;
+  display: inline-block;
+
+  &:hover {
+    background: rgba($primary-color, 0.25);
+    color: $text-color;
+    border-color: rgba($primary-color, 0.4);
   }
 }

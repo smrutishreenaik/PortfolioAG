@@ -1,29 +1,50 @@
-// Custom SCSS Variables for Portfolio
+// Event Horizon Design System — Variables
+// Inspired by the Stitch-generated "Celestial Editorial" theme
 
-// Colors
-$primary-color: #0f172a;
-$secondary-color: #3b82f6;
-$accent-color: #f59e0b;
-$text-color: #f8fafc;
-$text-muted: #94a3b8;
-$bg-color: #020617;
-$bg-surface: #0f172a;
+// ─── Color Palette ────────────────────────────────────────────────────────────
+$bg-color: #12121d; // surface — deep space navy
+$bg-surface-low: #1b1b25; // surface_container_low
+$bg-surface: #1f1f29; // surface_container
+$bg-surface-high: #292934; // surface_container_high
+$bg-surface-highest: #34343f; // surface_container_highest
+$bg-surface-lowest: #0d0d17; // surface_container_lowest
 
-// Typography
-$font-family-base:
-  "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-$font-family-heading: "Outfit", "Segoe UI", Roboto, sans-serif;
+$primary-color: #7c3aed; // violet — primary glow
+$secondary-color: #6366f1; // indigo
+$accent-color: #ffb784; // tertiary — warm star point
+$text-color: #e4e1f0; // on_surface
+$text-muted: #ccc3d8; // on_surface_variant
+$outline-color: #4a4455; // outline_variant
 
-// Bootstrap Overrides
-$primary: $secondary-color;
+// ─── Gradient ─────────────────────────────────────────────────────────────────
+$nebula-gradient: linear-gradient(135deg, $primary-color, $secondary-color);
+
+// ─── Typography ───────────────────────────────────────────────────────────────
+$font-family-heading: "Epilogue", "Segoe UI", sans-serif;
+$font-family-base: "Manrope", "Segoe UI", Roboto, sans-serif;
+
+// ─── Bootstrap Overrides ──────────────────────────────────────────────────────
+$primary: $primary-color;
+$secondary: $secondary-color;
 $body-bg: $bg-color;
 $body-color: $text-color;
 $font-family-sans-serif: $font-family-base;
 
-// Glassmorphism Utils
+// ─── Glassmorphism Mixin ──────────────────────────────────────────────────────
 @mixin glassmorphism {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba($bg-surface, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba($outline-color, 0.25);
+  box-shadow: 0 8px 64px rgba(#3f008e, 0.1);
 }
+
+// ─── Nebula Glow Mixin ────────────────────────────────────────────────────────
+@mixin nebula-glow($color: $primary-color, $intensity: 0.3) {
+  box-shadow:
+    0 0 40px rgba($color, $intensity),
+    0 0 80px rgba($color, calc($intensity / 2));
+}
+
+// ─── Cinematic Easing ─────────────────────────────────────────────────────────
+$ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);

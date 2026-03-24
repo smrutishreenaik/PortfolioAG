@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import styles from "./Testimonials.module.scss";
 import { Testimonial } from "../../types";
 import { useCollection } from "../../hooks/useCollection";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Testimonials: React.FC = () => {
   const {
@@ -12,83 +12,79 @@ const Testimonials: React.FC = () => {
     error,
   } = useCollection<Testimonial>("testimonials");
 
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const orbY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+
   return (
-    <section className={styles.testimonialsSection} id="testimonials">
+    <section
+      className={styles.testimonialsSection}
+      id="testimonials"
+      ref={sectionRef}
+    >
+      <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
+
       <Container>
         <motion.h2
-          className="display-5 fw-bold mb-5 text-center"
-          initial={{ opacity: 0, y: 30 }}
+          className={styles.sectionTitle}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          Words From Clients
+          What People <span>Say</span>
         </motion.h2>
+
         {loading ? (
           <div className="text-center py-5">
-            <Spinner animation="border" variant="primary" />
+            <Spinner animation="border" style={{ color: "#7c3aed" }} />
           </div>
         ) : error ? (
           <p className="text-center text-danger">
-            Failed to load testimonials: {error}
+            Failed to load testimonials.
           </p>
         ) : (
           <div className={styles.testimonialsGrid}>
-            {testimonials.map((test, i) => (
+            {testimonials.map((testimonial, i) => (
               <motion.div
-                key={test.id}
+                key={testimonial.id}
                 className={styles.testimonialCard}
-                initial={{ opacity: 0, y: 60, scale: 0.85, rotate: -4 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                initial={{ opacity: 0, y: 60, rotate: i % 2 === 0 ? -2 : 2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  delay: i * 0.2,
-                  duration: 0.75,
-                  type: "spring",
-                  stiffness: 120,
-                  damping: 14,
+                  delay: i * 0.12,
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
-                whileHover={{ y: -6, scale: 1.02 }}
+                whileHover={{ y: -6, transition: { duration: 0.3 } }}
               >
-                <div className="mb-4 text-warning">{"★".repeat(5)}</div>
-                <p className="fst-italic flex-grow-1 lead">
-                  &ldquo;{test.quote}&rdquo;
-                </p>
-                <hr className="my-4 border-secondary opacity-25" />
-                <div className="d-flex align-items-center">
-                  {test.profilePicUrl && (
+                <span className={styles.quoteIcon}>"</span>
+                <p className={styles.quoteText}>{testimonial.quote}</p>
+                <div className={styles.authorRow}>
+                  {testimonial.profilePicUrl ? (
                     <img
-                      src={test.profilePicUrl}
-                      alt={test.personName}
-                      className={styles.avatar}
+                      src={testimonial.profilePicUrl}
+                      alt={testimonial.personName}
+                      className={styles.authorAvatar}
                     />
+                  ) : (
+                    <div className={styles.authorAvatarPlaceholder}>
+                      {testimonial.personName?.charAt(0).toUpperCase()}
+                    </div>
                   )}
                   <div>
-                    <h4 className="h6 fw-bold mb-0">
-                      {test.linkedinUrl ? (
-                        <a
-                          href={test.linkedinUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-white text-decoration-none"
-                        >
-                          {test.personName}
-                        </a>
-                      ) : (
-                        test.personName
-                      )}
-                    </h4>
-                    <div className="small text-muted">
-                      {test.position} at {test.company}
-                    </div>
-                    {test.recommendedDate && (
-                      <div
-                        className="small text-muted mt-1"
-                        style={{ fontSize: "0.75rem" }}
-                      >
-                        {test.recommendedDate}
-                      </div>
-                    )}
+                    <p className={styles.authorName}>
+                      {testimonial.personName}
+                    </p>
+                    <p className={styles.authorRole}>
+                      {testimonial.position} · {testimonial.company}
+                    </p>
                   </div>
                 </div>
               </motion.div>

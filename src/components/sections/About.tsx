@@ -1,12 +1,20 @@
-import React, { useMemo } from "react";
-import { Container, Row, Col, Badge, Spinner } from "react-bootstrap";
+import React, { useMemo, useRef } from "react";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import styles from "./About.module.scss";
 import { Skill } from "../../types";
 import { useCollection } from "../../hooks/useCollection";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const About: React.FC = () => {
   const { data: skills, loading, error } = useCollection<Skill>("skills");
+  const sectionRef = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const orbY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   const groupedSkills = useMemo(() => {
     return skills.reduce(
@@ -23,29 +31,29 @@ const About: React.FC = () => {
   let skillIndex = 0;
 
   return (
-    <section className={styles.aboutSection} id="about">
+    <section className={styles.aboutSection} id="about" ref={sectionRef}>
+      <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
+
       <Container>
-        <Row className="align-items-center h-100">
+        <Row className="align-items-center g-5">
           <Col md={6}>
             <motion.div
-              className={styles.textContainer}
-              initial={{ opacity: 0, x: -80 }}
+              initial={{ opacity: 0, x: -60 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             >
-              <h2 className="display-4 fw-bold mb-4">About Me</h2>
-              <p className="lead text-muted mb-4">
+              <h2 className={styles.sectionTitle}>
+                About <span>Me</span>
+              </h2>
+              <p className={styles.bioText}>
                 I am a passionate software engineer specializing in building
                 premium and highly interactive web applications. With a strong
                 foundation in modern JavaScript frameworks and scalable backend
                 services, I turn complex problems into elegant solutions.
               </p>
-              <div className="d-flex gap-3 mt-4">
-                <a
-                  href="#resume"
-                  className="btn btn-outline-primary rounded-pill px-4 py-2"
-                >
+              <div className={styles.socialLinks}>
+                <a href="#resume" className={styles.resumeBtn}>
                   Download Resume
                 </a>
                 <a
@@ -75,47 +83,43 @@ const About: React.FC = () => {
               </div>
             </motion.div>
           </Col>
+
           <Col md={6}>
             <motion.div
-              className={styles.skillsContainer}
-              initial={{ opacity: 0, x: 80 }}
+              className={styles.skillsPanel}
+              initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
+              transition={{
+                duration: 0.9,
+                delay: 0.15,
+                ease: [0.16, 1, 0.3, 1],
+              }}
             >
-              <h3 className="h4 mb-3">Core Skills</h3>
+              <h3 className={styles.skillsTitle}>Core Skills</h3>
               {loading ? (
-                <Spinner animation="border" variant="primary" />
+                <Spinner animation="border" style={{ color: "#7c3aed" }} />
               ) : error ? (
                 <p className="text-danger">Failed to load skills.</p>
               ) : (
-                <div className="d-flex flex-column gap-4">
+                <div>
                   {Object.entries(groupedSkills).map(([type, groupSkills]) => (
-                    <div key={type}>
-                      <h4 className="h6 text-capitalize text-secondary mb-2">
-                        {type}
-                      </h4>
-                      <div className="d-flex flex-wrap gap-2">
+                    <div key={type} className={styles.skillGroup}>
+                      <h4>{type}</h4>
+                      <div className={styles.skillsWrap}>
                         {groupSkills.map((skill) => {
-                          const currentIndex = skillIndex++;
+                          const idx = skillIndex++;
                           return (
-                            <motion.div
+                            <motion.span
                               key={skill.id}
-                              initial={{ opacity: 0, scale: 0.6 }}
+                              className={styles.skillBadge}
+                              initial={{ opacity: 0, scale: 0.7 }}
                               whileInView={{ opacity: 1, scale: 1 }}
                               viewport={{ once: true }}
-                              transition={{
-                                delay: currentIndex * 0.04,
-                                duration: 0.35,
-                              }}
+                              transition={{ delay: idx * 0.04, duration: 0.3 }}
                             >
-                              <Badge
-                                bg="secondary"
-                                className={styles.skillBadge}
-                              >
-                                {skill.name}
-                              </Badge>
-                            </motion.div>
+                              {skill.name}
+                            </motion.span>
                           );
                         })}
                       </div>
