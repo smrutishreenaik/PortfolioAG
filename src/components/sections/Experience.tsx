@@ -58,15 +58,14 @@ const Experience: React.FC = () => {
               transition={{ duration: 1.5, ease: "easeInOut" }}
               style={{ originY: 0 }}
             />
-            {experiences.map((exp, i) => (
+            {experiences.map((exp) => (
               <motion.div
                 key={exp.id}
                 className={styles.timelineItem}
-                initial={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: false, margin: "-50px" }}
                 transition={{
-                  delay: i * 0.15,
                   duration: 0.7,
                   ease: [0.16, 1, 0.3, 1],
                 }}
