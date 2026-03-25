@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Container, Spinner } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 import styles from "./Projects.module.scss";
 import { Project } from "../../types";
 import { useCollection } from "../../hooks/useCollection";
@@ -7,51 +7,58 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const Projects: React.FC = () => {
   const { data: projects, loading, error } = useCollection<Project>("projects");
-
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end end"],
   });
 
   const orbY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
+  // Translate the track horizontally equal to its own width minus viewport width
+  const trackXProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const trackX = useTransform(
+    trackXProgress,
+    (val) => `calc(-${val}% + ${val}vw)`
+  );
+
   return (
     <section className={styles.projectsSection} id="projects" ref={sectionRef}>
-      <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
+      <div className={styles.stickyContainer}>
+        <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
 
-      <Container>
-        <motion.h2
-          className={styles.sectionTitle}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Featured <span>Projects</span>
-        </motion.h2>
+        <div className={styles.titleContainer}>
+          <motion.h2
+            className={styles.sectionTitle}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Featured <span>Projects</span>
+          </motion.h2>
+        </div>
 
         {loading ? (
-          <div className="text-center py-5">
+          <div className="text-center py-5 w-100">
             <Spinner animation="border" style={{ color: "#7c3aed" }} />
           </div>
         ) : error ? (
-          <p className="text-center text-danger">
+          <p className="text-center text-danger w-100">
             Failed to load projects: {error}
           </p>
         ) : (
-          <div className={styles.projectsGrid}>
-            {projects.map((project, i) => (
+          <motion.div className={styles.scrollTrack} style={{ x: trackX }}>
+            {projects.map((project) => (
               <motion.div
                 key={project.id}
                 className={styles.projectCard}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, scale: 0.9, x: 40 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  delay: i * 0.1,
-                  duration: 0.7,
+                  duration: 0.6,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
@@ -100,9 +107,9 @@ const Projects: React.FC = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
-      </Container>
+      </div>
     </section>
   );
 };

@@ -2,36 +2,35 @@
 
 .projectsSection {
   position: relative;
-  padding: 10rem 0;
+  height: 400vh;
   background-color: $bg-surface-lowest;
-  overflow: hidden;
 }
 
-.backgroundOrb {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  right: -150px;
-  bottom: 0;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba($primary-color, 0.1) 0%,
-    transparent 70%
-  );
-  filter: blur(80px);
-  pointer-events: none;
-  will-change: transform;
+.stickyContainer {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 6rem 0;
+}
+
+.titleContainer {
+  padding: 0 5vw;
+  margin-bottom: 4rem;
+  z-index: 2;
 }
 
 .sectionTitle {
   font-family: $font-family-heading;
-  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 900;
   letter-spacing: -0.03em;
-  margin-bottom: 4rem;
-  text-align: center;
   color: $text-color;
+  margin: 0;
 
   span {
     background: $nebula-gradient;
@@ -41,13 +40,35 @@
   }
 }
 
-.projectsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 2rem;
+.scrollTrack {
+  display: flex;
+  gap: 3rem;
+  padding: 0 5vw;
+  width: max-content;
+  z-index: 2;
+  will-change: transform;
+}
+
+.backgroundOrb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  right: -150px;
+  bottom: 0px; // Pin to bottom of sticky container
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba($primary-color, 0.1) 0%,
+    transparent 70%
+  );
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .projectCard {
+  width: 420px;
+  flex-shrink: 0;
   @include glassmorphism;
   border-radius: 1.25rem;
   overflow: hidden;
