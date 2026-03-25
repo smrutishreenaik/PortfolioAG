@@ -4,6 +4,30 @@ import emailjs from "@emailjs/browser";
 import styles from "./Contact.module.scss";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+const ScrubLetter = ({ char, progress, index }: any) => {
+  // Title animates early during the section scroll (10% to 30%)
+  const start = 0.1 + index * 0.015;
+  const opacity = useTransform(progress, [start, start + 0.05], [0, 1]);
+  const y = useTransform(progress, [start, start + 0.05], [20, 0]);
+  return (
+    <motion.span style={{ opacity, y, display: "inline-block" }}>
+      {char === " " ? "\u00A0" : char}
+    </motion.span>
+  );
+};
+
+const ScrubInput = ({ children, progress, index, className }: any) => {
+  // Inputs animate mid-way through the section scroll (30% to 60%)
+  const start = 0.3 + index * 0.08;
+  const opacity = useTransform(progress, [start, start + 0.1], [0, 1]);
+  const y = useTransform(progress, [start, start + 0.1], [40, 0]);
+  return (
+    <motion.div style={{ opacity, y }} className={className}>
+      {children}
+    </motion.div>
+  );
+};
+
 const Contact: React.FC = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -14,10 +38,18 @@ const Contact: React.FC = () => {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"],
+    offset: ["0 1", "1 0"],
   });
 
   const orbY = useTransform(scrollYProgress, [0, 1], [60, -30]);
+
+  // Overall form wrapper background / container fade
+  const wrapperOpacity = useTransform(scrollYProgress, [0.2, 0.4], [0, 1]);
+  const wrapperY = useTransform(scrollYProgress, [0.2, 0.4], [60, 0]);
+
+  // Subtitle fade
+  const subtitleOpacity = useTransform(scrollYProgress, [0.15, 0.25], [0, 1]);
+  const subtitleY = useTransform(scrollYProgress, [0.15, 0.25], [20, 0]);
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,36 +69,35 @@ const Contact: React.FC = () => {
       .catch(() => setStatus("error"));
   };
 
+  const titlePart1 = "Get In ".split("");
+  const titlePart2 = "Touch".split("");
+
   return (
     <section className={styles.contactSection} id="contact" ref={sectionRef}>
       <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
 
       <Container>
-        <motion.h2
-          className={styles.sectionTitle}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Get In <span>Touch</span>
-        </motion.h2>
+        <h2 className={styles.sectionTitle}>
+          {titlePart1.map((char, i) => (
+            <ScrubLetter key={`p1-${i}`} char={char} index={i} progress={scrollYProgress} />
+          ))}
+          <span>
+            {titlePart2.map((char, i) => (
+              <ScrubLetter key={`p2-${i}`} char={char} index={titlePart1.length + i} progress={scrollYProgress} />
+            ))}
+          </span>
+        </h2>
+
         <motion.p
           className={styles.sectionSubtitle}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          style={{ opacity: subtitleOpacity, y: subtitleY }}
         >
           Ready to discuss your next project? Drop a message below.
         </motion.p>
 
         <motion.div
           className={styles.formWrapper}
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{ opacity: wrapperOpacity, y: wrapperY }}
         >
           {status === "success" && (
             <p
@@ -95,7 +126,7 @@ const Contact: React.FC = () => {
 
           <form ref={formRef} onSubmit={sendEmail}>
             <div className={styles.formRow}>
-              <div className={styles.formGroup}>
+              <ScrubInput progress={scrollYProgress} index={0} className={styles.formGroup}>
                 <label className={styles.formLabel}>Name</label>
                 <input
                   type="text"
@@ -104,8 +135,8 @@ const Contact: React.FC = () => {
                   required
                   className={styles.formControl}
                 />
-              </div>
-              <div className={styles.formGroup}>
+              </ScrubInput>
+              <ScrubInput progress={scrollYProgress} index={1} className={styles.formGroup}>
                 <label className={styles.formLabel}>Email</label>
                 <input
                   type="email"
@@ -114,10 +145,10 @@ const Contact: React.FC = () => {
                   required
                   className={styles.formControl}
                 />
-              </div>
+              </ScrubInput>
             </div>
 
-            <div className={styles.formGroup}>
+            <ScrubInput progress={scrollYProgress} index={2} className={styles.formGroup}>
               <label className={styles.formLabel}>Message</label>
               <textarea
                 name="message"
@@ -125,15 +156,18 @@ const Contact: React.FC = () => {
                 required
                 className={styles.formControl}
               />
-            </div>
+            </ScrubInput>
 
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={status === "sending"}
-            >
-              {status === "sending" ? "Sending..." : "Send Message →"}
-            </button>
+            <ScrubInput progress={scrollYProgress} index={3} className={styles.submitBtn}>
+              <button
+                type="submit"
+                className="btn w-100 text-white fw-bold"
+                style={{ background: "transparent", border: "none" }}
+                disabled={status === "sending"}
+              >
+                {status === "sending" ? "Sending..." : "Send Message →"}
+              </button>
+            </ScrubInput>
           </form>
         </motion.div>
       </Container>

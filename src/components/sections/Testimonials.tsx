@@ -51,47 +51,43 @@ const Testimonials: React.FC = () => {
         ) : (
           <div className={styles.testimonialsStack}>
             {testimonials.map((testimonial, i) => (
-              <div
+              <motion.div
                 key={testimonial.id}
-                className={styles.stickyWrapper}
+                className={styles.testimonialCard}
                 style={{ top: `calc(15vh + ${i * 40}px)` }}
+                initial={{ opacity: 0, y: 150, scale: 0.9, rotate: i % 2 === 0 ? -2 : 2 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, rotate: i % 2 === 0 ? -1 : 1 }}
+                viewport={{ once: false, margin: "-50px" }}
+                transition={{
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
               >
-                <motion.div
-                  className={styles.testimonialCard}
-                  initial={{ opacity: 0, y: 150, scale: 0.9, rotate: i % 2 === 0 ? -2 : 2 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1, rotate: i % 2 === 0 ? -1 : 1 }}
-                  viewport={{ once: false, margin: "-50px" }}
-                  transition={{
-                    duration: 0.8,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-                >
-                  <span className={styles.quoteIcon}>"</span>
-                  <p className={styles.quoteText}>{testimonial.quote}</p>
-                  <div className={styles.authorRow}>
-                    {testimonial.profilePicUrl ? (
-                      <img
-                        src={testimonial.profilePicUrl}
-                        alt={testimonial.personName}
-                        className={styles.authorAvatar}
-                      />
-                    ) : (
-                      <div className={styles.authorAvatarPlaceholder}>
-                        {testimonial.personName?.charAt(0).toUpperCase()}
-                      </div>
-                    )}
-                    <div>
-                      <p className={styles.authorName}>
-                        {testimonial.personName}
-                      </p>
-                      <p className={styles.authorRole}>
-                        {testimonial.position} · {testimonial.company}
-                      </p>
+                <span className={styles.quoteIcon}>"</span>
+                <p className={styles.quoteText}>{testimonial.quote}</p>
+                <div className={styles.authorRow}>
+                  {testimonial.profilePicUrl ? (
+                    <img
+                      src={testimonial.profilePicUrl}
+                      alt={testimonial.personName}
+                      className={styles.authorAvatar}
+                    />
+                  ) : (
+                    <div className={styles.authorAvatarPlaceholder}>
+                      {testimonial.personName?.charAt(0).toUpperCase()}
                     </div>
+                  )}
+                  <div>
+                    <p className={styles.authorName}>
+                      {testimonial.personName}
+                    </p>
+                    <p className={styles.authorRole}>
+                      {testimonial.position} · {testimonial.company}
+                    </p>
                   </div>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         )}
