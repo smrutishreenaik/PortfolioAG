@@ -1,16 +1,17 @@
 import React, { useRef } from "react";
 import styles from "./Hero.module.scss";
 import { motion, useScroll, useTransform } from "framer-motion";
+import StarParticles from "../ui/StarParticles";
 
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
 
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -300]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
   const scrollIndicatorOpacity = useTransform(
@@ -20,8 +21,6 @@ const Hero: React.FC = () => {
   );
   const orb1Y = useTransform(scrollYProgress, [0, 1], [0, -600]);
   const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -300]);
-
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (containerRef.current) {
@@ -40,17 +39,9 @@ const Hero: React.FC = () => {
         ref={containerRef}
         onMouseMove={handleMouseMove}
       >
-        <motion.img
-          className={styles.canvasContainer}
-          style={{
-            scale: bgScale,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-          src="/petals.png"
-          alt="Falling petals background"
-        />
+        <div className={styles.canvasContainer}>
+          <StarParticles />
+        </div>
 
         <motion.div className={styles.orb1} style={{ y: orb1Y }} />
         <motion.div className={styles.orb2} style={{ y: orb2Y }} />
