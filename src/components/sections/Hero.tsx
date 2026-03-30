@@ -54,7 +54,7 @@ const Hero: React.FC = () => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              ✦ Software Engineer &amp; Digital Creator
+              ✦ Fullstack .NET Developer
             </motion.p>
 
             <motion.h1
@@ -63,7 +63,7 @@ const Hero: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              Hello, I'm <span className={styles.glowName}>Smruti</span>
+              Hello, I'm <span className={styles.glowName}>Smrutishree Naik</span>
             </motion.h1>
 
             <motion.p
@@ -76,8 +76,7 @@ const Hero: React.FC = () => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              Crafting exceptional digital experiences that live at the
-              intersection of design &amp; engineering.
+              Full-Stack .NET Engineer dedicated to building robust, high-performance software. Driven by a passion for scalable system design, algorithms, and crafting impactful digital products.
             </motion.p>
 
             <motion.div
