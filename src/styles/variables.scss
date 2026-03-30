@@ -2,26 +2,26 @@
 // Inspired by the Stitch-generated "Celestial Editorial" theme
 
 // ─── Color Palette ────────────────────────────────────────────────────────────
-$bg-color: #12121d; // surface — deep space navy
-$bg-surface-low: #1b1b25; // surface_container_low
-$bg-surface: #1f1f29; // surface_container
-$bg-surface-high: #292934; // surface_container_high
-$bg-surface-highest: #34343f; // surface_container_highest
-$bg-surface-lowest: #0d0d17; // surface_container_lowest
+$bg-color: #000000; // surface — pure black
+$bg-surface-low: #0a0a0a; // surface_container_low
+$bg-surface: #111111; // surface_container
+$bg-surface-high: #1a1a1a; // surface_container_high
+$bg-surface-highest: #222222; // surface_container_highest
+$bg-surface-lowest: #000000; // surface_container_lowest
 
-$primary-color: #7c3aed; // violet — primary glow
-$secondary-color: #6366f1; // indigo
-$accent-color: #ffb784; // tertiary — warm star point
-$text-color: #e4e1f0; // on_surface
-$text-muted: #ccc3d8; // on_surface_variant
-$outline-color: #4a4455; // outline_variant
+$primary-color: #ccff00; // Electric Lime
+$secondary-color: #ff00ff; // Hot Magenta
+$accent-color: #00ffff; // Cyan
+$text-color: #ffffff; // on_surface - pure white
+$text-muted: #b3b3b3; // on_surface_variant
+$outline-color: #333333; // outline_variant
 
-// ─── Gradient ─────────────────────────────────────────────────────────────────
-$nebula-gradient: linear-gradient(135deg, $primary-color, $secondary-color);
+// ─── Gradient (now Solid for funky punch) ─────────────────────────────────────────────────
+$nebula-gradient: $primary-color;
 
 // ─── Typography ───────────────────────────────────────────────────────────────
-$font-family-heading: "Epilogue", "Segoe UI", sans-serif;
-$font-family-base: "Manrope", "Segoe UI", Roboto, sans-serif;
+$font-family-heading: "Righteous", "Segoe UI", sans-serif;
+$font-family-base: "Outfit", "Segoe UI", Roboto, sans-serif;
 
 // ─── Bootstrap Overrides ──────────────────────────────────────────────────────
 $primary: $primary-color;
