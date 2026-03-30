@@ -21,9 +21,25 @@ const Hero: React.FC = () => {
   const orb1Y = useTransform(scrollYProgress, [0, 1], [0, -600]);
   const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -300]);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      containerRef.current.style.setProperty("--mouse-x", `${x}px`);
+      containerRef.current.style.setProperty("--mouse-y", `${y}px`);
+    }
+  };
+
   return (
     <section className={styles.heroSection} id="home" ref={sectionRef}>
-      <div className={styles.stickyContainer}>
+      <div 
+        className={styles.stickyContainer} 
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+      >
         <motion.img
           className={styles.canvasContainer}
           style={{
@@ -57,13 +73,33 @@ const Hero: React.FC = () => {
               ✦ Fullstack .NET Developer
             </motion.p>
 
-            <motion.h1
-              className={styles.headline}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              Hello, I'm <span className={styles.glowName}>Smrutishree Naik</span>
+            <motion.h1 className={styles.headline}>
+              <motion.span
+                initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                style={{ display: "inline-block" }}
+              >
+                Hello,
+              </motion.span>{" "}
+              <motion.span
+                initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                style={{ display: "inline-block" }}
+              >
+                I'm
+              </motion.span>{" "}
+              <motion.span
+                initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+                style={{ display: "inline-block" }}
+              >
+                <span className={styles.glowName} data-text="Smrutishree Naik">
+                  Smrutishree Naik
+                </span>
+              </motion.span>
             </motion.h1>
 
             <motion.p
