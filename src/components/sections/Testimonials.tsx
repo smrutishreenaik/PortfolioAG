@@ -55,8 +55,18 @@ const Testimonials: React.FC = () => {
                 key={testimonial.id}
                 className={styles.testimonialCard}
                 style={{ top: `calc(15vh + ${i * 40}px)` }}
-                initial={{ opacity: 0, y: 150, scale: 0.9, rotate: i % 2 === 0 ? -2 : 2 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1, rotate: i % 2 === 0 ? -1 : 1 }}
+                initial={{
+                  opacity: 0,
+                  y: 150,
+                  scale: 0.9,
+                  rotate: i % 2 === 0 ? -2 : 2,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  rotate: i % 2 === 0 ? -1 : 1,
+                }}
                 viewport={{ once: false, margin: "-50px" }}
                 transition={{
                   duration: 0.8,

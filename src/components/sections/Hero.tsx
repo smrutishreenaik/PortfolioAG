@@ -34,8 +34,8 @@ const Hero: React.FC = () => {
 
   return (
     <section className={styles.heroSection} id="home" ref={sectionRef}>
-      <div 
-        className={styles.stickyContainer} 
+      <div
+        className={styles.stickyContainer}
         ref={containerRef}
         onMouseMove={handleMouseMove}
       >
@@ -103,7 +103,9 @@ const Hero: React.FC = () => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              Full-Stack .NET Engineer dedicated to building robust, high-performance software. Driven by a passion for scalable system design, algorithms, and crafting impactful digital products.
+              Full-Stack .NET Engineer dedicated to building robust,
+              high-performance software. Driven by a passion for scalable system
+              design, algorithms, and crafting impactful digital products.
             </motion.p>
 
             <motion.div

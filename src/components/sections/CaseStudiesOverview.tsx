@@ -17,7 +17,11 @@ const ParallaxImage = ({ src, alt, className }: any) => {
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
-    <div ref={ref} className={className} style={{ position: "relative", overflow: "hidden" }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{ position: "relative", overflow: "hidden" }}
+    >
       <motion.img
         src={src}
         alt={alt}
@@ -44,7 +48,11 @@ const ScrubCard = ({ children }: any) => {
   });
 
   // Stretch the animation to consume 40% of the screen transition on both entry and exit
-  const scale = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0.8, 1, 1, 0.8]);
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6, 1],
+    [0.8, 1, 1, 0.8],
+  );
   const opacity = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [0, 1, 1, 0]);
   const y = useTransform(scrollYProgress, [0, 0.4, 0.6, 1], [200, 0, 0, -200]);
 
@@ -65,7 +73,7 @@ const CaseStudiesOverview: React.FC = () => {
   return (
     <section className={styles.caseStudiesSection} id="case-studies">
       <Container>
-        <motion.div 
+        <motion.div
           className="d-flex justify-content-between align-items-end mb-5"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

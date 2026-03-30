@@ -20,7 +20,7 @@ const Projects: React.FC = () => {
   const trackXProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   const trackX = useTransform(
     trackXProgress,
-    (val) => `calc(-${val}% + ${val}vw)`
+    (val) => `calc(-${val}% + ${val}vw)`,
   );
 
   return (

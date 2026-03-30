@@ -79,11 +79,21 @@ const Contact: React.FC = () => {
       <Container>
         <h2 className={styles.sectionTitle}>
           {titlePart1.map((char, i) => (
-            <ScrubLetter key={`p1-${i}`} char={char} index={i} progress={scrollYProgress} />
+            <ScrubLetter
+              key={`p1-${i}`}
+              char={char}
+              index={i}
+              progress={scrollYProgress}
+            />
           ))}
           <span>
             {titlePart2.map((char, i) => (
-              <ScrubLetter key={`p2-${i}`} char={char} index={titlePart1.length + i} progress={scrollYProgress} />
+              <ScrubLetter
+                key={`p2-${i}`}
+                char={char}
+                index={titlePart1.length + i}
+                progress={scrollYProgress}
+              />
             ))}
           </span>
         </h2>
@@ -126,7 +136,11 @@ const Contact: React.FC = () => {
 
           <form ref={formRef} onSubmit={sendEmail}>
             <div className={styles.formRow}>
-              <ScrubInput progress={scrollYProgress} index={0} className={styles.formGroup}>
+              <ScrubInput
+                progress={scrollYProgress}
+                index={0}
+                className={styles.formGroup}
+              >
                 <label className={styles.formLabel}>Name</label>
                 <input
                   type="text"
@@ -136,7 +150,11 @@ const Contact: React.FC = () => {
                   className={styles.formControl}
                 />
               </ScrubInput>
-              <ScrubInput progress={scrollYProgress} index={1} className={styles.formGroup}>
+              <ScrubInput
+                progress={scrollYProgress}
+                index={1}
+                className={styles.formGroup}
+              >
                 <label className={styles.formLabel}>Email</label>
                 <input
                   type="email"
@@ -148,7 +166,11 @@ const Contact: React.FC = () => {
               </ScrubInput>
             </div>
 
-            <ScrubInput progress={scrollYProgress} index={2} className={styles.formGroup}>
+            <ScrubInput
+              progress={scrollYProgress}
+              index={2}
+              className={styles.formGroup}
+            >
               <label className={styles.formLabel}>Message</label>
               <textarea
                 name="message"
@@ -158,7 +180,11 @@ const Contact: React.FC = () => {
               />
             </ScrubInput>
 
-            <ScrubInput progress={scrollYProgress} index={3} className={styles.submitBtn}>
+            <ScrubInput
+              progress={scrollYProgress}
+              index={3}
+              className={styles.submitBtn}
+            >
               <button
                 type="submit"
                 className="btn w-100 text-white fw-bold"
