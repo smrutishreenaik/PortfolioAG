@@ -12,6 +12,18 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
+const missingKeys = Object.entries(firebaseConfig)
+  .filter(([, value]) => !value)
+  .map(([key]) => key);
+
+if (missingKeys.length > 0) {
+  console.warn(
+    `[Firebase] Missing environment variables: ${missingKeys.join(", ")}. ` +
+      "Copy .env.example to .env and fill in your Firebase project credentials.",
+  );
+}
+
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

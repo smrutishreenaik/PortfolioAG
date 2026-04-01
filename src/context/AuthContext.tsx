@@ -20,12 +20,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
+    let timeoutId: ReturnType<typeof setTimeout>;
 
-    return unsubscribe;
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (user) => {
+        clearTimeout(timeoutId);
+        setCurrentUser(user);
+        setLoading(false);
+      },
+      (error) => {
+        clearTimeout(timeoutId);
+        console.warn("Firebase auth error:", error.message);
+        setLoading(false);
+      },
+    );
+
+    // Safety fallback: if Firebase doesn't respond in 5s, unblock rendering
+    timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+
+    return () => {
+      unsubscribe();
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const logout = async () => {

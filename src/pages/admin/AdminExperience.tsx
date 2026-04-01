@@ -10,7 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { Experience } from "../../types";
-import useToast from "../../context/useToast";
+import useToast from "../../hooks/useToast";
 import ToastContainer from "../../components/ToastContainer";
 
 const AdminExperience: React.FC = () => {

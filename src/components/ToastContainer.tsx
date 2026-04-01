@@ -1,5 +1,5 @@
 import React from "react";
-import { ToastMessage } from "../context/useToast";
+import { ToastMessage } from "../hooks/useToast";
 import styles from "./Toast.module.scss";
 
 interface ToastContainerProps {
