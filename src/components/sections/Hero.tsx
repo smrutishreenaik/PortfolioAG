@@ -89,10 +89,7 @@ const Hero: React.FC = () => {
         <motion.div className={styles.orb1} style={{ y: orb1Y }} />
         <motion.div className={styles.orb2} style={{ y: orb2Y }} />
 
-        <motion.div
-          className={styles.contentWrapper}
-          style={{ y: contentY }}
-        >
+        <motion.div className={styles.contentWrapper} style={{ y: contentY }}>
           <div className={styles.contentInner}>
             <motion.div
               className={styles.tagline}
@@ -111,7 +108,7 @@ const Hero: React.FC = () => {
                 start={0.0}
                 end={0.05}
               />
-              <span className={styles.dot}>●</span> 
+              <span className={styles.dot}>●</span>
               <span className={styles.availableText}>AVAILABLE</span>
             </motion.div>
 
@@ -143,8 +140,10 @@ const Hero: React.FC = () => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              Full-Stack Engineer crafting scalable, secure<br/>
-              applications with C# · .NET Core · React. 3+ years<br/>
+              Full-Stack Engineer crafting scalable, secure
+              <br />
+              applications with C# · .NET Core · React. 3+ years
+              <br />
               turning complex problems into elegant solutions.
             </motion.p>
           </div>
@@ -170,7 +169,6 @@ const Hero: React.FC = () => {
           </div>
           <span className={styles.scrollLabel}>SCROLL</span>
         </motion.div>
-
       </div>
     </section>
   );

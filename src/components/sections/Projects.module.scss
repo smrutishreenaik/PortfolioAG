@@ -18,31 +18,63 @@
   padding: 6rem 0;
 }
 
-.titleContainer {
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   padding: 0 5vw;
   margin-bottom: 4rem;
   z-index: 2;
+  position: relative;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.85rem;
+  font-family: $font-family-base;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.taglineLine {
+  width: 35px;
+  height: 1px;
+  background-color: #666;
 }
 
 .sectionTitle {
   font-family: $font-family-heading;
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(3rem, 6vw, 5rem);
   font-weight: 900;
-  letter-spacing: -0.03em;
-  color: $text-color;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #ffffff;
   margin: 0;
+  text-transform: uppercase;
+}
 
-  span {
-    background: $nebula-gradient;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.projectsCount {
+  font-family: $font-family-base;
+  font-size: 0.9rem;
+  color: #666;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 0.5rem;
 }
 
 .scrollTrack {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   padding: 0 5vw;
   width: max-content;
   z-index: 2;
@@ -67,114 +99,96 @@
 }
 
 .projectCard {
-  width: 420px;
+  width: 400px;
+  height: 400px;
   flex-shrink: 0;
-  @include glassmorphism;
-  border-radius: 1.25rem;
+  border-radius: 12px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  cursor: default;
+  justify-content: flex-start;
+  padding: 2.5rem;
+  cursor: pointer;
   will-change: transform;
-  transition:
-    border-color 0.4s $ease-cinematic,
-    box-shadow 0.4s $ease-cinematic;
+  position: relative;
+  transition: all 0.3s ease;
+
+  // Base styling for inner content
+  color: white;
 
   &:hover {
-    border-color: rgba($primary-color, 0.25);
-    box-shadow: 0 8px 60px rgba($primary-color, 0.15);
+    .btnArrow {
+      background: white;
+      color: black;
+    }
   }
 }
 
-.cardImg {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba($outline-color, 0.2);
+.bgVariant0 {
+  background: linear-gradient(135deg, #2d184f 0%, #170d2b 100%);
 }
-
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  flex: 1;
+.bgVariant1 {
+  background: linear-gradient(135deg, #184f22 0%, #0d2b12 100%);
 }
-
-.cardTitle {
-  font-family: $font-family-heading;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: $text-color;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
+.bgVariant2 {
+  background: linear-gradient(135deg, #4f1818 0%, #2b0d0d 100%);
 }
-
-.cardDescription {
-  color: $text-muted;
-  font-size: 0.9rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
+.bgVariant3 {
+  background: linear-gradient(135deg, #183e4f 0%, #0d1e2b 100%);
 }
 
 .techWrap {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .techBadge {
-  font-size: 0.72rem;
+  font-size: 0.65rem;
+  font-family: $font-family-base;
   font-weight: 600;
-  padding: 0.25rem 0.7rem;
-  background: rgba($secondary-color, 0.1);
-  color: $secondary-color;
-  border: 1px solid rgba($secondary-color, 0.2);
+  padding: 0.35rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 100px;
+  color: #c9c9c9;
+  background: transparent;
+  text-transform: uppercase;
 }
 
-.cardActions {
-  display: flex;
-  gap: 0.75rem;
+.cardTitle {
+  font-family: $font-family-heading;
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.cardDescription {
+  font-size: 0.9rem;
+  font-family: $font-family-base;
+  color: #a0a0a0;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 95%;
+}
+
+.btnArrow {
   margin-top: auto;
-}
-
-.btnLive {
-  display: inline-block;
-  flex: 1;
-  text-align: center;
-  padding: 0.6rem 1rem;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  background: $nebula-gradient;
-  color: #fff;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
   text-decoration: none;
-  transition: box-shadow 0.4s $ease-cinematic;
+  transition: all 0.3s ease;
 
-  &:hover {
-    box-shadow: 0 4px 20px rgba($primary-color, 0.4);
-    color: #fff;
-  }
-}
-
-.btnGithub {
-  display: inline-block;
-  flex: 1;
-  text-align: center;
-  padding: 0.6rem 1rem;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border: 1px solid rgba($outline-color, 0.4);
-  color: $text-muted;
-  text-decoration: none;
-  background: rgba($bg-surface, 0.4);
-  transition: all 0.3s $ease-cinematic;
-
-  &:hover {
-    border-color: rgba($primary-color, 0.4);
-    color: $text-color;
-    background: rgba($primary-color, 0.08);
+  svg {
+    width: 14px;
+    height: 14px;
   }
 }

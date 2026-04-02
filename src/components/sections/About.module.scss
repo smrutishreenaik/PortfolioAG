@@ -127,9 +127,12 @@
   }
 
   &:hover {
-    border-color: rgba($primary-color, 0.5); // Adds the glowing green border from the screenshot
+    border-color: rgba(
+      $primary-color,
+      0.5
+    ); // Adds the glowing green border from the screenshot
     background-color: rgba($primary-color, 0.02);
-    
+
     p {
       color: #999999;
     }
@@ -147,7 +150,7 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .statCard {
     padding: 2.5rem 1.5rem;
   }

@@ -78,7 +78,9 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <SmoothScroll>
-          {isPreloading && <Preloader onComplete={() => setIsPreloading(false)} />}
+          {isPreloading && (
+            <Preloader onComplete={() => setIsPreloading(false)} />
+          )}
           <AppContent />
         </SmoothScroll>
       </AuthProvider>

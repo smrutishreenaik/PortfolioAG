@@ -23,7 +23,6 @@ if (missingKeys.length > 0) {
   );
 }
 
-
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 

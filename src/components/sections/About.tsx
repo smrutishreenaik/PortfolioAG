@@ -52,8 +52,10 @@ const About: React.FC = () => {
                   ABOUT ME
                 </div>
                 <h2 className={styles.sectionTitle}>
-                  BUILDING THE<br />
-                  WEB THAT<br />
+                  BUILDING THE
+                  <br />
+                  WEB THAT
+                  <br />
                   MATTERS
                 </h2>
                 <p className={styles.bioText}>

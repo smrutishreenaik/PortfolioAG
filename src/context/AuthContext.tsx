@@ -20,7 +20,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
+    // Safety fallback: if Firebase doesn't respond in 5s, unblock rendering
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
 
     const unsubscribe = onAuthStateChanged(
       auth,
@@ -35,11 +38,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setLoading(false);
       },
     );
-
-    // Safety fallback: if Firebase doesn't respond in 5s, unblock rendering
-    timeoutId = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
 
     return () => {
       unsubscribe();
