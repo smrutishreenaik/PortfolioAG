@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
+import { Navbar as BootstrapNavbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 
@@ -11,21 +11,15 @@ const Navbar: React.FC = () => {
       variant="dark"
       className={styles.navbarContainer}
     >
-      <Container>
+      <Container className={styles.navContainer}>
         <BootstrapNavbar.Brand as={Link} to="/" className={styles.brand}>
-          AG
+          SN.
         </BootstrapNavbar.Brand>
-        <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-        <BootstrapNavbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/" className={styles.navLink}>
-              Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/case-studies" className={styles.navLink}>
-              Case Studies
-            </Nav.Link>
-          </Nav>
-        </BootstrapNavbar.Collapse>
+        <div className="ms-auto">
+          <a href="#contact" className={styles.hireMeBtn}>
+            HIRE ME &rarr;
+          </a>
+        </div>
       </Container>
     </BootstrapNavbar>
   );

@@ -57,9 +57,6 @@ const Hero: React.FC = () => {
   });
 
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -300]);
-  const ctaOpacity = useTransform(scrollYProgress, [0.35, 0.45], [1, 0]);
-  const ctaScale = useTransform(scrollYProgress, [0.35, 0.4, 0.45], [1, 1.1, 0.5]);
-  const ctaY = useTransform(scrollYProgress, [0.35, 0.45], [0, -40]);
   const scrollIndicatorOpacity = useTransform(
     scrollYProgress,
     [0, 0.15],
@@ -97,7 +94,7 @@ const Hero: React.FC = () => {
           style={{ y: contentY }}
         >
           <div className={styles.contentInner}>
-            <motion.p
+            <motion.div
               className={styles.tagline}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,56 +104,33 @@ const Hero: React.FC = () => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
+              <div className={styles.taglineLine} />
               <FadeOutText
-                text="✦ Fullstack .NET Developer"
+                text="SENIOR FULL STACK ENGINEER"
                 progress={scrollYProgress}
                 start={0.0}
                 end={0.05}
               />
-            </motion.p>
+              <span className={styles.dot}>●</span> 
+              <span className={styles.availableText}>AVAILABLE</span>
+            </motion.div>
 
             <motion.h1 className={styles.headline}>
-              <motion.span
+              <motion.div
                 initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
                 animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                style={{ display: "inline-block" }}
               >
-                <FadeOutText
-                  text="Hello,"
-                  progress={scrollYProgress}
-                  start={0.05}
-                  end={0.07}
-                />
-              </motion.span>{" "}
-              <motion.span
-                initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-                animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                transition={{ duration: 0.8, delay: 0.5 }}
-                style={{ display: "inline-block" }}
-              >
-                <FadeOutText
-                  text="I'm"
-                  progress={scrollYProgress}
-                  start={0.07}
-                  end={0.09}
-                />
-              </motion.span>{" "}
-              <motion.span
+                SMRUTISHREE
+              </motion.div>
+              <motion.div
                 initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
                 animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                style={{ display: "inline-block" }}
+                className={styles.highlightName}
               >
-                <span className={styles.glowName} data-text="Smrutishree Naik">
-                  <FadeOutText
-                    text="Smrutishree Naik"
-                    progress={scrollYProgress}
-                    start={0.09}
-                    end={0.15}
-                  />
-                </span>
-              </motion.span>
+                NAIK
+              </motion.div>
             </motion.h1>
 
             <motion.p
@@ -169,55 +143,27 @@ const Hero: React.FC = () => {
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <FadeOutText
-                text="Full-Stack .NET Engineer dedicated to building robust, high-performance software. Driven by a passion for scalable system design, algorithms, and crafting impactful digital products."
-                progress={scrollYProgress}
-                start={0.15}
-                end={0.35}
-              />
+              Full-Stack Engineer crafting scalable, secure<br/>
+              applications with C# · .NET Core · React. 3+ years<br/>
+              turning complex problems into elegant solutions.
             </motion.p>
-
-            <motion.div style={{ opacity: ctaOpacity, scale: ctaScale, y: ctaY }}>
-              <motion.div
-                className={styles.ctaGroup}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.9,
-                  delay: 0.8,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                <motion.a
-                  href="#projects"
-                  className={styles.btnPrimary}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  View My Work
-                </motion.a>
-                <motion.a
-                  href="#contact"
-                  className={styles.btnGhost}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                >
-                  Get In Touch
-                </motion.a>
-              </motion.div>
-            </motion.div>
           </div>
         </motion.div>
 
         <motion.div
           className={styles.scrollIndicator}
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
           style={{ opacity: scrollIndicatorOpacity }}
         >
-          <span className={styles.scrollLine} />
-          <span className={styles.scrollLabel}>Scroll</span>
+          <div className={styles.scrollTrack}>
+            <motion.div className={styles.scrollThumb} style={{ scaleY: scrollYProgress, transformOrigin: "top" }} />
+          </div>
+          <span className={styles.scrollLabel}>SCROLL</span>
         </motion.div>
+
+        {/* The right-center dot marker */}
+        <div className={styles.rightMarker}>
+          <div className={styles.markerDot}></div>
+        </div>
       </div>
     </section>
   );

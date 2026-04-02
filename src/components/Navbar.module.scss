@@ -12,41 +12,34 @@
 .brand {
   font-family: $font-family-heading;
   font-weight: 800;
-  font-size: 1.4rem;
-  letter-spacing: -0.02em;
-  background: $nebula-gradient;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+  color: $text-color; // White SN.
 }
 
-.navLink {
-  font-family: $font-family-base;
-  font-weight: 500;
-  margin-left: 1.5rem;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  color: $text-muted !important;
-  position: relative;
-  transition: color 0.3s $ease-cinematic;
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 1px;
-    bottom: -2px;
-    left: 0;
-    background: $nebula-gradient;
-    transition: width 0.35s $ease-cinematic;
-  }
+.hireMeBtn {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  background-color: $primary-color;
+  color: #000;
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: $text-color !important;
-
-    &::after {
-      width: 100%;
-    }
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba($primary-color, 0.4);
+    color: #000;
   }
 }
