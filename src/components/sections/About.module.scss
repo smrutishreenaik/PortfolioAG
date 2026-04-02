@@ -2,20 +2,19 @@
 
 .aboutSection {
   position: relative;
-  height: 300vh; // Creates the scroll distance for the scrub animation
-  // Smoothly transitions from the black hero section to a soothing eye-friendly dark indigo, and back
+  min-height: 100vh;
+  padding-bottom: 4rem;
   background: linear-gradient(180deg, $bg-color 0%, #0d1424 15%, #0d1424 85%, $bg-color 100%);
 }
 
 .stickyContainer {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+  position: relative;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  padding: 4rem 0;
 }
 
 .backgroundOrb {

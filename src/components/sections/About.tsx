@@ -4,6 +4,7 @@ import styles from "./About.module.scss";
 import { Skill } from "../../types";
 import { useCollection } from "../../hooks/useCollection";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
+import TechTicker from "./TechTicker";
 
 const Letter = ({
   char,
@@ -115,11 +116,11 @@ const About: React.FC = () => {
   // Scrub progress specifically calculated for the intro animations
   const { scrollYProgress: introProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ["start 80%", "center center"],
   });
 
-  const panelY = useTransform(introProgress, [0, 0.25], [100, 0]);
-  const panelOpacity = useTransform(introProgress, [0, 0.25], [0, 1]);
+  const panelY = useTransform(introProgress, [0, 0.5], [100, 0]);
+  const panelOpacity = useTransform(introProgress, [0, 0.5], [0, 1]);
 
   const totalSkills = useMemo(() => (skills ? skills.length : 1), [skills]);
 
@@ -139,6 +140,7 @@ const About: React.FC = () => {
 
   return (
     <section className={styles.aboutSection} id="about" ref={sectionRef}>
+      <TechTicker />
       <div className={styles.stickyContainer}>
         <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
 

@@ -1,0 +1,69 @@
+@import "../../styles/variables";
+
+.tickerWrapper {
+  overflow: hidden;
+  background-color: #050505; // Slightly offset black
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1.5rem 0;
+  display: flex;
+  white-space: nowrap;
+  position: relative;
+  z-index: 20;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, $bg-surface-lowest, transparent);
+  }
+
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, $bg-surface-lowest, transparent);
+  }
+}
+
+.tickerTrack {
+  display: flex;
+  animation: ticker-slide 40s linear infinite;
+}
+
+.tickerGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.techItem {
+  font-family: $font-family-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 2rem;
+}
+
+.separator {
+  color: $primary-color;
+  font-size: 1.5rem;
+}
+
+@keyframes ticker-slide {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%); // Because we duplicated the array
+  }
+}
