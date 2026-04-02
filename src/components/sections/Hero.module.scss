@@ -330,25 +330,3 @@
   color: $text-muted;
   font-family: $font-family-base;
 }
-
-.rightMarker {
-  position: absolute;
-  right: 15%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 4;
-}
-
-.markerDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #ffffff;
-}

@@ -171,10 +171,6 @@ const Hero: React.FC = () => {
           <span className={styles.scrollLabel}>SCROLL</span>
         </motion.div>
 
-        {/* The right-center dot marker */}
-        <div className={styles.rightMarker}>
-          <div className={styles.markerDot}></div>
-        </div>
       </div>
     </section>
   );
