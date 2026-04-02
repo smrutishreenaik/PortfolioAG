@@ -1,0 +1,76 @@
+@import "../styles/variables";
+
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-color; // Pure black
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.8s $ease-cinematic, visibility 0.8s $ease-cinematic;
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadeOut {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.title {
+  font-family: "Righteous", "Segoe UI", sans-serif;
+  font-size: 4rem; // scale depending on screen if necessary
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  display: flex;
+  gap: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+}
+
+.whiteText {
+  color: #ffffff;
+}
+
+.greenText {
+  color: $primary-color; // Electric lime
+}
+
+.progressContainer {
+  width: 100%;
+  max-width: 320px;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background-color: $primary-color;
+  transition: width 0.02s linear; // smooth but instant
+}
+
+.percentage {
+  font-family: "Outfit", "Segoe UI", Roboto, sans-serif;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}

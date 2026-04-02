@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -20,6 +20,7 @@ import AdminCaseStudies from "./pages/admin/AdminCaseStudies";
 import AdminExperience from "./pages/admin/AdminExperience";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import SmoothScroll from "./components/SmoothScroll";
+import Preloader from "./components/Preloader";
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -71,10 +72,13 @@ const AppContent: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const [isPreloading, setIsPreloading] = useState(true);
+
   return (
     <Router>
       <AuthProvider>
         <SmoothScroll>
+          {isPreloading && <Preloader onComplete={() => setIsPreloading(false)} />}
           <AppContent />
         </SmoothScroll>
       </AuthProvider>
