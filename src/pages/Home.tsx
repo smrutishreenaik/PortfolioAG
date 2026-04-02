@@ -46,7 +46,10 @@ const Home: React.FC = () => {
       <div className={styles.scrollSection}>
         <Hero />
       </div>
-      <div className={styles.scrollSection}>
+      <div
+        className={styles.scrollSection}
+        style={{ marginTop: "-150vh", zIndex: 10, position: "relative" }}
+      >
         <About />
       </div>
       <div className={styles.scrollSection}>
