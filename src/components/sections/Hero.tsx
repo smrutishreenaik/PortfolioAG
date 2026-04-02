@@ -155,7 +155,18 @@ const Hero: React.FC = () => {
           style={{ opacity: scrollIndicatorOpacity }}
         >
           <div className={styles.scrollTrack}>
-            <motion.div className={styles.scrollThumb} style={{ scaleY: scrollYProgress, transformOrigin: "top" }} />
+            <motion.div
+              className={styles.scrollThumb}
+              animate={{
+                scaleY: [0, 1, 0],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{ transformOrigin: "top" }}
+            />
           </div>
           <span className={styles.scrollLabel}>SCROLL</span>
         </motion.div>
