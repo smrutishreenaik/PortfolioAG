@@ -1,0 +1,164 @@
+@import "../../styles/variables";
+
+.certSection {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 8rem 10%;
+  background-color: #030303; // the same dark theme used across the site
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+  width: 100%;
+}
+
+.leftHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.85rem;
+  font-family: $font-family-base;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888888;
+  margin-bottom: 1.5rem;
+}
+
+.taglineLine {
+  letter-spacing: 0.3em;
+  color: #555555;
+}
+
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid rgba(255, 255, 255, 0.05); // Container border as seen in the mockup
+}
+
+.certCard {
+  position: relative;
+  padding: 3rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 250px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin: -1px 0 0 -1px; // Collapse borders
+  overflow: hidden;
+  cursor: pointer;
+  
+  // The background slide-up effect
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: $primary-color; // Neon green
+    transition: height 0.4s cubic-bezier(0.8, 0, 0.2, 1);
+    z-index: 1;
+  }
+
+  &:hover {
+    &::before {
+      height: 100%;
+    }
+
+    .certTitle,
+    .iconWrapper {
+      color: #000;
+      transform: translateY(-5px);
+    }
+    
+    .certIssuer {
+      color: rgba(0, 0, 0, 0.7);
+      transform: translateY(-5px);
+    }
+  }
+}
+
+.cardContent {
+  position: relative;
+  z-index: 2; // Keep content above the sliding background
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.iconWrapper {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  color: #fff;
+  transition: all 0.4s ease;
+  font-family: $font-family-heading;
+}
+
+.certText {
+  margin-top: auto;
+}
+
+.certTitle {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 0.4rem 0;
+  line-height: 1.4;
+  transition: all 0.4s ease;
+  max-width: 90%;
+}
+
+.certIssuer {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #777777;
+  margin: 0;
+  transition: all 0.4s ease;
+}
+
+// Ensure the border collapse trick doesn't cover hover states
+// Wait, we can just let it sit there.
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .certSection {
+    padding: 6rem 5%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,6 +5,7 @@ import Projects from "../components/sections/Projects";
 import Skills from "../components/sections/Skills";
 import CaseStudiesOverview from "../components/sections/CaseStudiesOverview";
 import Experience from "../components/sections/Experience";
+import Certifications from "../components/sections/Certifications";
 import Testimonials from "../components/sections/Testimonials";
 import Contact from "../components/sections/Contact";
 import styles from "./Home.module.scss";
@@ -61,6 +62,9 @@ const Home: React.FC = () => {
       </div>
       <div className={styles.scrollSection}>
         <Experience />
+      </div>
+      <div className={styles.scrollSection}>
+        <Certifications />
       </div>
       <div className={styles.scrollSection}>
         <Testimonials />
