@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Hero from "../components/sections/Hero";
 import About from "../components/sections/About";
 import Projects from "../components/sections/Projects";
+import Skills from "../components/sections/Skills";
 import CaseStudiesOverview from "../components/sections/CaseStudiesOverview";
 import Experience from "../components/sections/Experience";
 import Testimonials from "../components/sections/Testimonials";
@@ -51,6 +52,9 @@ const Home: React.FC = () => {
       </div>
       <div className={styles.scrollSection}>
         <Projects />
+      </div>
+      <div className={styles.scrollSection}>
+        <Skills />
       </div>
       <div className={styles.scrollSection}>
         <CaseStudiesOverview />

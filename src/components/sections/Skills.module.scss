@@ -1,0 +1,143 @@
+@import "../../styles/variables";
+
+.skillsSection {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 8rem 10%;
+  background-color: #f4f3ef;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #000;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 3rem;
+  width: 100%;
+}
+
+.leftHeader {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagline {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 0.85rem;
+  font-family: $font-family-base;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #aaaaaa; // Light grey text for tagline
+  margin-bottom: 2rem;
+}
+
+.taglineLine {
+  letter-spacing: 0.3em;
+  color: #cccccc;
+}
+
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #000000;
+  margin: 0;
+  text-transform: uppercase;
+  max-width: 450px;
+}
+
+.hireMeBtn {
+  background-color: $primary-color;
+  color: #000;
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba($primary-color, 0.4);
+    color: #000;
+  }
+}
+
+.skillsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  max-width: 850px;
+}
+
+.skillPill {
+  font-family: $font-family-base;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &.dark {
+    background-color: #0a0a0a; // Very dark
+    color: $primary-color; // Neon green text
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  &.light {
+    background-color: transparent;
+    border: 1px solid #dcdad4;
+    color: #000000; // Black text
+    
+    &:hover {
+      background-color: #0a0a0a; // Very dark
+      color: $primary-color; // Neon green text
+      border-color: #0a0a0a;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+// Media queries
+@media (max-width: 991px) {
+  .skillsSection {
+    padding: 6rem 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerRow {
+    flex-direction: column-reverse;
+    gap: 2rem;
+  }
+  
+  .hireMeBtn {
+    align-self: flex-start;
+  }
+}
