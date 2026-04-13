@@ -1,33 +1,165 @@
 @import "../../styles/variables";
 
-.caseStudiesSection {
-  padding: 8rem 0;
-  background-color: darken($bg-color, 2%);
-  min-height: 100vh;
+.casestudySection {
+  background: white;
+  border-bottom: 1px solid $border;
 }
 
-.studyCard {
-  @include glassmorphism;
-  height: 100%;
-  border-radius: 1rem;
-  overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+.sectionWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 6vw;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba($secondary-color, 0.4);
+.sectionEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $green;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, $green, #3bc4a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  &::before {
+    content: "";
+    width: 20px;
+    height: 1.5px;
+    background: $green;
   }
 }
 
-.cardImg {
-  height: 250px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
 }
 
-.cardBody {
+.sectionSub {
+  font-size: 14px;
+  color: $gray;
+  max-width: 500px;
+}
+
+.csGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.csCard {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 16px;
   padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: $border;
+    transition: background 0.3s;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+    &::before {
+      background: $green;
+    }
+  }
+}
+
+.csPhase {
+  font-size: 11px;
+  font-weight: 700;
+  color: $green;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.csCardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: $black;
+  margin-bottom: 1rem;
+}
+
+.csCardText {
+  font-size: 14px;
+  color: $gray;
+  line-height: 1.6;
+}
+
+.csMetric {
+  font-size: 36px;
+  font-family: $font-family-heading;
+  font-weight: 700;
+  color: $green;
+  margin-top: 1.5rem;
+}
+
+.csMetricLabel {
+  font-size: 12px;
+  color: $gray;
+  font-weight: 500;
+}
+
+.checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: $black;
+  font-weight: 500;
+  padding: 12px;
+  background: $light;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    background: $white;
+    border-color: $green;
+    transform: translateX(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
 }

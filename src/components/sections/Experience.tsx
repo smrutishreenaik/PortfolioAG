@@ -1,109 +1,90 @@
-import React, { useRef } from "react";
-import { Container, Spinner } from "react-bootstrap";
+import React from "react";
 import styles from "./Experience.module.scss";
-import { Experience as ExperienceType } from "../../types";
-import { useCollection } from "../../hooks/useCollection";
-import { motion, useScroll, useTransform } from "framer-motion";
+
+const experienceData = [
+  {
+    id: 1,
+    period: "Apr 2025 — Present",
+    company: "Mindfire Solutions",
+    role: "Senior Software Engineer",
+    sub: "Full Stack · .NET Core · React",
+    bullets: [
+      "Designed and built a self-service web platform delivering 20+ UI features and RESTful APIs",
+      "Accelerated product releases by 10% through effective sprint management",
+      "Increased E2E test coverage by 10%, reducing post-deployment bugs by 15%",
+    ],
+    tags: [".NET Core", "React.js", "REST APIs", "Agile"],
+    delay: "0s",
+  },
+  {
+    id: 2,
+    period: "Nov 2023 — Feb 2025",
+    company: "Enstoa",
+    role: "C# .NET Full Stack Developer",
+    sub: "ASP.NET Core 6 · Blazor · SQL",
+    bullets: [
+      "Enhanced web app with ASP.NET Core 6, Blazor, Web API, Dapper — cut security vulnerabilities by 99%",
+      "Built Active Directory authentication, reducing manual effort by 70%",
+      "Resolved critical deadlock and JWT token bugs, improving system stability",
+      "Managed Azure DevOps pipelines, boards, and Git branching strategies",
+    ],
+    tags: ["ASP.NET Core 6", "Blazor", "JWT", "Azure DevOps", "SQL"],
+    delay: ".1s",
+  },
+  {
+    id: 3,
+    period: "May 2022 — Nov 2023",
+    company: "EPAM Systems",
+    role: "Junior Software Engineer",
+    sub: "WPF · SQL · .NET",
+    bullets: [
+      "Enhanced and maintained a Database Conversion Windows application using WPF",
+      "Resolved 600+ SonarQube-identified bugs, significantly improving code maintainability",
+      "Mentored 20+ interns on .NET; authored 100+ learning portal quiz questions",
+      "Built full E-Commerce site using ASP.NET, Entity Framework, ReactJS during training",
+    ],
+    tags: ["WPF", "Entity Framework", "SonarQube", "Mentoring"],
+    delay: ".2s",
+  },
+];
 
 const Experience: React.FC = () => {
-  const {
-    data: experiences,
-    loading,
-    error,
-  } = useCollection<ExperienceType>("experience");
-
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const orbY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
-
   return (
-    <section
-      className={styles.experienceSection}
-      id="experience"
-      ref={sectionRef}
-    >
-      <motion.div className={styles.backgroundOrb} style={{ y: orbY }} />
-
-      <Container>
-        <motion.h2
-          className={styles.sectionTitle}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Work <span>Experience</span>
-        </motion.h2>
-
-        {loading ? (
-          <div className="text-center py-5">
-            <Spinner animation="border" style={{ color: "#7c3aed" }} />
-          </div>
-        ) : error ? (
-          <p className="text-center text-danger">
-            Failed to load experience: {error}
-          </p>
-        ) : (
-          <div className={styles.timeline}>
-            <motion.div
-              className={styles.timelineLine}
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              viewport={{ once: true, amount: 0.05 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              style={{ originY: 0 }}
-            />
-            {experiences.map((exp) => (
-              <motion.div
-                key={exp.id}
-                className={styles.timelineItem}
-                initial={{ opacity: 0, x: -100 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, margin: "-50px" }}
-                transition={{
-                  duration: 0.7,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-              >
-                <div className={styles.timelineMarker} />
-                <div className={styles.timelineContent}>
-                  <div className="d-flex justify-content-between align-items-start gap-2 mb-1 flex-wrap">
-                    <h3 className={styles.roleTitle}>{exp.role}</h3>
-                    <span className={styles.timeBadge}>{exp.timePeriod}</span>
-                  </div>
-                  <div className={styles.companyRow}>
-                    <a
-                      href={exp.companyWebsite || "#"}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={styles.companyLink}
-                    >
-                      {exp.logoUrl && (
-                        <img
-                          src={exp.logoUrl}
-                          alt={`${exp.companyName} logo`}
-                          className={styles.companyLogo}
-                        />
-                      )}
-                      {exp.companyName}
-                    </a>
-                  </div>
-                  <ul className={styles.achievementList}>
-                    {exp.achievements?.map((achieve, idx) => (
-                      <li key={idx}>{achieve}</li>
-                    ))}
-                  </ul>
+    <section id="experience" className={styles.experienceSection}>
+      <div className={styles.sectionWrap}>
+        <div className={styles.sectionEyebrow}>Experience</div>
+        <div className={styles.sectionTitle}>Where I've built things</div>
+        <div className={styles.expList}>
+          {experienceData.map((exp) => (
+            <div
+              key={exp.id}
+              className={styles.expRow}
+              style={{ transitionDelay: exp.delay }}
+            >
+              <div>
+                <div className={styles.expPeriod}>{exp.period}</div>
+                <div className={styles.expCoBadge}>{exp.company}</div>
+              </div>
+              <div>
+                <div className={styles.expRoleTitle}>{exp.role}</div>
+                <div className={styles.expRoleSub}>{exp.sub}</div>
+                <ul className={styles.expBullets}>
+                  {exp.bullets.map((bullet, idx) => (
+                    <li key={idx}>{bullet}</li>
+                  ))}
+                </ul>
+                <div className={styles.expTags}>
+                  {exp.tags.map((tag) => (
+                    <span key={tag} className={styles.expTag}>
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </Container>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 };

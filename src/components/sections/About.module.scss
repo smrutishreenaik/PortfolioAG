@@ -1,161 +1,118 @@
 @import "../../styles/variables";
 
 .aboutSection {
-  position: relative;
-  height: 300vh; // Creates the scroll distance for the scrub animation
-  // Smoothly transitions from the black hero section to a soothing eye-friendly dark indigo, and back
-  background: linear-gradient(180deg, $bg-color 0%, #0d1424 15%, #0d1424 85%, $bg-color 100%);
+  background: $white;
 }
 
-.stickyContainer {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
+.sectionWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 6vw;
+}
+
+.sectionEyebrow {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $green;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, $green, #3bc4a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 
-.backgroundOrb {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  left: -150px;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba($secondary-color, 0.12) 0%,
-    transparent 70%
-  );
-  filter: blur(80px);
-  pointer-events: none;
-  will-change: transform;
+  &::before {
+    content: "";
+    width: 20px;
+    height: 1.5px;
+    background: $green;
+  }
 }
 
 .sectionTitle {
   font-family: $font-family-heading;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
-  color: $text-color;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
 
-  span {
-    background: $nebula-gradient;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: center;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
   }
 }
 
-.bioText {
-  font-size: 1.05rem;
-  color: $text-muted;
-  line-height: 1.8;
-  margin-bottom: 2rem;
+.aboutBody {
+  margin-top: 1.2rem;
+  p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: $gray;
+    margin-bottom: 1.2rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.socialLinks {
+.aboutHighlights {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.highlightRow {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-
-.socialLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.55rem 1.2rem;
-  border-radius: 100px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: $font-family-base;
-  border: 1px solid rgba($outline-color, 0.4);
-  color: $text-muted;
-  background: rgba($bg-surface, 0.4);
-  text-decoration: none;
-  transition: all 0.4s $ease-cinematic;
+  align-items: flex-start;
+  padding: 1.2rem;
+  background: $light;
+  border-radius: 12px;
+  border: 1px solid $border;
+  transition: all 0.3s;
 
   &:hover {
-    border-color: rgba($primary-color, 0.5);
-    color: $text-color;
-    background: rgba($primary-color, 0.1);
-    box-shadow: 0 0 20px rgba($primary-color, 0.15);
+    background: $white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-color: #ddd;
+    transform: translateX(4px);
   }
 }
 
-.resumeBtn {
-  display: inline-block;
-  padding: 0.75rem 2rem;
-  border-radius: 100px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  font-family: $font-family-base;
-  background: $nebula-gradient;
-  color: #fff;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba($primary-color, 0.3);
-  transition: box-shadow 0.4s $ease-cinematic;
-
-  &:hover {
-    box-shadow: 0 8px 40px rgba($primary-color, 0.5);
-    color: #fff;
-  }
-}
-
-.skillsPanel {
-  @include glassmorphism;
-  border-radius: 1.25rem;
-  padding: 2.5rem;
-}
-
-.skillsTitle {
-  font-family: $font-family-heading;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: $text-color;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
-}
-
-.skillGroup {
-  margin-bottom: 1.5rem;
-
-  h4 {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: $primary-color;
-    margin-bottom: 0.75rem;
-  }
-}
-
-.skillsWrap {
+.hiIcon {
+  font-size: 24px;
+  line-height: 1;
+  background: $white;
+  width: 48px;
+  height: 48px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid $border;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
 }
 
-.skillBadge {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.35rem 0.9rem;
-  border-radius: 100px;
-  background: rgba($primary-color, 0.12);
-  color: $text-muted;
-  border: 1px solid rgba($primary-color, 0.2);
-  transition: all 0.3s $ease-cinematic;
-  display: inline-block;
+.hiText {
+  font-size: 14px;
+  font-weight: 700;
+  color: $black;
+  margin-bottom: 4px;
+}
 
-  &:hover {
-    background: rgba($primary-color, 0.25);
-    color: $text-color;
-    border-color: rgba($primary-color, 0.4);
-  }
+.hiSub {
+  font-size: 12px;
+  color: $gray;
+  line-height: 1.5;
 }

@@ -1,72 +1,33 @@
 import React, { useEffect } from "react";
 import Hero from "../components/sections/Hero";
+import Stats from "../components/sections/Stats";
+import PainPoints from "../components/sections/PainPoints";
 import About from "../components/sections/About";
+import Skills from "../components/sections/Skills";
+import Experience from "../components/sections/Experience";
 import Projects from "../components/sections/Projects";
 import CaseStudiesOverview from "../components/sections/CaseStudiesOverview";
-import Experience from "../components/sections/Experience";
-import Testimonials from "../components/sections/Testimonials";
 import Contact from "../components/sections/Contact";
+import Footer from "../components/Footer";
 import styles from "./Home.module.scss";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Home: React.FC = () => {
   useEffect(() => {
-    // Basic GSAP reveal animations for sections
-    const sections = document.querySelectorAll(`.${styles.scrollSection}`);
-
-    const ctx = gsap.context(() => {
-      sections.forEach((section) => {
-        gsap.fromTo(
-          section.children,
-          { y: 50, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            stagger: 0.2,
-            scrollTrigger: {
-              trigger: section,
-              start: "top center",
-              end: "bottom center",
-              toggleActions: "play none none reverse",
-            },
-          },
-        );
-      });
-    });
-
-    return () => ctx.revert();
+    // Basic initialization if necessary
   }, []);
 
   return (
     <div className={styles.homeContainer}>
-      <div className={styles.scrollSection}>
-        <Hero />
-      </div>
-      <div
-        className={styles.scrollSection}
-        style={{ marginTop: "-150vh", zIndex: 10, position: "relative" }}
-      >
-        <About />
-      </div>
-      <div className={styles.scrollSection}>
-        <Projects />
-      </div>
-      <div className={styles.scrollSection}>
-        <CaseStudiesOverview />
-      </div>
-      <div className={styles.scrollSection}>
-        <Experience />
-      </div>
-      <div className={styles.scrollSection}>
-        <Testimonials />
-      </div>
-      <div className={styles.scrollSection}>
-        <Contact />
-      </div>
+      <Hero />
+      <Stats />
+      <PainPoints />
+      <About />
+      <Skills />
+      <Experience />
+      <Projects />
+      <CaseStudiesOverview />
+      <Contact />
+      <Footer />
     </div>
   );
 };

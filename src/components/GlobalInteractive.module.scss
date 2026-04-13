@@ -1,0 +1,47 @@
+@import "../styles/variables";
+
+.scrollProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: $green;
+  z-index: 10001;
+}
+
+.cursorDot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: $green;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s;
+
+  &.hover {
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+}
+
+.cursorRing {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid rgba(61, 158, 106, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+
+  &.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: rgba(61, 158, 106, 0.1);
+  }
+}

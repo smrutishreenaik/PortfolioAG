@@ -20,6 +20,9 @@ import AdminCaseStudies from "./pages/admin/AdminCaseStudies";
 import AdminExperience from "./pages/admin/AdminExperience";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import SmoothScroll from "./components/SmoothScroll";
+import GlobalInteractive from "./components/GlobalInteractive";
+import Loader from "./components/ui/Loader";
+import Particles from "./components/ui/Particles";
 
 const AppContent: React.FC = () => {
   const location = useLocation();
@@ -75,6 +78,9 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <SmoothScroll>
+          <Loader />
+          <Particles />
+          <GlobalInteractive />
           <AppContent />
         </SmoothScroll>
       </AuthProvider>

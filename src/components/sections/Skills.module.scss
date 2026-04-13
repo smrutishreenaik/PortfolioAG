@@ -1,0 +1,92 @@
+@import "../../styles/variables";
+
+.skillsSection {
+  background: $light;
+  border-bottom: 1px solid $border;
+}
+
+.sectionWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 6vw;
+}
+
+.sectionEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $green;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, $green, #3bc4a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  &::before {
+    content: "";
+    width: 20px;
+    height: 1.5px;
+    background: $green;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+.sectionSub {
+  font-size: 14px;
+  color: $gray;
+  max-width: 500px;
+}
+
+.skillsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 3rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.skillPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid $border;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $black;
+  background: $white;
+  transition: all 0.2s ease;
+
+  // Added hover effects that exist in global CSS in standard reference
+  &:hover {
+    border-color: $green;
+    background: $green-light;
+    transform: translateY(-2px);
+    .skillDot {
+      background: $green;
+    }
+  }
+}
+
+.skillDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ccc;
+  transition: background 0.3s;
+}
