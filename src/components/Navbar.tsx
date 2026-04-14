@@ -1,33 +1,28 @@
 import React from "react";
-import { Navbar as BootstrapNavbar, Container, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.scss";
 
 const Navbar: React.FC = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
+  const getHref = (hash: string) => (isHome ? hash : `/${hash}`);
+
   return (
-    <BootstrapNavbar
-      expand="lg"
-      fixed="top"
-      variant="dark"
-      className={styles.navbarContainer}
-    >
-      <Container>
-        <BootstrapNavbar.Brand as={Link} to="/" className={styles.brand}>
-          AG
-        </BootstrapNavbar.Brand>
-        <BootstrapNavbar.Toggle aria-controls="basic-navbar-nav" />
-        <BootstrapNavbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/" className={styles.navLink}>
-              Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/case-studies" className={styles.navLink}>
-              Case Studies
-            </Nav.Link>
-          </Nav>
-        </BootstrapNavbar.Collapse>
-      </Container>
-    </BootstrapNavbar>
+    <nav className={styles.nav}>
+      <Link className={styles.navLogo} to="/">Smrutishree Naik</Link>
+      <div className={styles.navLinks}>
+        <a href={getHref("#about")}>About</a>
+        <a href={getHref("#skills")}>Skills</a>
+        <a href={getHref("#experience")}>Experience</a>
+        <a href={getHref("#projects")}>Projects</a>
+        <Link to="/case-studies">Case Studies</Link>
+        <a href={getHref("#contact")}>Contact</a>
+      </div>
+      <a className={styles.navCta} href={getHref("#contact")}>
+        Let's Connect →
+      </a>
+    </nav>
   );
 };
 
