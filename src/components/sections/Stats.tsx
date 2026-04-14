@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, animate } from "framer-motion";
 import styles from "./Stats.module.scss";
 
 interface StatItemProps {
@@ -11,27 +11,24 @@ interface StatItemProps {
 const StatItem: React.FC<StatItemProps> = ({ target, label, delay }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  
+  // Triggers when 80% visible, reducing premature firing on load
+  const isInView = useInView(ref, { once: true, amount: 0.8 });
 
   useEffect(() => {
     if (isInView) {
-      const duration = 2000;
-      const startTime = performance.now();
-
-      const updateCount = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const easeOut = 1 - Math.pow(1 - progress, 4);
-        setCount(Math.floor(easeOut * target));
-
-        if (progress < 1) {
-          requestAnimationFrame(updateCount);
+      // Use framer-motion's robust animate engine paired with React state
+      const controls = animate(0, target, {
+        duration: 2,
+        delay: delay / 1000,
+        ease: "easeOut",
+        onUpdate: (value) => {
+          setCount(Math.round(value));
         }
-      };
-
-      requestAnimationFrame(updateCount);
+      });
+      return () => controls.stop();
     }
-  }, [isInView, target]);
+  }, [isInView, target, delay]);
 
   return (
     <motion.div
@@ -39,7 +36,7 @@ const StatItem: React.FC<StatItemProps> = ({ target, label, delay }) => {
       className={styles.statItem}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true, amount: 0.5 }}
       transition={{ duration: 0.5, delay: delay / 1000 }}
     >
       <div className={styles.statN}>{count}</div>
