@@ -10,16 +10,20 @@ const GlobalInteractive: React.FC = () => {
 
   useEffect(() => {
     let animationFrameId: number;
-    let rx = 0;
-    let ry = 0;
+    let rx = -100;
+    let ry = -100;
+    let currentMouseX = -100;
+    let currentMouseY = -100;
 
     const onMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      currentMouseX = e.clientX;
+      currentMouseY = e.clientY;
+      setMousePosition({ x: currentMouseX, y: currentMouseY });
     };
 
     const animate = () => {
-      rx += (mousePosition.x - rx) * 0.12;
-      ry += (mousePosition.y - ry) * 0.12;
+      rx += (currentMouseX - rx) * 0.15;
+      ry += (currentMouseY - ry) * 0.15;
       setRingPosition({ x: rx, y: ry });
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -51,7 +55,7 @@ const GlobalInteractive: React.FC = () => {
       document.removeEventListener("mouseover", handleMouseOver);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [mousePosition]);
+  }, []);
 
   return (
     <>
