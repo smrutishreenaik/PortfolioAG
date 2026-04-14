@@ -81,6 +81,25 @@
     color: $gray;
     -webkit-text-fill-color: transparent;
   }
+
+  .cursor {
+    display: inline-block;
+    font-style: normal;
+    font-weight: 300;
+    color: $green;
+    -webkit-text-fill-color: $green;
+    margin-left: 4px;
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 @keyframes titleShimmer {

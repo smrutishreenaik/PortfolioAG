@@ -1,16 +1,56 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Hero.module.scss";
 
+const ROLES = [
+  "Full-Stack Builder.",
+  "Problem Solver.",
+  ".NET Developer."
+];
+
 const Hero: React.FC = () => {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    const currentRole = ROLES[roleIndex];
+    
+    if (isDeleting) {
+      if (text === "") {
+        setIsDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % ROLES.length);
+      } else {
+        timeout = setTimeout(() => {
+          setText(currentRole.substring(0, text.length - 1));
+        }, 50);
+      }
+    } else {
+      if (text === currentRole) {
+        timeout = setTimeout(() => {
+          setIsDeleting(true);
+        }, 1500);
+      } else {
+        timeout = setTimeout(() => {
+          setText(currentRole.substring(0, text.length + 1));
+        }, 100);
+      }
+    }
+    
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, roleIndex]);
+
   return (
     <div className={styles.heroOuter}>
       <div className={styles.hero} id="home">
         <div>
           <div className={styles.heroTag}>Available for opportunities</div>
           <h1 className={styles.heroTitle}>
-            Senior Engineer.<br />
-            <em>Full-Stack</em> Builder.<br />
-            Problem Solver.
+            Smrutishree Naik.<br />
+            <em className={styles.roleText}>
+              {text}
+              <span className={styles.cursor}>|</span>
+            </em>
           </h1>
           <p className={styles.heroDesc}>
             I'm Smrutishree — a C# / .NET Full-Stack Engineer with 3+ years
