@@ -45,7 +45,6 @@ const Hero: React.FC = () => {
           <div className={styles.heroTag}>Available for opportunities</div>
           <h1 className={styles.heroTitle}>
             Smrutishree Naik.
-            <br />
             <em className={styles.roleText}>
               {text}
               <span className={styles.cursor}>|</span>

@@ -56,7 +56,7 @@
 
 .heroTitle {
   font-family: $font-family-heading;
-  font-size: clamp(44px, 5.5vw, 76px);
+  font-size: clamp(56px, 7vw, 96px);
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
@@ -77,6 +77,9 @@
     titleShimmer 6s 1s ease-in-out infinite;
 
   em {
+    display: block;
+    margin-top: -0.2em;
+    font-size: clamp(32px, 4.5vw, 64px);
     font-style: italic;
     color: $gray;
     -webkit-text-fill-color: transparent;
