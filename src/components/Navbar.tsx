@@ -10,7 +10,9 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className={styles.nav}>
-      <Link className={styles.navLogo} to="/">Smrutishree Naik</Link>
+      <Link className={styles.navLogo} to="/">
+        Smrutishree Naik
+      </Link>
       <div className={styles.navLinks}>
         <a href={getHref("#about")}>About</a>
         <a href={getHref("#skills")}>Skills</a>

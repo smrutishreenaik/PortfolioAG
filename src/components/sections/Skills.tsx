@@ -33,11 +33,17 @@ const Skills: React.FC = () => {
     <section id="skills" className={styles.skillsSection}>
       <div className={styles.sectionWrap}>
         <div style={{ textAlign: "center" }}>
-          <div className={styles.sectionEyebrow} style={{ justifyContent: "center" }}>
+          <div
+            className={styles.sectionEyebrow}
+            style={{ justifyContent: "center" }}
+          >
             Tech Stack
           </div>
           <div className={styles.sectionTitle}>Tools I work with</div>
-          <div className={styles.sectionSub} style={{ margin: "0.5rem auto", textAlign: "center" }}>
+          <div
+            className={styles.sectionSub}
+            style={{ margin: "0.5rem auto", textAlign: "center" }}
+          >
             Every skill here is battle-tested in production.
           </div>
         </div>

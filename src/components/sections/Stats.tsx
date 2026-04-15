@@ -11,7 +11,7 @@ interface StatItemProps {
 const StatItem: React.FC<StatItemProps> = ({ target, label, delay }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
-  
+
   // Triggers when 80% visible, reducing premature firing on load
   const isInView = useInView(ref, { once: true, amount: 0.8 });
 
@@ -24,7 +24,7 @@ const StatItem: React.FC<StatItemProps> = ({ target, label, delay }) => {
         ease: "easeOut",
         onUpdate: (value) => {
           setCount(Math.round(value));
-        }
+        },
       });
       return () => controls.stop();
     }

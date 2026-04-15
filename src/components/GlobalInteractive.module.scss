@@ -38,7 +38,9 @@
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.3s;
 
   &.hover {
     transform: translate(-50%, -50%) scale(1.5);

@@ -8,7 +8,9 @@ const About: React.FC = () => {
         <div className={styles.aboutGrid}>
           <div>
             <div className={styles.sectionEyebrow}>About me</div>
-            <div className={styles.sectionTitle}>The engineer behind the work</div>
+            <div className={styles.sectionTitle}>
+              The engineer behind the work
+            </div>
             <div className={styles.aboutBody}>
               <p>
                 I'm a Full-Stack Software Engineer based in Bengaluru with 3+
@@ -27,7 +29,7 @@ const About: React.FC = () => {
               </p>
             </div>
           </div>
-          
+
           <div className={styles.aboutHighlights}>
             <div className={styles.highlightRow}>
               <div className={styles.hiIcon}>🛡️</div>
@@ -38,18 +40,25 @@ const About: React.FC = () => {
                 </div>
               </div>
             </div>
-            
-            <div className={styles.highlightRow} style={{ transitionDelay: ".1s" }}>
+
+            <div
+              className={styles.highlightRow}
+              style={{ transitionDelay: ".1s" }}
+            >
               <div className={styles.hiIcon}>⚡</div>
               <div>
                 <div className={styles.hiText}>Performance & reliability</div>
                 <div className={styles.hiSub}>
-                  Fixed deadlocks, boosted test coverage, cut post-deploy bugs by 15%
+                  Fixed deadlocks, boosted test coverage, cut post-deploy bugs
+                  by 15%
                 </div>
               </div>
             </div>
-            
-            <div className={styles.highlightRow} style={{ transitionDelay: ".2s" }}>
+
+            <div
+              className={styles.highlightRow}
+              style={{ transitionDelay: ".2s" }}
+            >
               <div className={styles.hiIcon}>🤖</div>
               <div>
                 <div className={styles.hiText}>AI-powered tooling</div>
@@ -58,18 +67,27 @@ const About: React.FC = () => {
                 </div>
               </div>
             </div>
-            
-            <div className={styles.highlightRow} style={{ transitionDelay: ".3s" }}>
+
+            <div
+              className={styles.highlightRow}
+              style={{ transitionDelay: ".3s" }}
+            >
               <div className={styles.hiIcon}>🎓</div>
               <div>
-                <div className={styles.hiText}>Mentorship & knowledge sharing</div>
+                <div className={styles.hiText}>
+                  Mentorship & knowledge sharing
+                </div>
                 <div className={styles.hiSub}>
-                  Trained 20+ interns; authored 100+ quiz questions for EPAM portal
+                  Trained 20+ interns; authored 100+ quiz questions for EPAM
+                  portal
                 </div>
               </div>
             </div>
-            
-            <div className={styles.highlightRow} style={{ transitionDelay: ".4s" }}>
+
+            <div
+              className={styles.highlightRow}
+              style={{ transitionDelay: ".4s" }}
+            >
               <div className={styles.hiIcon}>☁️</div>
               <div>
                 <div className={styles.hiText}>Microsoft Azure Certified</div>
@@ -78,7 +96,6 @@ const About: React.FC = () => {
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>

@@ -44,6 +44,8 @@ src/
 ### Public Portfolio
 
 - **Hero** — Introduction and call-to-action
+- **Navbar** — Responsive glassmorphism navigation with active state scroll spy routing
+- **Stats** — High-performance interactive counting animation tied dynamically to viewport intersection
 - **About** — Personal bio, skills (grouped by category), resume download, social links (GitHub, LinkedIn, LeetCode)
 - **Projects** — Dynamically fetched from Firestore; includes title, description, features, tech stack, GitHub & live links, cover image
 - **Case Studies** — Clickable cards linking to dedicated detail pages with full HTML content

@@ -94,7 +94,8 @@
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -193,9 +194,13 @@
     display: none;
   }
 
-  svg {
+  .heroImage {
     animation: float 4s ease-in-out infinite;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.08));
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    object-fit: contain;
   }
 }
 
