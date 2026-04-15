@@ -65,7 +65,26 @@ const Hero: React.FC = () => {
           </div>
         </div>
         <div className={styles.heroRight}>
-          <img src="/Hero.png" alt="Hero Illustration" className={styles.heroImage} />
+          <div className={styles.heroImageWrapper}>
+            <img src="/Hero.png" alt="Hero Illustration" className={styles.heroImage} />
+
+            {/* BlueCode decorators */}
+            <img src="/BlueCode.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueCode1}`} />
+            <img src="/BlueCode.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueCode2}`} />
+            <img src="/BlueCode.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueCode3}`} />
+
+            {/* BlueStar decorators */}
+            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar1}`} />
+            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar2}`} />
+            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar3}`} />
+            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar4}`} />
+
+            {/* GreenStar decorators */}
+            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar1}`} />
+            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar2}`} />
+            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar3}`} />
+            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar4}`} />
+          </div>
         </div>
       </div>
     </div>

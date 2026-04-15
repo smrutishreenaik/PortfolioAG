@@ -192,18 +192,114 @@
 
 .heroRight {
   animation: fadeIn 0.8s 0.4s ease both;
+  overflow: visible;
 
   @media (max-width: 900px) {
     display: none;
   }
 
+  .heroImageWrapper {
+    position: relative;
+    display: inline-block;
+    width: 280px;
+    overflow: visible;
+  }
+
   .heroImage {
-    animation: float 4s ease-in-out infinite;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.08));
     width: 100%;
-    max-width: 320px;
+    max-width: 280px;
     height: auto;
     object-fit: contain;
+    display: block;
+  }
+
+  .decorator {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  // BlueCode — code snippet icons, slightly larger
+  .decoratorBlueCode1 {
+    width: 60px;
+    top: -5%;
+    left: -24%;
+    transform: rotate(-12deg);
+    opacity: 1;
+  }
+
+  .decoratorBlueCode2 {
+    width: 54px;
+    bottom: 5%;
+    right: -22%;
+    transform: rotate(10deg);
+    opacity: 1;
+  }
+
+  .decoratorBlueCode3 {
+    width: 56px;
+    top: 50%;
+    left: -26%;
+    transform: rotate(6deg);
+    opacity: 1;
+  }
+
+  // BlueStar — scattered at corners and edges
+  .decoratorBlueStar1 {
+    width: 28px;
+    top: -10%;
+    left: 20%;
+    opacity: 0.9;
+  }
+
+  .decoratorBlueStar2 {
+    width: 22px;
+    top: 20%;
+    right: -16%;
+    opacity: 0.8;
+  }
+
+  .decoratorBlueStar3 {
+    width: 32px;
+    bottom: -8%;
+    left: 15%;
+    opacity: 0.85;
+  }
+
+  .decoratorBlueStar4 {
+    width: 20px;
+    top: 70%;
+    right: -12%;
+    opacity: 0.75;
+  }
+
+  // GreenStar — scattered opposite to blue stars
+  .decoratorGreenStar1 {
+    width: 30px;
+    top: -8%;
+    right: 15%;
+    opacity: 0.9;
+  }
+
+  .decoratorGreenStar2 {
+    width: 24px;
+    top: 30%;
+    left: -16%;
+    opacity: 0.8;
+  }
+
+  .decoratorGreenStar3 {
+    width: 34px;
+    bottom: -6%;
+    right: 20%;
+    opacity: 0.85;
+  }
+
+  .decoratorGreenStar4 {
+    width: 20px;
+    bottom: 35%;
+    right: -14%;
+    opacity: 0.75;
   }
 }
 
