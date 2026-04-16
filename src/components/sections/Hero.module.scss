@@ -45,9 +45,11 @@
     transform: scale(0.8);
     opacity: 0;
   }
+
   70% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -60,14 +62,12 @@
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
-  background: linear-gradient(
-    135deg,
-    $black 0%,
-    $black 40%,
-    $green 60%,
-    #6b9bff 80%,
-    $black 100%
-  );
+  background: linear-gradient(135deg,
+      $black 0%,
+      $black 40%,
+      $green 60%,
+      #6b9bff 80%,
+      $black 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -97,20 +97,24 @@
 }
 
 @keyframes blink {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0;
   }
 }
 
 @keyframes titleShimmer {
+
   0%,
   100% {
     background-position: 0% 0%;
   }
+
   50% {
     background-position: 100% 0%;
   }
@@ -150,11 +154,9 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-      circle at var(--mx, 50%) var(--my, 50%),
-      rgba(255, 255, 255, 0.18) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+        rgba(255, 255, 255, 0.18) 0%,
+        transparent 70%);
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
@@ -163,6 +165,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+
     &::after {
       opacity: 1;
     }
@@ -219,190 +222,323 @@
     pointer-events: none;
   }
 
-  // BlueCode — far left column, spread top / mid / lower-mid
+  // ═══ LEFT FAR COLUMN  (left: -44% to -50%) ═══════════════
+  // evenly spaced at top: -5%, 38%, 74%
+
   .decoratorBlueCode1 {
-    width: 60px;
-    top: -8%;
-    left: -32%;
-    transform: rotate(-12deg);
+    // left-far top
+    width: 58px;
+    top: -5%;
+    left: -48%;
+    transform: rotate(-14deg);
     opacity: 1;
     animation: drift1 3.4s ease-in-out infinite;
   }
 
-  .decoratorBlueCode2 {
-    width: 54px;
+  .decoratorGreenType1 {
+    // left-far mid
+    width: 60px;
     top: 38%;
-    left: -34%;
-    transform: rotate(6deg);
-    opacity: 1;
-    animation: drift3 3.9s ease-in-out infinite;
+    left: -50%;
+    transform: rotate(-10deg);
+    opacity: 0.95;
+    animation: drift3 3.2s ease-in-out infinite 0.2s;
   }
 
   .decoratorBlueCode3 {
-    width: 50px;
-    top: 72%;
-    left: -30%;
+    // left-far bottom
+    width: 52px;
+    top: 74%;
+    left: -44%;
     transform: rotate(-8deg);
     opacity: 1;
     animation: drift2 2.8s ease-in-out infinite 0.5s;
   }
 
-  // BlueStar — small, fills in the gaps
-  .decoratorBlueStar1 {
-    width: 26px;
-    top: -14%;
-    left: 8%;
-    opacity: 0.9;
-    animation: drift4 2.5s ease-in-out infinite;
-  }
+  // ═══ LEFT NEAR COLUMN  (left: -16% to -22%) ══════════════
+  // spaced at top: 16%, 54%
 
-  .decoratorBlueStar2 {
-    width: 20px;
-    top: -14%;
-    right: 8%;
-    opacity: 0.8;
-    animation: drift5 3.1s ease-in-out infinite 0.3s;
+  .decoratorGreenStar2 {
+    // left-near upper
+    width: 24px;
+    top: 16%;
+    left: -20%;
+    opacity: 0.85;
+    animation: drift2 2.7s ease-in-out infinite 1s;
   }
 
   .decoratorBlueStar3 {
-    width: 28px;
-    top: 55%;
-    right: -20%;
-    opacity: 0.85;
+    // left-near lower
+    width: 24px;
+    top: 54%;
+    left: -18%;
+    opacity: 0.8;
     animation: drift6 4.2s ease-in-out infinite;
   }
 
-  .decoratorBlueStar4 {
-    width: 22px;
-    top: 20%;
-    left: -18%;
-    opacity: 0.75;
-    animation: drift1 2.9s ease-in-out infinite 0.8s;
-  }
+  // ═══ TOP ZONE  (top: -16% to -22%) ══════════════════════
+  // spread horizontally: 8% / 44% / right 8%
 
-  // GreenType — top-right corner and bottom-left far out
-  .decoratorGreenType1 {
-    width: 62px;
-    top: 5%;
-    right: -34%;
-    transform: rotate(10deg);
-    opacity: 0.95;
-    animation: drift3 3.2s ease-in-out infinite 0.2s;
-  }
-
-  .decoratorGreenType2 {
-    width: 56px;
-    top: 72%;
-    right: -36%;
-    transform: rotate(-9deg);
-    opacity: 0.9;
-    animation: drift6 3.8s ease-in-out infinite 0.9s;
-  }
-
-  // Secure — top-center floating high and right-lower zone
-  .decoratorSecure1 {
-    width: 58px;
+  .decoratorBlueStar1 {
+    // top-left accent
+    width: 20px;
     top: -18%;
-    left: 50%;
+    left: 8%;
+    opacity: 0.85;
+    animation: drift4 2.5s ease-in-out infinite;
+  }
+
+  .decoratorSecure1 {
+    // top-center large
+    width: 58px;
+    top: -22%;
+    left: 44%;
     transform: rotate(-5deg);
     opacity: 0.95;
     animation: drift2 2.9s ease-in-out infinite 0.4s;
   }
 
+  .decoratorBlueStar2 {
+    // top-right accent
+    width: 20px;
+    top: -16%;
+    right: 8%;
+    opacity: 0.85;
+    animation: drift5 3.1s ease-in-out infinite 0.6s;
+  }
+
+  // ═══ RIGHT NEAR COLUMN  (right: -14% to -24%) ════════════
+  // spaced at top: 10%, 50%
+
+  .decoratorGreenStar4 {
+    // right-near upper
+    width: 24px;
+    top: 10%;
+    right: -22%;
+    opacity: 0.8;
+    animation: drift4 4s ease-in-out infinite 0.2s;
+  }
+
+  .decoratorBlueStar4 {
+    // right-near lower
+    width: 18px;
+    top: 50%;
+    right: -16%;
+    opacity: 0.75;
+    animation: drift1 2.9s ease-in-out infinite 0.8s;
+  }
+
+  // ═══ RIGHT FAR COLUMN  (right: -44% to -50%) ═════════════
+  // evenly spaced at top: 4%, 35%, 62%
+
   .decoratorSecure2 {
-    width: 52px;
-    top: 38%;
-    right: -32%;
-    transform: rotate(14deg);
+    // right-far top
+    width: 54px;
+    top: 4%;
+    right: -46%;
+    transform: rotate(12deg);
     opacity: 0.9;
     animation: drift5 3.5s ease-in-out infinite 1.2s;
   }
 
-  // GreenStar — far right column, spread top / mid / lower-mid
-  .decoratorGreenStar1 {
-    width: 28px;
-    top: -10%;
-    right: -10%;
+  .decoratorBlueCode2 {
+    // right-far mid
+    width: 54px;
+    top: 35%;
+    right: -48%;
+    transform: rotate(8deg);
+    opacity: 1;
+    animation: drift3 3.9s ease-in-out infinite;
+  }
+
+  .decoratorGreenType2 {
+    // right-far lower
+    width: 58px;
+    top: 62%;
+    right: -46%;
+    transform: rotate(11deg);
     opacity: 0.9;
+    animation: drift6 3.8s ease-in-out infinite 0.9s;
+  }
+
+  // ═══ BOTTOM ZONE  (top: 76% to 82%) ══════════════════════
+  // left side and right side, well separated
+
+  .decoratorGreenStar1 {
+    // bottom-left accent
+    width: 20px;
+    top: 80%;
+    left: -12%;
+    opacity: 0.75;
     animation: drift3 3.6s ease-in-out infinite 0.3s;
   }
 
-  .decoratorGreenStar2 {
-    width: 24px;
-    top: 22%;
-    right: -24%;
-    opacity: 0.8;
-    animation: drift2 2.7s ease-in-out infinite 1s;
-  }
-
   .decoratorGreenStar3 {
-    width: 30px;
-    top: 75%;
+    // bottom-right accent
+    width: 26px;
+    top: 78%;
     right: -18%;
     opacity: 0.85;
     animation: drift5 3.3s ease-in-out infinite 0.6s;
   }
-
-  .decoratorGreenStar4 {
-    width: 20px;
-    top: 10%;
-    left: -22%;
-    opacity: 0.75;
-    animation: drift4 4s ease-in-out infinite 0.2s;
-  }
 }
+
 
 // Decorator drift animations — each has a unique random movement path + blink
 @keyframes drift1 {
-  0%   { transform: translate(0, 0) rotate(-12deg);     opacity: 1; }
-  25%  { transform: translate(3px, -4px) rotate(-10deg); opacity: 0.55; }
-  50%  { transform: translate(-3px, 3px) rotate(-13deg); opacity: 1; }
-  75%  { transform: translate(4px, 2px) rotate(-11deg);  opacity: 0.6; }
-  100% { transform: translate(0, 0) rotate(-12deg);     opacity: 1; }
+  0% {
+    transform: translate(0, 0) rotate(-12deg);
+    opacity: 1;
+  }
+
+  25% {
+    transform: translate(3px, -4px) rotate(-10deg);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translate(-3px, 3px) rotate(-13deg);
+    opacity: 1;
+  }
+
+  75% {
+    transform: translate(4px, 2px) rotate(-11deg);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(-12deg);
+    opacity: 1;
+  }
 }
 
 @keyframes drift2 {
-  0%   { transform: translate(0, 0) rotate(10deg);     opacity: 1; }
-  30%  { transform: translate(-4px, -3px) rotate(12deg); opacity: 0.5; }
-  60%  { transform: translate(3px, 4px) rotate(9deg);   opacity: 1; }
-  100% { transform: translate(0, 0) rotate(10deg);     opacity: 1; }
+  0% {
+    transform: translate(0, 0) rotate(10deg);
+    opacity: 1;
+  }
+
+  30% {
+    transform: translate(-4px, -3px) rotate(12deg);
+    opacity: 0.5;
+  }
+
+  60% {
+    transform: translate(3px, 4px) rotate(9deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(10deg);
+    opacity: 1;
+  }
 }
 
 @keyframes drift3 {
-  0%   { transform: translate(0, 0) rotate(6deg);      opacity: 1; }
-  33%  { transform: translate(4px, -2px) rotate(8deg);  opacity: 0.6; }
-  66%  { transform: translate(-3px, 3px) rotate(5deg);  opacity: 0.9; }
-  100% { transform: translate(0, 0) rotate(6deg);      opacity: 1; }
+  0% {
+    transform: translate(0, 0) rotate(6deg);
+    opacity: 1;
+  }
+
+  33% {
+    transform: translate(4px, -2px) rotate(8deg);
+    opacity: 0.6;
+  }
+
+  66% {
+    transform: translate(-3px, 3px) rotate(5deg);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(6deg);
+    opacity: 1;
+  }
 }
 
 @keyframes drift4 {
-  0%   { transform: translate(0, 0);       opacity: 0.9; }
-  20%  { transform: translate(-3px, -4px); opacity: 0.5; }
-  50%  { transform: translate(4px, 2px);   opacity: 0.85; }
-  80%  { transform: translate(-2px, 3px);  opacity: 0.45; }
-  100% { transform: translate(0, 0);       opacity: 0.9; }
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.9;
+  }
+
+  20% {
+    transform: translate(-3px, -4px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate(4px, 2px);
+    opacity: 0.85;
+  }
+
+  80% {
+    transform: translate(-2px, 3px);
+    opacity: 0.45;
+  }
+
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.9;
+  }
 }
 
 @keyframes drift5 {
-  0%   { transform: translate(0, 0);      opacity: 0.8; }
-  35%  { transform: translate(3px, 4px);  opacity: 0.4; }
-  70%  { transform: translate(-4px, -2px);opacity: 0.75; }
-  100% { transform: translate(0, 0);      opacity: 0.8; }
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.8;
+  }
+
+  35% {
+    transform: translate(3px, 4px);
+    opacity: 0.4;
+  }
+
+  70% {
+    transform: translate(-4px, -2px);
+    opacity: 0.75;
+  }
+
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.8;
+  }
 }
 
 @keyframes drift6 {
-  0%   { transform: translate(0, 0);       opacity: 0.85; }
-  25%  { transform: translate(2px, -4px);  opacity: 0.45; }
-  50%  { transform: translate(-4px, 1px);  opacity: 0.8; }
-  75%  { transform: translate(3px, 3px);   opacity: 0.5; }
-  100% { transform: translate(0, 0);       opacity: 0.85; }
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.85;
+  }
+
+  25% {
+    transform: translate(2px, -4px);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translate(-4px, 1px);
+    opacity: 0.8;
+  }
+
+  75% {
+    transform: translate(3px, 3px);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.85;
+  }
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-14px);
   }
