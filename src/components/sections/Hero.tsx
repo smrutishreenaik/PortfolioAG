@@ -84,6 +84,14 @@ const Hero: React.FC = () => {
             <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar2}`} />
             <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar3}`} />
             <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar4}`} />
+
+            {/* GreenType decorators */}
+            <img src="/GreenType.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenType1}`} />
+            <img src="/GreenType.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenType2}`} />
+
+            {/* Secure decorators */}
+            <img src="/Secure.png" alt="" className={`${styles.decorator} ${styles.decoratorSecure1}`} />
+            <img src="/Secure.png" alt="" className={`${styles.decorator} ${styles.decoratorSecure2}`} />
           </div>
         </div>
       </div>

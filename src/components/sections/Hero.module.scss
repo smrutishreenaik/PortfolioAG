@@ -219,11 +219,11 @@
     pointer-events: none;
   }
 
-  // BlueCode — code snippet icons, slightly larger
+  // BlueCode — far left column, spread top / mid / lower-mid
   .decoratorBlueCode1 {
     width: 60px;
-    top: -5%;
-    left: -24%;
+    top: -8%;
+    left: -32%;
     transform: rotate(-12deg);
     opacity: 1;
     animation: drift1 3.4s ease-in-out infinite;
@@ -231,86 +231,124 @@
 
   .decoratorBlueCode2 {
     width: 54px;
-    bottom: 5%;
-    right: -22%;
-    transform: rotate(10deg);
-    opacity: 1;
-    animation: drift2 2.8s ease-in-out infinite;
-  }
-
-  .decoratorBlueCode3 {
-    width: 56px;
-    top: 50%;
-    left: -26%;
+    top: 38%;
+    left: -34%;
     transform: rotate(6deg);
     opacity: 1;
     animation: drift3 3.9s ease-in-out infinite;
   }
 
-  // BlueStar — scattered at corners and edges
+  .decoratorBlueCode3 {
+    width: 50px;
+    top: 72%;
+    left: -30%;
+    transform: rotate(-8deg);
+    opacity: 1;
+    animation: drift2 2.8s ease-in-out infinite 0.5s;
+  }
+
+  // BlueStar — small, fills in the gaps
   .decoratorBlueStar1 {
-    width: 28px;
-    top: -10%;
-    left: 20%;
+    width: 26px;
+    top: -14%;
+    left: 8%;
     opacity: 0.9;
     animation: drift4 2.5s ease-in-out infinite;
   }
 
   .decoratorBlueStar2 {
-    width: 22px;
-    top: 20%;
-    right: -16%;
+    width: 20px;
+    top: -14%;
+    right: 8%;
     opacity: 0.8;
-    animation: drift5 3.1s ease-in-out infinite;
+    animation: drift5 3.1s ease-in-out infinite 0.3s;
   }
 
   .decoratorBlueStar3 {
-    width: 32px;
-    bottom: -8%;
-    left: 15%;
+    width: 28px;
+    top: 55%;
+    right: -20%;
     opacity: 0.85;
     animation: drift6 4.2s ease-in-out infinite;
   }
 
   .decoratorBlueStar4 {
-    width: 20px;
-    top: 70%;
-    right: -12%;
+    width: 22px;
+    top: 20%;
+    left: -18%;
     opacity: 0.75;
-    animation: drift1 2.9s ease-in-out infinite 0.6s;
+    animation: drift1 2.9s ease-in-out infinite 0.8s;
   }
 
-  // GreenStar — scattered opposite to blue stars
+  // GreenType — top-right corner and bottom-left far out
+  .decoratorGreenType1 {
+    width: 62px;
+    top: 5%;
+    right: -34%;
+    transform: rotate(10deg);
+    opacity: 0.95;
+    animation: drift3 3.2s ease-in-out infinite 0.2s;
+  }
+
+  .decoratorGreenType2 {
+    width: 56px;
+    top: 72%;
+    right: -36%;
+    transform: rotate(-9deg);
+    opacity: 0.9;
+    animation: drift6 3.8s ease-in-out infinite 0.9s;
+  }
+
+  // Secure — top-center floating high and right-lower zone
+  .decoratorSecure1 {
+    width: 58px;
+    top: -18%;
+    left: 50%;
+    transform: rotate(-5deg);
+    opacity: 0.95;
+    animation: drift2 2.9s ease-in-out infinite 0.4s;
+  }
+
+  .decoratorSecure2 {
+    width: 52px;
+    top: 38%;
+    right: -32%;
+    transform: rotate(14deg);
+    opacity: 0.9;
+    animation: drift5 3.5s ease-in-out infinite 1.2s;
+  }
+
+  // GreenStar — far right column, spread top / mid / lower-mid
   .decoratorGreenStar1 {
-    width: 30px;
-    top: -8%;
-    right: 15%;
+    width: 28px;
+    top: -10%;
+    right: -10%;
     opacity: 0.9;
     animation: drift3 3.6s ease-in-out infinite 0.3s;
   }
 
   .decoratorGreenStar2 {
     width: 24px;
-    top: 30%;
-    left: -16%;
+    top: 22%;
+    right: -24%;
     opacity: 0.8;
-    animation: drift2 2.7s ease-in-out infinite 0.9s;
+    animation: drift2 2.7s ease-in-out infinite 1s;
   }
 
   .decoratorGreenStar3 {
-    width: 34px;
-    bottom: -6%;
-    right: 20%;
+    width: 30px;
+    top: 75%;
+    right: -18%;
     opacity: 0.85;
-    animation: drift5 3.3s ease-in-out infinite 0.5s;
+    animation: drift5 3.3s ease-in-out infinite 0.6s;
   }
 
   .decoratorGreenStar4 {
     width: 20px;
-    bottom: 35%;
-    right: -14%;
+    top: 10%;
+    left: -22%;
     opacity: 0.75;
-    animation: drift4 4s ease-in-out infinite 1s;
+    animation: drift4 4s ease-in-out infinite 0.2s;
   }
 }
 
