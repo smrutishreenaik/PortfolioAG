@@ -298,32 +298,41 @@
     animation: drift2 2.9s ease-in-out infinite 0.4s;
   }
 
+  // Bulb — anchored top-right corner of Hero.png
+  .decoratorBulb {
+    width: 64px;
+    top: -8%;
+    right: -6%;
+    transform: rotate(6deg);
+    opacity: 1;
+    animation: drift4 3.6s ease-in-out infinite 0.1s;
+    z-index: 2;
+  }
+
+  // Cluster around Bulb (top-right zone)
   .decoratorBlueStar2 {
-    // top-right accent
-    width: 20px;
-    top: -16%;
-    right: 8%;
+    // above-left of Bulb
+    width: 18px;
+    top: -20%;
+    right: 6%;
     opacity: 0.85;
     animation: drift5 3.1s ease-in-out infinite 0.6s;
   }
 
-  // ═══ RIGHT NEAR COLUMN  (right: -14% to -24%) ════════════
-  // spaced at top: 10%, 50%
-
   .decoratorGreenStar4 {
-    // right-near upper
-    width: 24px;
-    top: 10%;
+    // above-right of Bulb
+    width: 22px;
+    top: -18%;
     right: -22%;
     opacity: 0.8;
-    animation: drift4 4s ease-in-out infinite 0.2s;
+    animation: drift3 4s ease-in-out infinite 0.2s;
   }
 
   .decoratorBlueStar4 {
-    // right-near lower
-    width: 18px;
-    top: 50%;
-    right: -16%;
+    // right of Bulb
+    width: 16px;
+    top: 2%;
+    right: -20%;
     opacity: 0.75;
     animation: drift1 2.9s ease-in-out infinite 0.8s;
   }
@@ -332,10 +341,10 @@
   // evenly spaced at top: 4%, 35%, 62%
 
   .decoratorSecure2 {
-    // right-far top
-    width: 54px;
-    top: 4%;
-    right: -46%;
+    // below-right of Bulb
+    width: 50px;
+    top: 10%;
+    right: -36%;
     transform: rotate(12deg);
     opacity: 0.9;
     animation: drift5 3.5s ease-in-out infinite 1.2s;

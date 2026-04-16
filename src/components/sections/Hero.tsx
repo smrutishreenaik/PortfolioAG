@@ -92,6 +92,9 @@ const Hero: React.FC = () => {
             {/* Secure decorators */}
             <img src="/Secure.png" alt="" className={`${styles.decorator} ${styles.decoratorSecure1}`} />
             <img src="/Secure.png" alt="" className={`${styles.decorator} ${styles.decoratorSecure2}`} />
+
+            {/* Bulb decorator */}
+            <img src="/Bulb.png" alt="" className={`${styles.decorator} ${styles.decoratorBulb}`} />
           </div>
         </div>
       </div>
