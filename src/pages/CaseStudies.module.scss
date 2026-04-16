@@ -1,35 +1,293 @@
 @import "../styles/variables";
 
-.pageContainer {
-  padding-top: 100px;
-  padding-bottom: 5rem;
+// ── Page shell ────────────────────────────────────────────────
+.pageWrapper {
   min-height: 100vh;
+  padding-top: 90px;
+  background: $bg-color;
+  display: flex;
+  flex-direction: column;
 }
 
-.studyCard {
-  @include glassmorphism;
-  height: 100%;
-  border-radius: 1rem;
-  overflow: hidden;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+.pageHeader {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 1.5rem;
+  border-bottom: 1px solid $border;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-    border-color: rgba($secondary-color, 0.4);
+.pageTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $black;
+  margin: 0 0 0.4rem;
+}
+
+.pageSubtitle {
+  font-size: 0.95rem;
+  color: $gray;
+  margin: 0;
+}
+
+// ── States ────────────────────────────────────────────────────
+.loadingState,
+.errorState,
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex: 1;
+  padding: 4rem 2rem;
+  color: $gray;
+  font-size: 1rem;
+}
+
+.errorState {
+  color: #c0392b;
+}
+
+// ── Split layout ──────────────────────────────────────────────
+.splitLayout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 0 4rem;
+  gap: 0;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 }
 
-.cardImg {
-  height: 250px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+// ── Sidebar ───────────────────────────────────────────────────
+.sidebar {
+  border-right: 1px solid $border;
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 90px;
+  height: calc(100vh - 90px);
+  overflow-y: auto;
+
+  // subtle scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: $border transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $border;
+    border-radius: 4px;
+  }
 }
 
-.cardBody {
-  padding: 2rem;
+.sidebarLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $gray;
+  padding: 0 1.5rem 1rem;
+  margin: 0;
+}
+
+.studyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.studyItem {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+
+  &:hover {
+    background: $bg-surface-low;
+  }
+}
+
+.studyItemActive {
+  background: $green-light;
+  border-left-color: $green;
+
+  .studyItemTitle {
+    color: $green;
+    font-weight: 700;
+  }
+
+  .studyItemArrow {
+    color: $green;
+    opacity: 1;
+  }
+}
+
+.studyThumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid $border;
+}
+
+.studyItemTitle {
+  flex: 1;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: $black;
+  line-height: 1.4;
+  transition: color 0.18s ease;
+}
+
+.studyItemArrow {
+  font-size: 1.2rem;
+  color: $gray;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  flex-shrink: 0;
+}
+
+.studyItem:hover .studyItemArrow {
+  opacity: 1;
+}
+
+// ── Content panel ─────────────────────────────────────────────
+.contentPanel {
+  padding: 2.5rem 3rem;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.contentPanelVisible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contentHero {
+  width: 100%;
+  max-height: 340px;
+  overflow: hidden;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid $border;
+}
+
+.contentHeroImage {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+}
+
+.contentBody {
+  max-width: 720px;
+}
+
+.contentTag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: $green;
+  background: $green-light;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+
+.contentTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $black;
+  margin: 0 0 2rem;
+  line-height: 1.15;
+}
+
+.contentRich {
+  h2,
+  h3,
+  h4 {
+    font-family: $font-family-heading;
+    color: $black;
+    margin: 2.5rem 0 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    color: $green;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  p,
+  li {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 1.25rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+    border: 1px solid $border;
+  }
+
+  strong {
+    color: $black;
+  }
+
+  a {
+    color: $green;
+    text-decoration: underline;
+
+    &:hover {
+      color: darken($green, 10%);
+    }
+  }
 }

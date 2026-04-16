@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 import styles from "./CaseStudies.module.scss";
 import { CaseStudy } from "../types";
 import { useCollection } from "../hooks/useCollection";
@@ -12,63 +11,110 @@ const CaseStudies: React.FC = () => {
     error,
   } = useCollection<CaseStudy>("caseStudies");
 
+  const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
+  const [contentVisible, setContentVisible] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    if (caseStudies.length > 0 && !selectedStudy) {
+      setSelectedStudy(caseStudies[0]);
+      setContentVisible(true);
+    }
+  }, [caseStudies]);
+
+  const handleSelectStudy = (study: CaseStudy) => {
+    if (study.id === selectedStudy?.id) return;
+    setContentVisible(false);
+    setTimeout(() => {
+      setSelectedStudy(study);
+      setContentVisible(true);
+    }, 200);
+  };
+
   return (
-    <Container className={styles.pageContainer}>
-      <div className="text-center mb-5">
-        <h1 className="display-4 fw-bold">All Case Studies</h1>
-        <p className="lead text-muted">
-          In-depth look into my design and development processes.
+    <div className={styles.pageWrapper}>
+      {/* Page header */}
+      <div className={styles.pageHeader}>
+        <h1 className={styles.pageTitle}>Case Studies</h1>
+        <p className={styles.pageSubtitle}>
+          In-depth look at my design and development processes.
         </p>
       </div>
 
       {loading ? (
-        <div className="text-center py-5">
-          <Spinner animation="border" variant="primary" />
+        <div className={styles.loadingState}>
+          <Spinner animation="border" />
+          <span>Loading case studies…</span>
         </div>
       ) : error ? (
-        <p className="text-center text-danger">
-          Failed to load case studies: {error}
-        </p>
+        <div className={styles.errorState}>Failed to load case studies: {error}</div>
+      ) : caseStudies.length === 0 ? (
+        <div className={styles.emptyState}>No case studies found.</div>
       ) : (
-        <Row className="g-5">
-          {caseStudies.map((study) => (
-            <Col lg={4} md={6} key={study.id}>
-              <Link
-                to={`/case-studies/${study.id}`}
-                className="text-decoration-none"
-              >
-                <Card className={styles.studyCard}>
-                  {study.imageUrl && (
-                    <Card.Img
-                      variant="top"
-                      src={study.imageUrl}
-                      className={styles.cardImg}
+        <div className={styles.splitLayout}>
+          {/* ── Left sidebar ── */}
+          <aside className={styles.sidebar}>
+            <p className={styles.sidebarLabel}>
+              {caseStudies.length} case {caseStudies.length === 1 ? "study" : "studies"}
+            </p>
+            <ul className={styles.studyList}>
+              {caseStudies.map((study) => (
+                <li key={study.id}>
+                  <button
+                    className={`${styles.studyItem} ${
+                      selectedStudy?.id === study.id ? styles.studyItemActive : ""
+                    }`}
+                    onClick={() => handleSelectStudy(study)}
+                  >
+                    {study.imageUrl && (
+                      <img
+                        src={study.imageUrl}
+                        alt=""
+                        className={styles.studyThumb}
+                      />
+                    )}
+                    <span className={styles.studyItemTitle}>{study.title}</span>
+                    <span className={styles.studyItemArrow}>›</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </aside>
+
+          {/* ── Right content panel ── */}
+          <main
+            className={`${styles.contentPanel} ${
+              contentVisible ? styles.contentPanelVisible : ""
+            }`}
+          >
+            {selectedStudy && (
+              <>
+                {selectedStudy.imageUrl && (
+                  <div className={styles.contentHero}>
+                    <img
+                      src={selectedStudy.imageUrl}
+                      alt={selectedStudy.title}
+                      className={styles.contentHeroImage}
                     />
-                  )}
-                  <Card.Body className={styles.cardBody}>
-                    <Card.Title className="h4 fw-bold text-white mb-3">
-                      {study.title}
-                    </Card.Title>
-                    <Card.Text className="text-muted">
-                      {study.content && study.content.length > 150
-                        ? study.content.substring(0, 150) + "..."
-                        : study.content}
-                    </Card.Text>
-                    <div className="mt-3 text-secondary fw-bold">
-                      Read Full Case Study &rarr;
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Link>
-            </Col>
-          ))}
-        </Row>
+                  </div>
+                )}
+                <div className={styles.contentBody}>
+                  <span className={styles.contentTag}>Case Study</span>
+                  <h2 className={styles.contentTitle}>{selectedStudy.title}</h2>
+                  <div
+                    className={styles.contentRich}
+                    dangerouslySetInnerHTML={{ __html: selectedStudy.content }}
+                  />
+                </div>
+              </>
+            )}
+          </main>
+        </div>
       )}
-    </Container>
+    </div>
   );
 };
 
