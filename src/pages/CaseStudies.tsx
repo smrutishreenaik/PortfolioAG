@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import styles from "./CaseStudies.module.scss";
 import { CaseStudy } from "../types";
@@ -11,6 +12,9 @@ const CaseStudies: React.FC = () => {
     error,
   } = useCollection<CaseStudy>("caseStudies");
 
+  const [searchParams] = useSearchParams();
+  const preselectedId = searchParams.get("id");
+
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
   const [contentVisible, setContentVisible] = useState(false);
 
@@ -19,11 +23,17 @@ const CaseStudies: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (caseStudies.length > 0 && !selectedStudy) {
-      setSelectedStudy(caseStudies[0]);
+    if (caseStudies.length === 0) return;
+
+    const targetStudy = preselectedId
+      ? caseStudies.find((s) => s.id === preselectedId) ?? caseStudies[0]
+      : caseStudies[0];
+
+    if (!selectedStudy) {
+      setSelectedStudy(targetStudy);
       setContentVisible(true);
     }
-  }, [caseStudies]);
+  }, [caseStudies, preselectedId]);
 
   const handleSelectStudy = (study: CaseStudy) => {
     if (study.id === selectedStudy?.id) return;
@@ -36,7 +46,6 @@ const CaseStudies: React.FC = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Page header */}
       <div className={styles.pageHeader}>
         <h1 className={styles.pageTitle}>Case Studies</h1>
         <p className={styles.pageSubtitle}>

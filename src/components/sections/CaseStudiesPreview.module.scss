@@ -1,0 +1,255 @@
+@import "../../styles/variables";
+
+.section {
+  background: $white;
+  border-bottom: 1px solid $border;
+  position: relative;
+  overflow: hidden;
+}
+
+.backgroundOrb {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  left: -200px;
+  top: -150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba($green, 0.07) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.sectionWrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 6vw;
+  position: relative;
+}
+
+.headerBlock {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $green;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, $green, #3bc4a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  justify-content: center;
+
+  &::before,
+  &::after {
+    content: "";
+    width: 20px;
+    height: 1.5px;
+    background: $green;
+    display: inline-block;
+  }
+}
+
+.sectionTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  color: $black;
+
+  span {
+    color: $green;
+  }
+}
+
+.sectionSub {
+  font-size: 14px;
+  color: $gray;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: $bg-color;
+  border: 1px solid $border;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.3s $ease-cinematic,
+    box-shadow 0.3s $ease-cinematic,
+    border-color 0.3s ease;
+  outline: none;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+    border-color: rgba($green, 0.35);
+
+    .cardImage {
+      transform: scale(1.04);
+    }
+
+    .readMore {
+      color: $green;
+      gap: 8px;
+    }
+  }
+}
+
+.cardImageWrap {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: $light;
+  border-bottom: 1px solid $border;
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s $ease-cinematic;
+}
+
+.cardImagePlaceholder {
+  width: 100%;
+  height: 200px;
+  background: $green-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid $border;
+}
+
+.cardBody {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.cardTag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $green;
+  background: $green-light;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-bottom: 0.25rem;
+}
+
+.cardTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
+  font-weight: 700;
+  color: $black;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.cardExcerpt {
+  font-size: 13px;
+  color: $gray;
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+.cardFooter {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid $border;
+}
+
+.readMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $gray;
+  transition:
+    color 0.25s ease,
+    gap 0.25s ease;
+}
+
+.skeletonCard {
+  height: 340px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, $light 25%, $border 50%, $light 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.viewAllWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.75rem 2rem;
+  border: 1.5px solid $black;
+  border-radius: 100px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: $black;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    gap 0.25s ease;
+
+  &:hover {
+    background: $black;
+    color: $white;
+    gap: 12px;
+  }
+}
