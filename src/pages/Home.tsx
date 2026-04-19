@@ -23,8 +23,8 @@ const Home: React.FC = () => {
       <PainPoints />
       <About />
       <Skills />
-      <Experience />
       <Projects />
+      <Experience />
       <CaseStudiesOverview />
       <Contact />
       <Footer />
