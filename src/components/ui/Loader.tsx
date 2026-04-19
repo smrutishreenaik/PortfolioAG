@@ -22,7 +22,7 @@ const Loader: React.FC = () => {
     }, 2200);
 
     return () => clearTimeout(timer1);
-  }, []);
+  }, [alreadyShown]);
 
   if (!loading) return null;
 

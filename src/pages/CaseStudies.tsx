@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import styles from "./CaseStudies.module.scss";
@@ -17,22 +17,27 @@ const CaseStudies: React.FC = () => {
 
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
   const [contentVisible, setContentVisible] = useState(false);
+  const hasInitialized = useRef(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    if (caseStudies.length === 0) return;
+    if (caseStudies.length === 0 || hasInitialized.current) return;
 
     const targetStudy = preselectedId
-      ? caseStudies.find((s) => s.id === preselectedId) ?? caseStudies[0]
+      ? (caseStudies.find((s) => s.id === preselectedId) ?? caseStudies[0])
       : caseStudies[0];
 
-    if (!selectedStudy) {
+    hasInitialized.current = true;
+
+    const timer = setTimeout(() => {
       setSelectedStudy(targetStudy);
       setContentVisible(true);
-    }
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [caseStudies, preselectedId]);
 
   const handleSelectStudy = (study: CaseStudy) => {
@@ -59,7 +64,9 @@ const CaseStudies: React.FC = () => {
           <span>Loading case studies…</span>
         </div>
       ) : error ? (
-        <div className={styles.errorState}>Failed to load case studies: {error}</div>
+        <div className={styles.errorState}>
+          Failed to load case studies: {error}
+        </div>
       ) : caseStudies.length === 0 ? (
         <div className={styles.emptyState}>No case studies found.</div>
       ) : (
@@ -67,14 +74,17 @@ const CaseStudies: React.FC = () => {
           {/* ── Left sidebar ── */}
           <aside className={styles.sidebar}>
             <p className={styles.sidebarLabel}>
-              {caseStudies.length} case {caseStudies.length === 1 ? "study" : "studies"}
+              {caseStudies.length} case{" "}
+              {caseStudies.length === 1 ? "study" : "studies"}
             </p>
             <ul className={styles.studyList}>
               {caseStudies.map((study) => (
                 <li key={study.id}>
                   <button
                     className={`${styles.studyItem} ${
-                      selectedStudy?.id === study.id ? styles.studyItemActive : ""
+                      selectedStudy?.id === study.id
+                        ? styles.studyItemActive
+                        : ""
                     }`}
                     onClick={() => handleSelectStudy(study)}
                   >

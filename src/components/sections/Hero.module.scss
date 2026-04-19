@@ -62,12 +62,14 @@
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg,
-      $black 0%,
-      $black 40%,
-      $green 60%,
-      #6b9bff 80%,
-      $black 100%);
+  background: linear-gradient(
+    135deg,
+    $black 0%,
+    $black 40%,
+    $green 60%,
+    #6b9bff 80%,
+    $black 100%
+  );
   background-size: 300% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -97,7 +99,6 @@
 }
 
 @keyframes blink {
-
   0%,
   100% {
     opacity: 1;
@@ -109,7 +110,6 @@
 }
 
 @keyframes titleShimmer {
-
   0%,
   100% {
     background-position: 0% 0%;
@@ -154,9 +154,11 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
-        rgba(255, 255, 255, 0.18) 0%,
-        transparent 70%);
+    background: radial-gradient(
+      circle at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.18) 0%,
+      transparent 70%
+    );
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
@@ -392,7 +394,6 @@
   }
 }
 
-
 // Decorator drift animations — each has a unique random movement path + blink
 @keyframes drift1 {
   0% {
@@ -542,7 +543,6 @@
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0);

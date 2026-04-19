@@ -66,35 +66,103 @@ const Hero: React.FC = () => {
         </div>
         <div className={styles.heroRight}>
           <div className={styles.heroImageWrapper}>
-            <img src="/Hero.png" alt="Hero Illustration" className={styles.heroImage} />
+            <img
+              src="/Hero.png"
+              alt="Hero Illustration"
+              className={styles.heroImage}
+            />
 
             {/* BlueCode decorators */}
-            <img src="/BlueCode.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueCode1}`} />
-            <img src="/BlueCode.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueCode2}`} />
-            <img src="/BlueCode.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueCode3}`} />
+            <img
+              src="/BlueCode.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueCode1}`}
+            />
+            <img
+              src="/BlueCode.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueCode2}`}
+            />
+            <img
+              src="/BlueCode.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueCode3}`}
+            />
 
             {/* BlueStar decorators */}
-            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar1}`} />
-            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar2}`} />
-            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar3}`} />
-            <img src="/BlueStar.png" alt="" className={`${styles.decorator} ${styles.decoratorBlueStar4}`} />
+            <img
+              src="/BlueStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueStar1}`}
+            />
+            <img
+              src="/BlueStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueStar2}`}
+            />
+            <img
+              src="/BlueStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueStar3}`}
+            />
+            <img
+              src="/BlueStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBlueStar4}`}
+            />
 
             {/* GreenStar decorators */}
-            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar1}`} />
-            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar2}`} />
-            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar3}`} />
-            <img src="/GreenStar.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenStar4}`} />
+            <img
+              src="/GreenStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorGreenStar1}`}
+            />
+            <img
+              src="/GreenStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorGreenStar2}`}
+            />
+            <img
+              src="/GreenStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorGreenStar3}`}
+            />
+            <img
+              src="/GreenStar.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorGreenStar4}`}
+            />
 
             {/* GreenType decorators */}
-            <img src="/GreenType.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenType1}`} />
-            <img src="/GreenType.png" alt="" className={`${styles.decorator} ${styles.decoratorGreenType2}`} />
+            <img
+              src="/GreenType.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorGreenType1}`}
+            />
+            <img
+              src="/GreenType.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorGreenType2}`}
+            />
 
             {/* Secure decorators */}
-            <img src="/Secure.png" alt="" className={`${styles.decorator} ${styles.decoratorSecure1}`} />
-            <img src="/Secure.png" alt="" className={`${styles.decorator} ${styles.decoratorSecure2}`} />
+            <img
+              src="/Secure.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorSecure1}`}
+            />
+            <img
+              src="/Secure.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorSecure2}`}
+            />
 
             {/* Bulb decorator */}
-            <img src="/Bulb.png" alt="" className={`${styles.decorator} ${styles.decoratorBulb}`} />
+            <img
+              src="/Bulb.png"
+              alt=""
+              className={`${styles.decorator} ${styles.decoratorBulb}`}
+            />
           </div>
         </div>
       </div>

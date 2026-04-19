@@ -17,7 +17,7 @@ A visually premium portfolio website built with React, TypeScript, Vite, and Fir
 ```
 src/
 ├── components/
-│   ├── sections/        # Public page sections (Hero, About, Projects, etc.)
+│   ├── sections/        # Public page sections (Hero, About, Projects, CaseStudiesPreview, Experience, etc.)
 │   ├── Navbar.tsx
 │   ├── ToastContainer.tsx
 │   └── ProtectedRoute.tsx
@@ -48,9 +48,9 @@ src/
 - **Stats** — High-performance interactive counting animation tied dynamically to viewport intersection
 - **About** — Personal bio, skills (grouped by category), resume download, social links (GitHub, LinkedIn, LeetCode)
 - **Projects** — Dynamically fetched from Firestore; includes title, description, features, tech stack, GitHub & live links, cover image
-- **Case Studies** — Clickable cards linking to dedicated detail pages with full HTML content
+- **Case Studies Preview** — Clickable cards on the homepage; clicking navigates to `/case-studies?id=<id>` and auto-selects the matching study
 - **Experience** — Timeline with company, role, time period, achievements
-- **Testimonials** — Cards with avatar, name, quote, position and recommended date
+- **Testimonials** — Cards with avatar, name, quote, position, company and LinkedIn link (fetched from Firestore)
 - **Contact** — Form powered by EmailJS
 
 ### Admin Panel (`/admin`) — Protected Route
