@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Loader.module.scss";
 
+let hasLoadedOnce = false;
+
 const Loader: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const alreadyShown = hasLoadedOnce;
+  const [loading, setLoading] = useState(!alreadyShown);
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    // Hide loader after 2.2 seconds as in reference.html
+    if (alreadyShown) return;
+
     const timer1 = setTimeout(() => {
       setHidden(true);
       document.body.classList.remove("loading");
+      hasLoadedOnce = true;
       const timer2 = setTimeout(() => {
         setLoading(false);
       }, 700);

@@ -1,14 +1,35 @@
 @import "../../styles/variables";
 
 .casestudySection {
-  background: white;
+  background: $bg-color;
   border-bottom: 1px solid $border;
+  position: relative;
+  overflow: hidden;
+}
+
+.floatingOrb {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  right: -200px;
+  top: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba($green, 0.08) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  will-change: transform;
 }
 
 .sectionWrap {
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 6vw;
+  position: relative;
+}
+
+.headerBlock {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
 .sectionEyebrow {
@@ -25,12 +46,22 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  justify-content: center;
 
   &::before {
     content: "";
     width: 20px;
     height: 1.5px;
     background: $green;
+    display: inline-block;
+  }
+
+  &::after {
+    content: "";
+    width: 20px;
+    height: 1.5px;
+    background: $green;
+    display: inline-block;
   }
 }
 
@@ -40,126 +71,204 @@
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
+  color: $black;
+
+  span {
+    color: $green;
+  }
 }
 
 .sectionSub {
   font-size: 14px;
   color: $gray;
   max-width: 500px;
+  margin: 0 auto;
 }
 
-.csGrid {
+.testimonialGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 4rem;
+  gap: 1.75rem;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
 }
 
-.csCard {
+.testimonialCard {
   background: $white;
   border: 1px solid $border;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
   position: relative;
-  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+  cursor: default;
 
   &::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    right: 0;
     height: 3px;
-    background: $border;
-    transition: background 0.3s;
+    background: linear-gradient(90deg, $green, #3bc4a0);
+    border-radius: 20px 20px 0 0;
+    transform: scaleX(0);
+    transition: transform 0.35s $ease-cinematic;
+    transform-origin: left;
   }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.09);
+    border-color: rgba($green, 0.3);
 
     &::before {
-      background: $green;
+      transform: scaleX(1);
     }
   }
 }
 
-.csPhase {
-  font-size: 11px;
-  font-weight: 700;
+.quoteIcon {
+  font-size: 3rem;
+  line-height: 1;
   color: $green;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
+  font-family: Georgia, serif;
+  display: block;
+  margin-bottom: 0.75rem;
+  opacity: 0.4;
 }
 
-.csCardTitle {
-  font-size: 20px;
-  font-weight: 700;
-  color: $black;
-  margin-bottom: 1rem;
-}
-
-.csCardText {
+.quoteText {
   font-size: 14px;
   color: $gray;
-  line-height: 1.6;
+  line-height: 1.75;
+  font-style: italic;
+  flex: 1;
+  margin-bottom: 1.5rem;
 }
 
-.csMetric {
-  font-size: 36px;
-  font-family: $font-family-heading;
+.divider {
+  height: 1px;
+  background: $border;
+  margin-bottom: 1.25rem;
+}
+
+.authorRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.authorAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba($green, 0.25);
+  flex-shrink: 0;
+}
+
+.authorAvatarPlaceholder {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $green, #3bc4a0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
   font-weight: 700;
-  color: $green;
-  margin-top: 1.5rem;
+  color: #fff;
+  flex-shrink: 0;
 }
 
-.csMetricLabel {
+.authorInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.authorName {
+  font-family: $font-family-base;
+  font-size: 14px;
+  font-weight: 700;
+  color: $black;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.authorRole {
   font-size: 12px;
-  color: $gray;
+  color: $green;
   font-weight: 500;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.checklist {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  text-align: left;
-  max-width: 800px;
-  margin: 0 auto;
+.linkedinLink {
+  color: $gray;
+  flex-shrink: 0;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
 
-  @media (max-width: 600px) {
+  &:hover {
+    color: #0a66c2;
+  }
+}
+
+.loadingState {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
 }
 
-.checkItem {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 15px;
-  color: $black;
-  font-weight: 500;
-  padding: 12px;
-  background: $light;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  transition: all 0.3s;
+.skeletonCard {
+  height: 240px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, $light 25%, $border 50%, $light 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
 
-  svg {
-    flex-shrink: 0;
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
   }
+  100% {
+    background-position: -200% 0;
+  }
+}
 
-  &:hover {
-    background: $white;
-    border-color: $green;
-    transform: translateX(4px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-  }
+.errorText {
+  text-align: center;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+.emptyText {
+  text-align: center;
+  color: $gray;
+  font-size: 14px;
 }
