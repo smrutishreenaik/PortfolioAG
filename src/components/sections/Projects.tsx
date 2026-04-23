@@ -6,10 +6,28 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import styles from "./Projects.module.scss";
+import useProjectModal from "../../hooks/useProjectModal";
+import useProjects from "../../hooks/useProjects";
+import ProjectModal from "../ui/ProjectModal";
+
+const GitHubIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+  </svg>
+);
 
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeDot, setActiveDot] = useState(0);
+  const { activeProject, openModal, closeModal } = useProjectModal();
+  const { projects } = useProjects();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -33,7 +51,8 @@ const Projects: React.FC = () => {
   });
 
   return (
-    <section id="projects" className={styles.projectsSection} ref={sectionRef}>
+    <>
+      <section id="projects" className={styles.projectsSection} ref={sectionRef}>
       <div className={styles.stickyOuter}>
         <div className={styles.headerWrap}>
           <div className={styles.sectionEyebrow}>Projects</div>
@@ -64,7 +83,14 @@ const Projects: React.FC = () => {
         <div className={styles.trackWindow}>
           <motion.div className={styles.trackWrap} style={{ x: trackX }}>
             {/* Card 1 */}
-            <div className={styles.projCard}>
+            <div
+              className={styles.projCard}
+              onClick={() => openModal(projects[0])}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openModal(projects[0])}
+              aria-label={`View ${projects[0]?.title ?? "project"} details`}
+            >
               <div className={styles.projImg}>
                 <svg width="200" height="150" viewBox="0 0 200 150" fill="none">
                   {/* BG */}
@@ -331,28 +357,36 @@ const Projects: React.FC = () => {
                 </svg>
               </div>
               <div className={styles.projBody}>
-                <div className={styles.projType}>AI · GPT · C#</div>
-                <div className={styles.projTitle}>
-                  AI Project Staffing Recommender
-                </div>
+                <div className={styles.projType}>{projects[0]?.type}</div>
+                <div className={styles.projTitle}>{projects[0]?.title}</div>
                 <div className={styles.projLabel}>What changed</div>
-                <div className={styles.projText}>
-                  RFP documents requiring senior manual analysis were fed into a
-                  GPT pipeline that extracts role requirements and matches them
-                  to an internal skills database.
-                </div>
-                <div className={`${styles.projLabel} ${styles.green}`}>
-                  Outcome
-                </div>
-                <div className={styles.projText}>
-                  ~80% reduction in staffing decision time. Junior PMs now make
-                  confident decisions independently.
-                </div>
+                <div className={styles.projText}>{projects[0]?.description}</div>
+                <div className={`${styles.projLabel} ${styles.green}`}>Outcome</div>
+                <div className={styles.projText}>{projects[0]?.outcome}</div>
+                {projects[0]?.githubLink && (
+                  <a
+                    href={projects[0].githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.cardGithubLink}
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label="View source on GitHub"
+                  >
+                    <GitHubIcon /> GitHub
+                  </a>
+                )}
               </div>
             </div>
 
             {/* Card 2 */}
-            <div className={styles.projCard}>
+            <div
+              className={styles.projCard}
+              onClick={() => openModal(projects[1])}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openModal(projects[1])}
+              aria-label={`View ${projects[1]?.title ?? "project"} details`}
+            >
               <div className={styles.projImg}>
                 <svg width="200" height="150" viewBox="0 0 200 150" fill="none">
                   <rect width="200" height="150" fill="#f0f9f4" />
@@ -458,30 +492,36 @@ const Projects: React.FC = () => {
                 </svg>
               </div>
               <div className={styles.projBody}>
-                <div className={styles.projType}>
-                  Security · Blazor · .NET Core
-                </div>
-                <div className={styles.projTitle}>
-                  Infrastructure Management Platform
-                </div>
+                <div className={styles.projType}>{projects[1]?.type}</div>
+                <div className={styles.projTitle}>{projects[1]?.title}</div>
                 <div className={styles.projLabel}>What changed</div>
-                <div className={styles.projText}>
-                  Authentication rebuilt with JWT tokens and Active Directory
-                  integration, with hardened role-based access across the entire
-                  Blazor web application.
-                </div>
-                <div className={`${styles.projLabel} ${styles.green}`}>
-                  Outcome
-                </div>
-                <div className={styles.projText}>
-                  Security vulnerabilities reduced by 99%. Manual provisioning
-                  effort down by 70%.
-                </div>
+                <div className={styles.projText}>{projects[1]?.description}</div>
+                <div className={`${styles.projLabel} ${styles.green}`}>Outcome</div>
+                <div className={styles.projText}>{projects[1]?.outcome}</div>
+                {projects[1]?.githubLink && (
+                  <a
+                    href={projects[1].githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.cardGithubLink}
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label="View source on GitHub"
+                  >
+                    <GitHubIcon /> GitHub
+                  </a>
+                )}
               </div>
             </div>
 
             {/* Card 3 */}
-            <div className={styles.projCard}>
+            <div
+              className={styles.projCard}
+              onClick={() => openModal(projects[2])}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openModal(projects[2])}
+              aria-label={`View ${projects[2]?.title ?? "project"} details`}
+            >
               <div className={styles.projImg}>
                 <svg width="200" height="150" viewBox="0 0 200 150" fill="none">
                   <rect width="200" height="150" fill="#fff7ed" />
@@ -649,28 +689,36 @@ const Projects: React.FC = () => {
                 </svg>
               </div>
               <div className={styles.projBody}>
-                <div className={styles.projType}>WPF · SQL · ETL</div>
-                <div className={styles.projTitle}>
-                  Database Conversion Engine
-                </div>
+                <div className={styles.projType}>{projects[2]?.type}</div>
+                <div className={styles.projTitle}>{projects[2]?.title}</div>
                 <div className={styles.projLabel}>What changed</div>
-                <div className={styles.projText}>
-                  Complex schema conversions previously done by hand were
-                  automated with WPF tooling, ETL pipelines, and data validation
-                  workflows.
-                </div>
-                <div className={`${styles.projLabel} ${styles.green}`}>
-                  Outcome
-                </div>
-                <div className={styles.projText}>
-                  600+ legacy code issues resolved. Repeatable, error-free
-                  migrations with no manual intervention.
-                </div>
+                <div className={styles.projText}>{projects[2]?.description}</div>
+                <div className={`${styles.projLabel} ${styles.green}`}>Outcome</div>
+                <div className={styles.projText}>{projects[2]?.outcome}</div>
+                {projects[2]?.githubLink && (
+                  <a
+                    href={projects[2].githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.cardGithubLink}
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label="View source on GitHub"
+                  >
+                    <GitHubIcon /> GitHub
+                  </a>
+                )}
               </div>
             </div>
 
             {/* Card 4 */}
-            <div className={styles.projCard}>
+            <div
+              className={styles.projCard}
+              onClick={() => openModal(projects[3])}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && openModal(projects[3])}
+              aria-label={`View ${projects[3]?.title ?? "project"} details`}
+            >
               <div className={styles.projImg}>
                 <svg width="200" height="150" viewBox="0 0 200 150" fill="none">
                   <rect width="200" height="150" fill="#f0f4ff" />
@@ -924,31 +972,33 @@ const Projects: React.FC = () => {
                 </svg>
               </div>
               <div className={styles.projBody}>
-                <div className={styles.projType}>
-                  .NET Core · React · Self-Service
-                </div>
-                <div className={styles.projTitle}>
-                  Self-Service Web Platform
-                </div>
+                <div className={styles.projType}>{projects[3]?.type}</div>
+                <div className={styles.projTitle}>{projects[3]?.title}</div>
                 <div className={styles.projLabel}>What changed</div>
-                <div className={styles.projText}>
-                  Full-featured self-service platform with 20+ UI features and
-                  RESTful APIs built with .NET Core and React.js at Mindfire
-                  Solutions.
-                </div>
-                <div className={`${styles.projLabel} ${styles.green}`}>
-                  Outcome
-                </div>
-                <div className={styles.projText}>
-                  10% faster releases, 10% more test coverage, 15% fewer
-                  post-deployment bugs.
-                </div>
+                <div className={styles.projText}>{projects[3]?.description}</div>
+                <div className={`${styles.projLabel} ${styles.green}`}>Outcome</div>
+                <div className={styles.projText}>{projects[3]?.outcome}</div>
+                {projects[3]?.githubLink && (
+                  <a
+                    href={projects[3].githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.cardGithubLink}
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label="View source on GitHub"
+                  >
+                    <GitHubIcon /> GitHub
+                  </a>
+                )}
               </div>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
+
+      <ProjectModal project={activeProject} onClose={closeModal} />
+    </>
   );
 };
 
