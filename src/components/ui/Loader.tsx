@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Loader.module.scss";
 
-let hasLoadedOnce = false;
+const SESSION_KEY = "portfolio_loader_shown";
 
 const Loader: React.FC = () => {
-  const alreadyShown = hasLoadedOnce;
+  const alreadyShown = sessionStorage.getItem(SESSION_KEY) === "true";
   const [loading, setLoading] = useState(!alreadyShown);
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     if (alreadyShown) return;
 
+    sessionStorage.setItem(SESSION_KEY, "true");
+
     const timer1 = setTimeout(() => {
       setHidden(true);
       document.body.classList.remove("loading");
-      hasLoadedOnce = true;
       const timer2 = setTimeout(() => {
         setLoading(false);
       }, 700);
