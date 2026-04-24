@@ -53,9 +53,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [project]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {

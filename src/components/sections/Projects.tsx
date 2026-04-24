@@ -997,7 +997,7 @@ const Projects: React.FC = () => {
       </div>
     </section>
 
-      <ProjectModal project={activeProject} onClose={closeModal} />
+      <ProjectModal key={activeProject?.title ?? ""} project={activeProject} onClose={closeModal} />
     </>
   );
 };
