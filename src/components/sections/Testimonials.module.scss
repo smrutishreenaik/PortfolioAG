@@ -2,8 +2,9 @@
 
 .testimonialsSection {
   position: relative;
-  padding: 10rem 0 2rem 0;
+  padding: 10rem 0 8rem;
   background-color: $bg-color;
+  overflow: hidden;
 }
 
 .backgroundOrb {
@@ -16,7 +17,7 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba($secondary-color, 0.08) 0%,
+    rgba($primary-color, 0.07) 0%,
     transparent 70%
   );
   filter: blur(100px);
@@ -24,73 +25,94 @@
   will-change: transform;
 }
 
+// ─── Header ───────────────────────────────────────────────────────────────────
+
+.headerRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap;
+}
+
 .sectionTitle {
   font-family: $font-family-heading;
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 900;
   letter-spacing: -0.03em;
-  margin-bottom: 4rem;
   text-align: center;
   color: $text-color;
+  margin: 0;
 
   span {
-    background: $nebula-gradient;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: $primary-color;
   }
 }
 
-.testimonialsStack {
+.counterLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $text-muted;
+  letter-spacing: 0.04em;
+  margin: 0;
+  align-self: flex-end;
+  padding-bottom: 0.35rem;
+}
+
+// ─── Carousel ─────────────────────────────────────────────────────────────────
+
+.carouselWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  padding-bottom: 10vh; // Short padding allows the last card to rest perfectly before exiting
+  gap: 2rem;
 }
+
+.carouselTrack {
+  width: 100%;
+  max-width: 860px;
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: stretch;
+}
+
+// ─── Card ─────────────────────────────────────────────────────────────────────
 
 .testimonialCard {
   @include glassmorphism;
-  position: sticky; // Added sticky to the card itself
   width: 100%;
-  max-width: 900px;
   border-radius: 1.5rem;
-  padding: 4rem;
-  margin-bottom: 50vh; // Creates the scroll distance between cards
-  will-change: transform;
+  padding: 3rem 3.5rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
   transition:
-    border-color 0.4s $ease-cinematic,
-    box-shadow 0.4s $ease-cinematic;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-
-  &:last-child {
-    margin-bottom: 0; // Last card has no trailing distance!
-  }
+    border-color 0.3s $ease-cinematic,
+    box-shadow 0.3s $ease-cinematic;
 
   &:hover {
-    border-color: rgba($secondary-color, 0.25);
-    box-shadow: 0 25px 50px rgba($secondary-color, 0.15);
+    border-color: rgba($primary-color, 0.2);
+    box-shadow: 0 24px 70px rgba($primary-color, 0.1);
+  }
+
+  @media (max-width: 600px) {
+    padding: 2rem 1.5rem;
   }
 }
 
-.quoteIcon {
-  font-size: 3rem;
-  line-height: 1;
-  background: $nebula-gradient;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
-  display: block;
-  font-family: Georgia, serif;
+.quoteIconWrap {
+  color: $primary-color;
+  margin-bottom: 1.25rem;
+  opacity: 0.6;
 }
 
 .quoteText {
-  color: $text-muted;
-  font-size: 0.95rem;
-  line-height: 1.8;
+  color: $text-color;
+  font-size: 1.05rem;
+  line-height: 1.85;
   margin-bottom: 2rem;
   font-style: italic;
+  opacity: 0.9;
 }
 
 .authorRow {
@@ -100,25 +122,31 @@
 }
 
 .authorAvatar {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba($primary-color, 0.4);
+  border: 2px solid rgba($primary-color, 0.35);
+  flex-shrink: 0;
 }
 
 .authorAvatarPlaceholder {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  background: $nebula-gradient;
+  background: $primary-color;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #fff;
   flex-shrink: 0;
+}
+
+.authorInfo {
+  flex: 1;
+  min-width: 0;
 }
 
 .authorName {
@@ -126,7 +154,7 @@
   font-size: 1rem;
   font-weight: 700;
   color: $text-color;
-  margin: 0 0 0.1rem;
+  margin: 0 0 0.15rem;
 }
 
 .authorRole {
@@ -134,4 +162,127 @@
   color: $primary-color;
   font-weight: 600;
   margin: 0;
+}
+
+.linkedinLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(#0077b5, 0.08);
+  color: #0077b5;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  flex-shrink: 0;
+  margin-left: auto;
+
+  &:hover {
+    background: rgba(#0077b5, 0.18);
+    transform: scale(1.12);
+  }
+}
+
+.recommendedDate {
+  font-size: 0.75rem;
+  color: $text-muted;
+  margin: 1.25rem 0 0;
+  text-align: right;
+}
+
+// ─── Controls ─────────────────────────────────────────────────────────────────
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.navBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid $border;
+  background: $white;
+  color: $text-color;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  &:hover:not(:disabled) {
+    background: $primary-color;
+    border-color: $primary-color;
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba($primary-color, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: $border;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.25s,
+    transform 0.25s,
+    width 0.25s;
+}
+
+.dotActive {
+  background: $primary-color;
+  width: 24px;
+  border-radius: 4px;
+  transform: none;
+}
+
+// ─── Progress bar ─────────────────────────────────────────────────────────────
+
+.progressBar {
+  width: 100%;
+  max-width: 860px;
+  height: 2px;
+  background: $border;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: -0.5rem;
+}
+
+.progressFill {
+  height: 100%;
+  background: $primary-color;
+  border-radius: 2px;
+}
+
+// ─── Empty / Error ─────────────────────────────────────────────────────────────
+
+.emptyState {
+  text-align: center;
+  color: $text-muted;
+  font-size: 0.95rem;
+  padding: 3rem 0;
 }
