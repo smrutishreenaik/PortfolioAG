@@ -7,6 +7,7 @@ import Skills from "../components/sections/Skills";
 import Experience from "../components/sections/Experience";
 import Projects from "../components/sections/Projects";
 import CaseStudiesPreview from "../components/sections/CaseStudiesPreview";
+import Testimonials from "../components/sections/Testimonials";
 import CaseStudiesOverview from "../components/sections/CaseStudiesOverview";
 import Contact from "../components/sections/Contact";
 import Footer from "../components/Footer";
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
       <Projects />
       <CaseStudiesPreview />
       <Experience />
+      <Testimonials />
       <CaseStudiesOverview />
       <Contact />
       <Footer />

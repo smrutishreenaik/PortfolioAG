@@ -18,6 +18,7 @@ const Navbar: React.FC = () => {
         <a href={getHref("#skills")}>Skills</a>
         <a href={getHref("#experience")}>Experience</a>
         <a href={getHref("#projects")}>Projects</a>
+        <a href={getHref("#testimonials")}>Testimonials</a>
         <Link to="/case-studies">Case Studies</Link>
         <a href={getHref("#contact")}>Contact</a>
       </div>
