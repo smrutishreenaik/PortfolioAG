@@ -1,81 +1,68 @@
 import React, { useState } from "react";
 import styles from "./Contact.module.scss";
 
+const EmailIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <rect x="1.5" y="3" width="13" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
+    <path d="M1.5 4.5L8 9l6.5-4.5" stroke="currentColor" strokeWidth="1.5" />
+  </svg>
+);
+
+const LinkedInIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <rect x="1" y="1" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.5" />
+    <circle cx="4.5" cy="4.5" r="1" fill="currentColor" />
+    <path
+      d="M4.5 7v5M7 12V9a2 2 0 014 0v3M7 7v5"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+type SubmitState = "idle" | "sending" | "sent";
+
 const Contact: React.FC = () => {
-  const [btnText, setBtnText] = useState("Send Message");
-  const [op, setOp] = useState(1);
-  const [bg, setBg] = useState("");
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
-    setBtnText("Sending...");
-    setOp(0.7);
+    if (submitState !== "idle") return;
+    setSubmitState("sending");
     setTimeout(() => {
-      setBtnText("✓ Message Sent!");
-      setBg("#3d9e6a");
-      setOp(1);
-      setTimeout(() => {
-        setBtnText("Send Message");
-        setBg("");
-      }, 3000);
+      setSubmitState("sent");
+      setTimeout(() => setSubmitState("idle"), 3000);
     }, 1200);
   };
+
+  const buttonLabel =
+    submitState === "sending" ? "Sending..." : submitState === "sent" ? "✓ Message Sent!" : "Send Message";
+
+  const buttonStyle: React.CSSProperties =
+    submitState === "sending"
+      ? { opacity: 0.7 }
+      : submitState === "sent"
+        ? { background: "#3d9e6a" }
+        : {};
 
   return (
     <section id="contact" className={styles.contactSection}>
       <div className={styles.contactWrap}>
         <div>
           <div className={styles.contactEyebrow}>Contact</div>
-          <div className={styles.contactTitle}>
-            Ready to build something great?
-          </div>
+          <div className={styles.contactTitle}>Ready to build something great?</div>
           <div className={styles.contactSub}>
             A short conversation to understand your needs and see where we can
             create the most impact together.
           </div>
           <div className={styles.contactInfo}>
             <a href="mailto:smrutishreenaik@gmail.com">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect
-                  x="1.5"
-                  y="3"
-                  width="13"
-                  height="10"
-                  rx="2"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <path
-                  d="M1.5 4.5L8 9l6.5-4.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-              </svg>
+              <EmailIcon />
               smrutishreenaik@gmail.com
             </a>
-            <a
-              href="https://linkedin.com/in/smrutishreenaik"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <rect
-                  x="1"
-                  y="1"
-                  width="14"
-                  height="14"
-                  rx="3"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-                <circle cx="4.5" cy="4.5" r="1" fill="currentColor" />
-                <path
-                  d="M4.5 7v5M7 12V9a2 2 0 014 0v3M7 7v5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
+            <a href="https://linkedin.com/in/smrutishreenaik" target="_blank" rel="noreferrer">
+              <LinkedInIcon />
               linkedin.com/in/smrutishreenaik
             </a>
           </div>
@@ -98,14 +85,15 @@ const Contact: React.FC = () => {
           </div>
           <div className={styles.formGroup}>
             <label>MESSAGE</label>
-            <textarea placeholder="Tell me about the role or project..."></textarea>
+            <textarea placeholder="Tell me about the role or project..." />
           </div>
           <button
             className={styles.formSubmit}
-            style={{ opacity: op, background: bg || undefined }}
+            style={buttonStyle}
             onClick={handleSubmit}
+            disabled={submitState !== "idle"}
           >
-            {btnText}
+            {buttonLabel}
           </button>
         </div>
       </div>
