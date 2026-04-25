@@ -53,7 +53,9 @@ const STATIC_FALLBACK: ProjectModalData[] = [
   },
 ];
 
-const mapFirebaseProjectToModalData = (project: Project): ProjectModalData => ({
+const mapFirebaseProjectToModalData = (
+  project: Project,
+): ProjectModalData => ({
   title: project.title,
   type: project.techStack?.join(" · ") ?? "",
   description: project.description,

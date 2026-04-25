@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Hero from "../components/sections/Hero";
 import Stats from "../components/sections/Stats";
 import PainPoints from "../components/sections/PainPoints";
@@ -14,10 +14,6 @@ import Footer from "../components/Footer";
 import styles from "./Home.module.scss";
 
 const Home: React.FC = () => {
-  useEffect(() => {
-    // Basic initialization if necessary
-  }, []);
-
   return (
     <div className={styles.homeContainer}>
       <Hero />

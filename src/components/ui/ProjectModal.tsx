@@ -8,8 +8,7 @@ interface ProjectModalProps {
   onClose: () => void;
 }
 
-const isYouTubeUrl = (url: string) =>
-  /youtube\.com|youtu\.be/.test(url);
+const isYouTubeUrl = (url: string) => /youtube\.com|youtu\.be/.test(url);
 
 const getYouTubeEmbedUrl = (url: string): string => {
   const regExp =
@@ -34,6 +33,7 @@ const MediaSlide: React.FC<{ item: ProjectMediaItem; isActive: boolean }> = ({
         />
       );
     }
+
     return (
       <video
         className={styles.mediaVideo}
@@ -43,8 +43,13 @@ const MediaSlide: React.FC<{ item: ProjectMediaItem; isActive: boolean }> = ({
       />
     );
   }
+
   return (
-    <img className={styles.mediaImage} src={item.url} alt={item.caption ?? "Project screenshot"} />
+    <img
+      className={styles.mediaImage}
+      src={item.url}
+      alt={item.caption ?? "Project screenshot"}
+    />
   );
 };
 
@@ -52,7 +57,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
-
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -62,12 +66,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
         else onClose();
       }
       if (!project.media.length) return;
-      if (e.key === "ArrowRight")
+      if (e.key === "ArrowRight") {
         setActiveIndex((prev) => (prev + 1) % project.media.length);
-      if (e.key === "ArrowLeft")
+      }
+      if (e.key === "ArrowLeft") {
         setActiveIndex(
           (prev) => (prev - 1 + project.media.length) % project.media.length,
         );
+      }
     },
     [project, lightboxOpen, onClose],
   );
@@ -83,17 +89,19 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     } else {
       document.body.style.overflow = "";
     }
+
     return () => {
       document.body.style.overflow = "";
     };
   }, [project]);
 
-  const hasPrevSlide = project && project.media.length > 1;
-  const hasNextSlide = project && project.media.length > 1;
+  const hasCarouselControls = Boolean(project && project.media.length > 1);
 
   const goToPrev = () => {
     if (!project) return;
-    setActiveIndex((prev) => (prev - 1 + project.media.length) % project.media.length);
+    setActiveIndex(
+      (prev) => (prev - 1 + project.media.length) % project.media.length,
+    );
   };
 
   const goToNext = () => {
@@ -105,7 +113,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
     <AnimatePresence>
       {project && (
         <>
-          {/* Backdrop */}
           <motion.div
             ref={overlayRef}
             className={styles.backdrop}
@@ -117,7 +124,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               if (e.target === overlayRef.current) onClose();
             }}
           >
-            {/* Panel */}
             <motion.div
               className={styles.panel}
               initial={{ opacity: 0, scale: 0.95, y: 24 }}
@@ -125,7 +131,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               exit={{ opacity: 0, scale: 0.95, y: 24 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Close button */}
               <button
                 className={styles.closeBtn}
                 onClick={onClose}
@@ -142,7 +147,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
               </button>
 
               <div className={styles.layout}>
-                {/* Left: Media gallery */}
                 <div className={styles.galleryCol}>
                   {project.media.length > 0 ? (
                     <>
@@ -175,8 +179,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                           </motion.div>
                         </AnimatePresence>
 
-                        {/* Nav arrows */}
-                        {hasPrevSlide && (
+                        {hasCarouselControls && (
                           <button
                             className={`${styles.navArrow} ${styles.navArrowLeft}`}
                             onClick={(e) => {
@@ -200,7 +203,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                             </svg>
                           </button>
                         )}
-                        {hasNextSlide && (
+                        {hasCarouselControls && (
                           <button
                             className={`${styles.navArrow} ${styles.navArrowRight}`}
                             onClick={(e) => {
@@ -226,14 +229,12 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         )}
                       </div>
 
-                      {/* Caption */}
                       {project.media[activeIndex]?.caption && (
                         <p className={styles.mediaCaption}>
                           {project.media[activeIndex].caption}
                         </p>
                       )}
 
-                      {/* Thumbnails */}
                       {project.media.length > 1 && (
                         <div className={styles.thumbnailStrip}>
                           {project.media.map((item, idx) => (
@@ -271,7 +272,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                         </div>
                       )}
 
-                      {/* Dot indicators */}
                       <div className={styles.dotRow}>
                         {project.media.map((_, idx) => (
                           <button
@@ -317,7 +317,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                   )}
                 </div>
 
-                {/* Right: Info panel */}
                 <div className={styles.infoCol}>
                   <span className={styles.projectType}>{project.type}</span>
                   <h2 className={styles.projectTitle}>{project.title}</h2>
@@ -392,7 +391,6 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
             </motion.div>
           </motion.div>
 
-          {/* Lightbox for images */}
           <AnimatePresence>
             {lightboxOpen && project.media[activeIndex]?.type === "image" && (
               <motion.div
@@ -416,7 +414,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) => {
                   onClick={() => setLightboxOpen(false)}
                   aria-label="Close lightbox"
                 >
-                  ✕
+                  ×
                 </button>
               </motion.div>
             )}
