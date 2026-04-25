@@ -1,18 +1,22 @@
 @import "../styles/variables";
 
 .footer {
-  padding: 40px 6vw;
-  background: $white;
+  background: $black;
+  color: rgba(255, 255, 255, 0.4);
+  padding: 2rem 6vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 13px;
-  color: $gray;
-  border-top: 1px solid $border;
+  font-size: 12px;
+  font-weight: 500;
+
+  span {
+    color: rgba(255, 255, 255, 0.6);
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     text-align: center;
   }
 }
