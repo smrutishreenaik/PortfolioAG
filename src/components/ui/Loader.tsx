@@ -1,29 +1,46 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Loader.module.scss";
 
-const SESSION_KEY = "portfolio_loader_shown";
+export const LOADER_SESSION_KEY = "portfolio_loader_shown";
 
-const Loader: React.FC = () => {
-  const alreadyShown = sessionStorage.getItem(SESSION_KEY) === "true";
+interface LoaderProps {
+  onComplete?: () => void;
+}
+
+const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
+  const alreadyShown = sessionStorage.getItem(LOADER_SESSION_KEY) === "true";
   const [loading, setLoading] = useState(!alreadyShown);
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-    if (alreadyShown) return;
+    if (alreadyShown) {
+      document.body.classList.remove("loading");
+      onComplete?.();
+      return;
+    }
 
-    sessionStorage.setItem(SESSION_KEY, "true");
+    sessionStorage.setItem(LOADER_SESSION_KEY, "true");
+
+    let timer2: ReturnType<typeof setTimeout> | undefined;
 
     const timer1 = setTimeout(() => {
       setHidden(true);
       document.body.classList.remove("loading");
-      const timer2 = setTimeout(() => {
+
+      timer2 = setTimeout(() => {
         setLoading(false);
+        onComplete?.();
       }, 700);
-      return () => clearTimeout(timer2);
     }, 2200);
 
-    return () => clearTimeout(timer1);
-  }, [alreadyShown]);
+    return () => {
+      clearTimeout(timer1);
+      if (timer2) {
+        clearTimeout(timer2);
+      }
+      document.body.classList.remove("loading");
+    };
+  }, [alreadyShown, onComplete]);
 
   if (!loading) return null;
 

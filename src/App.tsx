@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -21,7 +21,7 @@ import AdminExperience from "./pages/admin/AdminExperience";
 import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import SmoothScroll from "./components/SmoothScroll";
 import GlobalInteractive from "./components/GlobalInteractive";
-import Loader from "./components/ui/Loader";
+import Loader, { LOADER_SESSION_KEY } from "./components/ui/Loader";
 import Particles from "./components/ui/Particles";
 
 const AppContent: React.FC = () => {
@@ -29,15 +29,29 @@ const AppContent: React.FC = () => {
   const isAdminRoute =
     location.pathname.startsWith("/admin") ||
     location.pathname.startsWith("/login");
+  const shouldShowLoader = location.pathname === "/";
+  const [hasCompletedHomeLoader, setHasCompletedHomeLoader] = useState(
+    sessionStorage.getItem(LOADER_SESSION_KEY) === "true",
+  );
+  const homeReady = !shouldShowLoader || hasCompletedHomeLoader;
+
+  useEffect(() => {
+    if (!shouldShowLoader) {
+      document.body.classList.remove("loading");
+    }
+  }, [shouldShowLoader]);
 
   return (
     <div className="app-container">
       {/* Do not show standard Navbar on admin or login pages */}
+      {shouldShowLoader && (
+        <Loader onComplete={() => setHasCompletedHomeLoader(true)} />
+      )}
       {!isAdminRoute && <Navbar />}
       <main>
         <Routes>
           {/* Public Routes */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home statsReady={homeReady} />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
           <Route path="/login" element={<Login />} />
@@ -78,7 +92,6 @@ const App: React.FC = () => {
     <Router>
       <AuthProvider>
         <SmoothScroll>
-          <Loader />
           <Particles />
           <GlobalInteractive />
           <AppContent />

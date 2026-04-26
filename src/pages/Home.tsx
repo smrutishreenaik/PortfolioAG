@@ -12,11 +12,15 @@ import Contact from "../components/sections/Contact";
 import Footer from "../components/Footer";
 import styles from "./Home.module.scss";
 
-const Home: React.FC = () => {
+interface HomeProps {
+  statsReady: boolean;
+}
+
+const Home: React.FC<HomeProps> = ({ statsReady }) => {
   return (
     <div className={styles.homeContainer}>
       <Hero />
-      <Stats />
+      <Stats ready={statsReady} />
       <PainPoints />
       <About />
       <Skills />
