@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useCollection } from "../../hooks/useCollection";
 import { CaseStudy } from "../../types";
@@ -8,7 +7,6 @@ import styles from "./CaseStudiesPreview.module.scss";
 const CaseStudiesPreview: React.FC = () => {
   const { data: caseStudies, loading } =
     useCollection<CaseStudy>("caseStudies");
-  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -17,9 +15,12 @@ const CaseStudiesPreview: React.FC = () => {
   });
   const orbY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
 
+  const openCaseStudiesPage = (path: string) => {
+    window.open(path, "_blank", "noopener,noreferrer");
+  };
+
   const handleCardClick = (studyId: string) => {
-    navigate(`/case-studies?id=${studyId}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    openCaseStudiesPage(`/case-studies?id=${studyId}`);
   };
 
   if (!loading && caseStudies.length === 0) return null;
@@ -145,8 +146,7 @@ const CaseStudiesPreview: React.FC = () => {
           <button
             className={styles.viewAllBtn}
             onClick={() => {
-              navigate("/case-studies");
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              openCaseStudiesPage("/case-studies");
             }}
           >
             View all case studies

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Container, Badge } from "react-bootstrap";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
@@ -49,9 +49,14 @@ const CaseStudyDetail: React.FC = () => {
       <Container className={styles.pageContainer}>
         <div className="text-center mt-5">
           <h2>Case Study Not Found</h2>
-          <Link to="/case-studies" className="btn btn-primary mt-3">
+          <a
+            href="/case-studies"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary mt-3"
+          >
             Back to Case Studies
-          </Link>
+          </a>
         </div>
       </Container>
     );
@@ -67,9 +72,14 @@ const CaseStudyDetail: React.FC = () => {
         }}
       >
         <Container>
-          <Link to="/case-studies" className={styles.backLink}>
+          <a
+            href="/case-studies"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.backLink}
+          >
             &larr; Back to all Case Studies
-          </Link>
+          </a>
           <div className="mt-4">
             <Badge bg="primary" className="mb-3 px-3 py-2 rounded-pill">
               Case Study
