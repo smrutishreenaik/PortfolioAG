@@ -42,6 +42,20 @@
   margin-bottom: 1rem;
 }
 
+.stateMessage,
+.stateMessageError {
+  margin-top: 3.5rem;
+  font-size: 14px;
+}
+
+.stateMessage {
+  color: $gray;
+}
+
+.stateMessageError {
+  color: #dc2626;
+}
+
 .expList {
   display: flex;
   flex-direction: column;
@@ -74,6 +88,7 @@
   &:first-child {
     padding-top: 0;
   }
+
   &:last-child {
     border-bottom: none;
     padding-bottom: 0;
@@ -85,7 +100,6 @@
     padding: 2rem 0;
   }
 
-  // bullet indicator
   &::before {
     content: "";
     position: absolute;
@@ -111,12 +125,19 @@
     &::before {
       transform: scale(1.4);
     }
+
     .expCoBadge {
       transform: translateX(4px);
       background: $green-light;
       border-color: $green;
     }
   }
+}
+
+.expMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .expPeriod {
@@ -130,6 +151,23 @@
     display: inline-block;
     margin-right: 12px;
   }
+}
+
+.expCoBadgeWrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.expLogo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid $border;
+  background: $white;
+  padding: 4px;
 }
 
 .expCoBadge {
@@ -148,13 +186,20 @@
   font-size: 20px;
   font-weight: 700;
   color: $black;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
-.expRoleSub {
-  font-size: 13px;
-  color: $gray;
+.expWebsite {
+  display: inline-flex;
+  align-items: center;
   margin-bottom: 1.2rem;
+  font-size: 13px;
+  font-weight: 600;
+  color: $green;
+
+  &:hover {
+    color: darken($green, 8%);
+  }
 }
 
 .expBullets {
@@ -171,26 +216,11 @@
     line-height: 1.6;
 
     &::before {
-      content: "→";
+      content: "->";
       position: absolute;
       left: 0;
       color: $green;
       font-weight: bold;
     }
   }
-}
-
-.expTags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.expTag {
-  font-size: 11px;
-  padding: 4px 10px;
-  background: $light;
-  border-radius: 100px;
-  color: $gray;
-  border: 1px solid $border;
 }
