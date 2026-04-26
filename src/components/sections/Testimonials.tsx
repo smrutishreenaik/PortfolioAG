@@ -222,17 +222,6 @@ const Testimonials: React.FC = () => {
               </button>
             </div>
 
-            {!isPaused && testimonials.length > 1 && (
-              <div className={styles.progressBar}>
-                <motion.div
-                  key={activeIndex}
-                  className={styles.progressFill}
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: AUTOPLAY_MS / 1000, ease: "linear" }}
-                />
-              </div>
-            )}
           </div>
         )}
       </div>
