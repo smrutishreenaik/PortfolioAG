@@ -12,6 +12,7 @@ import { db } from "../../services/firebase";
 import { Experience } from "../../types";
 import useToast from "../../hooks/useToast";
 import ToastContainer from "../../components/ToastContainer";
+import { sortByDisplayOrder } from "../../utils/firestoreOrdering";
 
 const AdminExperience: React.FC = () => {
   const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -26,15 +27,20 @@ const AdminExperience: React.FC = () => {
   const { toasts, showToast, dismissToast } = useToast();
 
   const expCollectionRef = collection(db, "experience");
+  const getNextOrder = () =>
+    experiences.reduce((maxOrder, experience) => {
+      const orderValue =
+        typeof experience.order === "number" ? experience.order : 0;
+      return Math.max(maxOrder, orderValue);
+    }, 0) + 1;
 
   const fetchExperience = async () => {
     try {
       const data = await getDocs(expCollectionRef);
-      setExperiences(
-        data.docs.map(
-          (document) => ({ ...document.data(), id: document.id }) as Experience,
-        ),
+      const results = data.docs.map(
+        (document) => ({ ...document.data(), id: document.id }) as Experience,
       );
+      setExperiences(sortByDisplayOrder(results));
     } catch {
       showToast("Failed to load experience entries.", "error");
     } finally {
@@ -59,6 +65,8 @@ const AdminExperience: React.FC = () => {
       setCurrentExp(experience);
       setAchievementsStr(experience.achievements.join("\n"));
       setIsEditing(true);
+    } else {
+      setCurrentExp({ order: getNextOrder() });
     }
     setShowModal(true);
   };
@@ -72,16 +80,24 @@ const AdminExperience: React.FC = () => {
 
     try {
       const logoUrl = currentExp.logoUrl || "";
+      const order =
+        typeof currentExp.order === "number" && Number.isFinite(currentExp.order)
+          ? currentExp.order
+          : getNextOrder();
+      const payload = {
+        ...currentExp,
+        achievements,
+        logoUrl,
+        order,
+      };
 
       if (isEditing && currentExp.id) {
         const expDoc = doc(db, "experience", currentExp.id);
-        await updateDoc(expDoc, { ...currentExp, achievements, logoUrl });
+        await updateDoc(expDoc, payload);
         showToast("Experience updated successfully!", "success");
       } else {
         await addDoc(expCollectionRef, {
-          ...currentExp,
-          achievements,
-          logoUrl,
+          ...payload,
           createdAt: new Date(),
         });
         showToast("Experience added successfully!", "success");
@@ -136,6 +152,7 @@ const AdminExperience: React.FC = () => {
             <Table responsive variant="dark" hover>
               <thead>
                 <tr>
+                  <th>Order</th>
                   <th>Company</th>
                   <th>Role</th>
                   <th>Time Period</th>
@@ -145,13 +162,14 @@ const AdminExperience: React.FC = () => {
               <tbody>
                 {experiences.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className="text-center py-4 text-muted">
+                    <td colSpan={5} className="text-center py-4 text-muted">
                       No experience entries found. Add one to get started!
                     </td>
                   </tr>
                 ) : (
                   experiences.map((experience) => (
                     <tr key={experience.id}>
+                      <td>{experience.order ?? "-"}</td>
                       <td>{experience.companyName}</td>
                       <td>{experience.role}</td>
                       <td>{experience.timePeriod}</td>
@@ -190,6 +208,28 @@ const AdminExperience: React.FC = () => {
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
           <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
+            <Form.Group className="mb-3">
+              <Form.Label>
+                Display Order <span className="text-danger">*</span>
+              </Form.Label>
+              <Form.Control
+                type="number"
+                required
+                min={1}
+                value={currentExp.order ?? ""}
+                onChange={(e) =>
+                  setCurrentExp({
+                    ...currentExp,
+                    order: Number(e.target.value),
+                  })
+                }
+                className="bg-transparent text-white border-secondary"
+                placeholder="1"
+              />
+              <Form.Text className="text-muted">
+                Lower numbers appear first on both the admin and main pages.
+              </Form.Text>
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
                 Company Name <span className="text-danger">*</span>

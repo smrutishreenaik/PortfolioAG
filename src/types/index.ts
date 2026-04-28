@@ -20,6 +20,7 @@ export interface CaseStudy {
 
 export interface Experience {
   id: string;
+  order?: number;
   companyName: string;
   logoUrl?: string;
   timePeriod: string;

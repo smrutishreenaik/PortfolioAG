@@ -1,8 +1,16 @@
 import { useState, useEffect } from "react";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../services/firebase";
+import { sortByDisplayOrder } from "../utils/firestoreOrdering";
 
-export const useCollection = <T>(collectionName: string) => {
+type CollectionItem = {
+  createdAt?: Date | number | string | null | { toDate?: () => Date };
+  order?: number | null;
+};
+
+export const useCollection = <T extends CollectionItem>(
+  collectionName: string,
+) => {
   const [data, setData] = useState<T[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,8 +26,8 @@ export const useCollection = <T>(collectionName: string) => {
         const results = snapshot.docs.map((doc) => ({
           ...doc.data(),
           id: doc.id,
-        })) as T[];
-        setData(results);
+        })) as unknown as T[];
+        setData(sortByDisplayOrder(results));
       } catch {
         // Fallback if index is missing or without orderBy
         try {
@@ -27,8 +35,8 @@ export const useCollection = <T>(collectionName: string) => {
           const results = snapshot.docs.map((doc) => ({
             ...doc.data(),
             id: doc.id,
-          })) as T[];
-          setData(results);
+          })) as unknown as T[];
+          setData(sortByDisplayOrder(results));
         } catch (fallbackErr: any) {
           setError(fallbackErr.message || "Failed to fetch data");
         }
