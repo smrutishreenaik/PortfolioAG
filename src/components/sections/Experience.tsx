@@ -34,15 +34,19 @@ const Experience: React.FC = () => {
               >
                 <div className={styles.expMeta}>
                   <div className={styles.expPeriod}>{exp.timePeriod}</div>
-                  <div className={styles.expCoBadgeWrap}>
+                  <div className={styles.expBrandBlock}>
                     {exp.logoUrl ? (
-                      <img
-                        src={exp.logoUrl}
-                        alt={`${exp.companyName} logo`}
-                        className={styles.expLogo}
-                      />
+                      <div className={styles.expLogoFrame}>
+                        <img
+                          src={exp.logoUrl}
+                          alt={`${exp.companyName} logo`}
+                          className={styles.expLogo}
+                        />
+                      </div>
                     ) : null}
-                    <div className={styles.expCoBadge}>{exp.companyName}</div>
+                    <div className={styles.expCoBadgeWrap}>
+                      <div className={styles.expCoBadge}>{exp.companyName}</div>
+                    </div>
                   </div>
                 </div>
 
