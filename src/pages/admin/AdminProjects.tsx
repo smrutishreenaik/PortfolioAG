@@ -12,6 +12,8 @@ import { db } from "../../services/firebase";
 import { Project } from "../../types";
 import useToast from "../../hooks/useToast";
 import ToastContainer from "../../components/ToastContainer";
+import adminStyles from "./Admin.module.scss";
+import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 
 const MAX_DESC_LENGTH = 300;
 
@@ -130,22 +132,27 @@ const AdminProjects: React.FC = () => {
     <>
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="text-white mb-0">Manage Projects</h3>
-        <button className="btn btn-primary" onClick={() => handleShow()}>
-          + Add Project
+      <div className={adminStyles.pageHeader}>
+        <div>
+          <h3 className={adminStyles.pageTitle}>Manage Projects</h3>
+          <p className={adminStyles.pageMeta}>
+            Curate portfolio projects, links, features, and cover images.
+          </p>
+        </div>
+        <button className={adminStyles.primaryButton} onClick={() => handleShow()}>
+          <FaPlus /> Add Project
         </button>
       </div>
 
-      <Card className="bg-dark text-white border-secondary">
+      <Card className={adminStyles.panel}>
         <Card.Body>
           {isFetching ? (
-            <div className="text-center py-5">
+            <div className={adminStyles.loadingState}>
               <Spinner animation="border" variant="primary" />
-              <p className="mt-3 text-muted">Loading projects...</p>
+              <p>Loading projects...</p>
             </div>
           ) : (
-            <Table responsive variant="dark" hover>
+            <Table responsive hover className={adminStyles.table}>
               <thead>
                 <tr>
                   <th>Title</th>
@@ -156,7 +163,7 @@ const AdminProjects: React.FC = () => {
               <tbody>
                 {projects.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="text-center py-4 text-muted">
+                    <td colSpan={3} className={adminStyles.emptyState}>
                       No projects found. Add one to get started!
                     </td>
                   </tr>
@@ -170,19 +177,23 @@ const AdminProjects: React.FC = () => {
                       >
                         {proj.description}
                       </td>
-                      <td className="text-end">
+                      <td>
+                        <div className={adminStyles.actionGroup}>
                         <button
-                          className="btn btn-outline-info btn-sm me-2"
+                          className={adminStyles.iconButton}
                           onClick={() => handleShow(proj)}
+                          aria-label={`Edit ${proj.title}`}
                         >
-                          Edit
+                          <FaPen />
                         </button>
                         <button
-                          className="btn btn-outline-danger btn-sm"
+                          className={`${adminStyles.iconButton} ${adminStyles.deleteIconButton}`}
                           onClick={() => confirmDelete(proj.id)}
+                          aria-label={`Delete ${proj.title}`}
                         >
-                          Delete
+                          <FaTrash />
                         </button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -197,15 +208,15 @@ const AdminProjects: React.FC = () => {
         show={showModal}
         onHide={handleClose}
         size="lg"
-        contentClassName="bg-dark text-white"
+        contentClassName={adminStyles.modalContent}
       >
-        <Modal.Header closeButton className="border-secondary">
+        <Modal.Header closeButton>
           <Modal.Title>
             {isEditing ? "Edit Project" : "Add New Project"}
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
-          <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
+          <Modal.Body className={adminStyles.modalBody}>
             <Form.Group className="mb-3">
               <Form.Label>
                 Project Title <span className="text-danger">*</span>
@@ -221,7 +232,7 @@ const AdminProjects: React.FC = () => {
                     title: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="My Awesome Project"
               />
             </Form.Group>
@@ -241,7 +252,7 @@ const AdminProjects: React.FC = () => {
                     description: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
               />
               <Form.Text
                 className={`${(currentProject.description || "").length >= MAX_DESC_LENGTH ? "text-danger" : "text-muted"}`}
@@ -260,7 +271,7 @@ const AdminProjects: React.FC = () => {
                 value={techStackStr}
                 onChange={(e) => setTechStackStr(e.target.value)}
                 placeholder="React, TypeScript, Firebase (comma-separated)"
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -274,7 +285,7 @@ const AdminProjects: React.FC = () => {
                 value={featuresStr}
                 onChange={(e) => setFeaturesStr(e.target.value)}
                 placeholder="One feature per line"
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -291,7 +302,7 @@ const AdminProjects: React.FC = () => {
                     githubLink: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="https://github.com/..."
               />
             </Form.Group>
@@ -309,7 +320,7 @@ const AdminProjects: React.FC = () => {
                     liveLink: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="https://..."
               />
             </Form.Group>
@@ -327,21 +338,21 @@ const AdminProjects: React.FC = () => {
                     imageUrl: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="https://example.com/image.png"
               />
             </Form.Group>
           </Modal.Body>
-          <Modal.Footer className="border-secondary">
+          <Modal.Footer>
             <button
               type="button"
-              className="btn btn-secondary"
+              className={adminStyles.secondaryButton}
               onClick={handleClose}
             >
               Cancel
             </button>
             <button
-              className="btn btn-primary"
+              className={adminStyles.primaryButton}
               type="submit"
               disabled={loading}
             >
@@ -361,27 +372,27 @@ const AdminProjects: React.FC = () => {
       <Modal
         show={showConfirmModal}
         onHide={() => setShowConfirmModal(false)}
-        contentClassName="bg-dark text-white"
+        contentClassName={adminStyles.modalContent}
         centered
       >
-        <Modal.Header closeButton className="border-secondary">
+        <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this project? This action cannot be
           undone.
         </Modal.Body>
-        <Modal.Footer className="border-secondary">
+        <Modal.Footer>
           <button
             type="button"
-            className="btn btn-secondary"
+            className={adminStyles.secondaryButton}
             onClick={() => setShowConfirmModal(false)}
           >
             Cancel
           </button>
           <button
             type="button"
-            className="btn btn-danger"
+            className={adminStyles.dangerButton}
             onClick={handleDelete}
           >
             Delete

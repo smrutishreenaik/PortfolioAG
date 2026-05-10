@@ -13,6 +13,8 @@ import { Experience } from "../../types";
 import useToast from "../../hooks/useToast";
 import ToastContainer from "../../components/ToastContainer";
 import { sortByDisplayOrder } from "../../utils/firestoreOrdering";
+import adminStyles from "./Admin.module.scss";
+import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 
 const AdminExperience: React.FC = () => {
   const [experiences, setExperiences] = useState<Experience[]>([]);
@@ -134,22 +136,27 @@ const AdminExperience: React.FC = () => {
     <>
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="text-white mb-0">Manage Experience</h3>
-        <button className="btn btn-primary" onClick={() => handleShow()}>
-          + Add Experience
+      <div className={adminStyles.pageHeader}>
+        <div>
+          <h3 className={adminStyles.pageTitle}>Manage Experience</h3>
+          <p className={adminStyles.pageMeta}>
+            Order career entries and keep achievements ready for display.
+          </p>
+        </div>
+        <button className={adminStyles.primaryButton} onClick={() => handleShow()}>
+          <FaPlus /> Add Experience
         </button>
       </div>
 
-      <Card className="bg-dark text-white border-secondary">
+      <Card className={adminStyles.panel}>
         <Card.Body>
           {isFetching ? (
-            <div className="text-center py-5">
+            <div className={adminStyles.loadingState}>
               <Spinner animation="border" variant="primary" />
-              <p className="mt-3 text-muted">Loading experience...</p>
+              <p>Loading experience...</p>
             </div>
           ) : (
-            <Table responsive variant="dark" hover>
+            <Table responsive hover className={adminStyles.table}>
               <thead>
                 <tr>
                   <th>Order</th>
@@ -162,7 +169,7 @@ const AdminExperience: React.FC = () => {
               <tbody>
                 {experiences.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="text-center py-4 text-muted">
+                    <td colSpan={5} className={adminStyles.emptyState}>
                       No experience entries found. Add one to get started!
                     </td>
                   </tr>
@@ -173,19 +180,23 @@ const AdminExperience: React.FC = () => {
                       <td>{experience.companyName}</td>
                       <td>{experience.role}</td>
                       <td>{experience.timePeriod}</td>
-                      <td className="text-end">
+                      <td>
+                        <div className={adminStyles.actionGroup}>
                         <button
-                          className="btn btn-outline-info btn-sm me-2"
+                          className={adminStyles.iconButton}
                           onClick={() => handleShow(experience)}
+                          aria-label={`Edit ${experience.companyName}`}
                         >
-                          Edit
+                          <FaPen />
                         </button>
                         <button
-                          className="btn btn-outline-danger btn-sm"
+                          className={`${adminStyles.iconButton} ${adminStyles.deleteIconButton}`}
                           onClick={() => confirmDelete(experience.id)}
+                          aria-label={`Delete ${experience.companyName}`}
                         >
-                          Delete
+                          <FaTrash />
                         </button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -199,15 +210,15 @@ const AdminExperience: React.FC = () => {
       <Modal
         show={showModal}
         onHide={handleClose}
-        contentClassName="bg-dark text-white"
+        contentClassName={adminStyles.modalContent}
       >
-        <Modal.Header closeButton className="border-secondary">
+        <Modal.Header closeButton>
           <Modal.Title>
             {isEditing ? "Edit Experience" : "Add New Experience"}
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
-          <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
+          <Modal.Body className={adminStyles.modalBody}>
             <Form.Group className="mb-3">
               <Form.Label>
                 Display Order <span className="text-danger">*</span>
@@ -223,7 +234,7 @@ const AdminExperience: React.FC = () => {
                     order: Number(e.target.value),
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="1"
               />
               <Form.Text className="text-muted">
@@ -242,7 +253,7 @@ const AdminExperience: React.FC = () => {
                 onChange={(e) =>
                   setCurrentExp({ ...currentExp, companyName: e.target.value })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="e.g. Google"
               />
             </Form.Group>
@@ -258,7 +269,7 @@ const AdminExperience: React.FC = () => {
                 onChange={(e) =>
                   setCurrentExp({ ...currentExp, role: e.target.value })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="e.g. Senior Frontend Engineer"
               />
             </Form.Group>
@@ -273,7 +284,7 @@ const AdminExperience: React.FC = () => {
                 onChange={(e) =>
                   setCurrentExp({ ...currentExp, timePeriod: e.target.value })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="e.g. Jan 2022 – Present"
               />
             </Form.Group>
@@ -290,7 +301,7 @@ const AdminExperience: React.FC = () => {
                     companyWebsite: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="https://..."
               />
             </Form.Group>
@@ -308,7 +319,7 @@ const AdminExperience: React.FC = () => {
                     logoUrl: e.target.value,
                   })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="https://example.com/logo.png"
               />
             </Form.Group>
@@ -322,7 +333,7 @@ const AdminExperience: React.FC = () => {
                 required
                 value={achievementsStr}
                 onChange={(e) => setAchievementsStr(e.target.value)}
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="One achievement per line"
               />
               <Form.Text className="text-muted">
@@ -330,16 +341,16 @@ const AdminExperience: React.FC = () => {
               </Form.Text>
             </Form.Group>
           </Modal.Body>
-          <Modal.Footer className="border-secondary">
+          <Modal.Footer>
             <button
               type="button"
-              className="btn btn-secondary"
+              className={adminStyles.secondaryButton}
               onClick={handleClose}
             >
               Cancel
             </button>
             <button
-              className="btn btn-primary"
+              className={adminStyles.primaryButton}
               type="submit"
               disabled={loading}
             >
@@ -359,27 +370,27 @@ const AdminExperience: React.FC = () => {
       <Modal
         show={showConfirmModal}
         onHide={() => setShowConfirmModal(false)}
-        contentClassName="bg-dark text-white"
+        contentClassName={adminStyles.modalContent}
         centered
       >
-        <Modal.Header closeButton className="border-secondary">
+        <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this experience entry? This action
           cannot be undone.
         </Modal.Body>
-        <Modal.Footer className="border-secondary">
+        <Modal.Footer>
           <button
             type="button"
-            className="btn btn-secondary"
+            className={adminStyles.secondaryButton}
             onClick={() => setShowConfirmModal(false)}
           >
             Cancel
           </button>
           <button
             type="button"
-            className="btn btn-danger"
+            className={adminStyles.dangerButton}
             onClick={handleDelete}
           >
             Delete

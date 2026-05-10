@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Card } from "react-bootstrap";
 import styles from "./AdminDashboard.module.scss";
+import adminStyles from "./Admin.module.scss";
 import {
   FaProjectDiagram,
   FaBookOpen,
@@ -36,7 +37,14 @@ const AdminDashboard: React.FC = () => {
 
   return (
     <div>
-      <h3 className="mb-4 text-white">Dashboard Overview</h3>
+      <div className={adminStyles.pageHeader}>
+        <div>
+          <h3 className={adminStyles.pageTitle}>Dashboard Overview</h3>
+          <p className={adminStyles.pageMeta}>
+            Monitor and update the content powering your portfolio.
+          </p>
+        </div>
+      </div>
       <Row className="g-4">
         {stats.map((stat, idx) => (
           <Col md={6} lg={4} key={idx}>
@@ -52,8 +60,8 @@ const AdminDashboard: React.FC = () => {
                   {stat.icon}
                 </div>
                 <div className="ms-3">
-                  <h5 className="mb-0 fw-bold text-white">{stat.count}</h5>
-                  <small className="text-white-50">{stat.title}</small>
+                  <h5 className="mb-0 fw-bold">{stat.count}</h5>
+                  <small className="text-muted">{stat.title}</small>
                 </div>
               </Card.Body>
             </Card>
@@ -65,8 +73,8 @@ const AdminDashboard: React.FC = () => {
         <Col lg={12}>
           <Card className={styles.welcomeCard}>
             <Card.Body>
-              <h4 className="text-white mb-3">Welcome to your Portfolio CMS</h4>
-              <p className="text-white-50 mb-0">
+              <h4 className="mb-3">Welcome to your Portfolio CMS</h4>
+              <p className="mb-0">
                 Use the sidebar to navigate through different sections of your
                 website. Changes made here will directly reflect on the public
                 portfolio. Ensure you upload highly optimized images for better

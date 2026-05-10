@@ -12,6 +12,8 @@ import { db } from "../../services/firebase";
 import { Skill } from "../../types";
 import useToast from "../../hooks/useToast";
 import ToastContainer from "../../components/ToastContainer";
+import adminStyles from "./Admin.module.scss";
+import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 
 const AdminSkills: React.FC = () => {
   const [skills, setSkills] = useState<Skill[]>([]);
@@ -111,22 +113,27 @@ const AdminSkills: React.FC = () => {
     <>
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="text-white mb-0">Manage Skills</h3>
-        <button className="btn btn-primary" onClick={() => handleShow()}>
-          + Add Skill
+      <div className={adminStyles.pageHeader}>
+        <div>
+          <h3 className={adminStyles.pageTitle}>Manage Skills</h3>
+          <p className={adminStyles.pageMeta}>
+            Keep skills grouped consistently across the public portfolio.
+          </p>
+        </div>
+        <button className={adminStyles.primaryButton} onClick={() => handleShow()}>
+          <FaPlus /> Add Skill
         </button>
       </div>
 
-      <Card className="bg-dark text-white border-secondary">
+      <Card className={adminStyles.panel}>
         <Card.Body>
           {isFetching ? (
-            <div className="text-center py-5">
+            <div className={adminStyles.loadingState}>
               <Spinner animation="border" variant="primary" />
-              <p className="mt-3 text-muted">Loading skills...</p>
+              <p>Loading skills...</p>
             </div>
           ) : (
-            <Table responsive variant="dark" hover>
+            <Table responsive hover className={adminStyles.table}>
               <thead>
                 <tr>
                   <th>Skill Name</th>
@@ -137,7 +144,7 @@ const AdminSkills: React.FC = () => {
               <tbody>
                 {skills.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="text-center py-4 text-muted">
+                    <td colSpan={3} className={adminStyles.emptyState}>
                       No skills found. Add one to get started!
                     </td>
                   </tr>
@@ -146,19 +153,23 @@ const AdminSkills: React.FC = () => {
                     <tr key={skill.id}>
                       <td>{skill.name}</td>
                       <td className="text-capitalize">{skill.type}</td>
-                      <td className="text-end">
+                      <td>
+                        <div className={adminStyles.actionGroup}>
                         <button
-                          className="btn btn-outline-info btn-sm me-2"
+                          className={adminStyles.iconButton}
                           onClick={() => handleShow(skill)}
+                          aria-label={`Edit ${skill.name}`}
                         >
-                          Edit
+                          <FaPen />
                         </button>
                         <button
-                          className="btn btn-outline-danger btn-sm"
+                          className={`${adminStyles.iconButton} ${adminStyles.deleteIconButton}`}
                           onClick={() => confirmDelete(skill.id)}
+                          aria-label={`Delete ${skill.name}`}
                         >
-                          Delete
+                          <FaTrash />
                         </button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -172,15 +183,15 @@ const AdminSkills: React.FC = () => {
       <Modal
         show={showModal}
         onHide={handleClose}
-        contentClassName="bg-dark text-white"
+        contentClassName={adminStyles.modalContent}
       >
-        <Modal.Header closeButton className="border-secondary">
+        <Modal.Header closeButton>
           <Modal.Title>
             {isEditing ? "Edit Skill" : "Add New Skill"}
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
-          <Modal.Body>
+          <Modal.Body className={adminStyles.modalBody}>
             <Form.Group className="mb-3">
               <Form.Label>
                 Skill Name <span className="text-danger">*</span>
@@ -193,7 +204,7 @@ const AdminSkills: React.FC = () => {
                 onChange={(e) =>
                   setCurrentSkill({ ...currentSkill, name: e.target.value })
                 }
-                className="bg-transparent text-white border-secondary"
+                className={adminStyles.formControl}
                 placeholder="e.g. React, TypeScript"
               />
               <Form.Text className="text-muted">
@@ -212,7 +223,7 @@ const AdminSkills: React.FC = () => {
                     type: e.target.value as Skill["type"],
                   })
                 }
-                className="bg-dark text-white border-secondary"
+                className={adminStyles.formControl}
               >
                 <option value="frontend">Frontend</option>
                 <option value="backend">Backend</option>
@@ -221,16 +232,16 @@ const AdminSkills: React.FC = () => {
               </Form.Select>
             </Form.Group>
           </Modal.Body>
-          <Modal.Footer className="border-secondary">
+          <Modal.Footer>
             <button
               type="button"
-              className="btn btn-secondary"
+              className={adminStyles.secondaryButton}
               onClick={handleClose}
             >
               Cancel
             </button>
             <button
-              className="btn btn-primary"
+              className={adminStyles.primaryButton}
               type="submit"
               disabled={loading}
             >
@@ -250,27 +261,27 @@ const AdminSkills: React.FC = () => {
       <Modal
         show={showConfirmModal}
         onHide={() => setShowConfirmModal(false)}
-        contentClassName="bg-dark text-white"
+        contentClassName={adminStyles.modalContent}
         centered
       >
-        <Modal.Header closeButton className="border-secondary">
+        <Modal.Header closeButton>
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete this skill? This action cannot be
           undone.
         </Modal.Body>
-        <Modal.Footer className="border-secondary">
+        <Modal.Footer>
           <button
             type="button"
-            className="btn btn-secondary"
+            className={adminStyles.secondaryButton}
             onClick={() => setShowConfirmModal(false)}
           >
             Cancel
           </button>
           <button
             type="button"
-            className="btn btn-danger"
+            className={adminStyles.dangerButton}
             onClick={handleDelete}
           >
             Delete

@@ -46,8 +46,8 @@ const AdminLayout: React.FC = () => {
           {/* Sidebar */}
           <Col md={3} lg={2} className={styles.sidebar}>
             <div className={styles.sidebarHeader}>
-              <h3 className="text-white fs-5 fw-bold mb-0">AG Admin</h3>
-              <small className="text-white-50">{currentUser?.email}</small>
+              <h3 className={styles.brandTitle}>AG Admin</h3>
+              <small className={styles.brandEmail}>{currentUser?.email}</small>
             </div>
 
             <Nav className="flex-column mt-4">
