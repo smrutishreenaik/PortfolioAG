@@ -75,7 +75,7 @@ const AdminLayout: React.FC = () => {
           </Col>
 
           {/* Main Content Area */}
-          <Col md={9} lg={10} className={styles.mainContent}>
+          <Col md={9} lg={10} className={styles.mainContent} data-lenis-prevent>
             <div className={styles.contentHeader}>
               <h2 className="fs-4 mb-0 fw-bold">Management Console</h2>
             </div>

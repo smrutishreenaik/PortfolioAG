@@ -184,6 +184,7 @@
 }
 
 .modalContent {
+  max-height: calc(100vh - 3rem);
   overflow: hidden;
   border: 1px solid $outline-color;
   border-radius: 8px;
@@ -209,11 +210,22 @@
   :global(.btn-close) {
     filter: none;
   }
+
+  :global(form) {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: hidden;
+  }
 }
 
 .modalBody {
-  max-height: 70vh;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: calc(100vh - 12rem);
   overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 1.5rem;
 }
 

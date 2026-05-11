@@ -22,6 +22,12 @@ const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({
       smoothWheel: true,
       wheelMultiplier: 1,
       touchMultiplier: 2,
+      prevent: (node) =>
+        Boolean(
+          node.closest(
+            ".modal, .modal-dialog, .modal-content, .modal-body, [data-lenis-prevent]",
+          ),
+        ),
     });
 
     lenisRef.current = lenis;
@@ -30,17 +36,16 @@ const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({
     lenis.on("scroll", ScrollTrigger.update);
 
     // Use GSAP's ticker to drive Lenis's raf for perfect sync
-    gsap.ticker.add((time) => {
+    const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+    gsap.ticker.add(updateLenis);
 
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       // Cleanup
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.remove(updateLenis);
       lenis.destroy();
     };
   }, []);
