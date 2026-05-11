@@ -1,7 +1,6 @@
 import React from "react";
 import Hero from "../components/sections/Hero";
 import Stats from "../components/sections/Stats";
-import PainPoints from "../components/sections/PainPoints";
 import About from "../components/sections/About";
 import Skills from "../components/sections/Skills";
 import Experience from "../components/sections/Experience";
@@ -21,7 +20,6 @@ const Home: React.FC<HomeProps> = ({ statsReady }) => {
     <div className={styles.homeContainer}>
       <Hero />
       <Stats ready={statsReady} />
-      <PainPoints />
       <About />
       <Skills />
       <Projects />
