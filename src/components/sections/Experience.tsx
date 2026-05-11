@@ -45,24 +45,27 @@ const Experience: React.FC = () => {
                       </div>
                     ) : null}
                     <div className={styles.expCoBadgeWrap}>
-                      <div className={styles.expCoBadge}>{exp.companyName}</div>
+                      {exp.companyWebsite ? (
+                        <a
+                          href={exp.companyWebsite}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.expCoBadge}
+                          aria-label={`Visit ${exp.companyName} website`}
+                        >
+                          {exp.companyName}
+                        </a>
+                      ) : (
+                        <div className={styles.expCoBadge}>
+                          {exp.companyName}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
 
                 <div>
                   <div className={styles.expRoleTitle}>{exp.role}</div>
-
-                  {exp.companyWebsite ? (
-                    <a
-                      href={exp.companyWebsite}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={styles.expWebsite}
-                    >
-                      Visit company website
-                    </a>
-                  ) : null}
 
                   {exp.achievements?.length ? (
                     <ul className={styles.expBullets}>

@@ -206,7 +206,14 @@
   color: $black;
   transition: all 0.3s;
   text-align: center;
+  text-decoration: none;
   white-space: nowrap;
+
+  &:hover,
+  &:focus {
+    color: $black;
+    text-decoration: none;
+  }
 }
 
 .expRoleTitle {
@@ -214,19 +221,6 @@
   font-weight: 700;
   color: $black;
   margin-bottom: 10px;
-}
-
-.expWebsite {
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 1.2rem;
-  font-size: 13px;
-  font-weight: 600;
-  color: $green;
-
-  &:hover {
-    color: darken($green, 8%);
-  }
 }
 
 .expBullets {
