@@ -159,4 +159,22 @@
   &:hover {
     opacity: 0.85;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.formStatus {
+  margin: 12px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.success {
+  color: #2f7d55;
+}
+
+.error {
+  color: #b83232;
 }
