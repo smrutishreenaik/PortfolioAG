@@ -67,13 +67,13 @@ const Stats: React.FC<StatsProps> = ({ ready }) => {
     <div ref={sectionRef} className={styles.statsBar}>
       <div className={styles.statsBarInner}>
         <StatItem
-          target={3}
+          target={4}
           label="Years of Experience"
           delay={0}
           shouldAnimate={shouldAnimate}
         />
         <StatItem
-          target={600}
+          target={1000}
           label="Bugs Resolved"
           delay={100}
           shouldAnimate={shouldAnimate}
