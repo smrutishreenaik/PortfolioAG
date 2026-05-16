@@ -51,9 +51,9 @@ const Hero: React.FC = () => {
             </em>
           </h1>
           <p className={styles.heroDesc}>
-            I'm Smrutishree — a C# / .NET Full-Stack Engineer with 3+ years
-            building secure, scalable web platforms. I ship features that matter
-            and mentor teams to grow.
+           I'm Smrutishree — a Senior Software Engineer with 4+ years of experience building scalable, 
+           full-stack systems. I specialize in System Design, rigorous problem-solving, and AI-augmented 
+           development to independently drive complex features to production.
           </p>
           <div className={styles.heroBtns}>
             <a className={styles.btnPrimary} href="#projects">
