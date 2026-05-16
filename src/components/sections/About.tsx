@@ -46,7 +46,7 @@ const About: React.FC = () => {
 
           <div className={styles.aboutHighlights}>
             <div className={styles.highlightRow}>
-              <div className={styles.hiIcon}>01</div>
+              <div className={styles.hiIcon}>🛡️</div>
               <div>
                 <div className={styles.hiText}>Security-first engineering</div>
                 <div className={styles.hiSub}>
@@ -59,12 +59,15 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".1s" }}
             >
-              <div className={styles.hiIcon}>02</div>
+              <div className={styles.hiIcon}>⚡</div>
               <div>
-                <div className={styles.hiText}>Performance & reliability</div>
+                <div className={styles.hiText}>
+                  Autonomous execution &amp; reliability
+                </div>
                 <div className={styles.hiSub}>
-                  Fixed deadlocks, boosted test coverage, cut post-deploy bugs
-                  by 15%
+                  Independently drive features from raw tickets to production,
+                  resolving critical production issues and cutting post-deploy
+                  bugs by 15%
                 </div>
               </div>
             </div>
@@ -73,11 +76,14 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".2s" }}
             >
-              <div className={styles.hiIcon}>03</div>
+              <div className={styles.hiIcon}>🧠</div>
               <div>
-                <div className={styles.hiText}>AI-powered tooling</div>
+                <div className={styles.hiText}>
+                  System Design &amp; core fundamentals
+                </div>
                 <div className={styles.hiSub}>
-                  Built GPT-powered RFP staffing recommender using OpenAI API
+                  Rigorously focused on DSA and System Design to architect
+                  highly scalable, language-agnostic platforms
                 </div>
               </div>
             </div>
@@ -86,14 +92,12 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".3s" }}
             >
-              <div className={styles.hiIcon}>04</div>
+              <div className={styles.hiIcon}>🤖</div>
               <div>
-                <div className={styles.hiText}>
-                  Mentorship & knowledge sharing
-                </div>
+                <div className={styles.hiText}>AI-augmented development</div>
                 <div className={styles.hiSub}>
-                  Trained 20+ interns; authored 100+ quiz questions for EPAM
-                  portal
+                  Extensively leverage AI for complex problem-solving and code
+                  reviews, alongside building a GPT-powered RFP recommender
                 </div>
               </div>
             </div>
@@ -102,11 +106,12 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".4s" }}
             >
-              <div className={styles.hiIcon}>05</div>
+              <div className={styles.hiIcon}>☁️</div>
               <div>
-                <div className={styles.hiText}>Microsoft Azure Certified</div>
+                <div className={styles.hiText}>Cloud infrastructure &amp; Azure</div>
                 <div className={styles.hiSub}>
-                  Azure Fundamentals - pipelines, boards, repos, branching
+                  Microsoft Azure Certified — experienced with CI/CD, cloud
+                  management, and asynchronous messaging via Azure Service Bus
                 </div>
               </div>
             </div>
