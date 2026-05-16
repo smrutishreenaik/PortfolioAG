@@ -54,6 +54,14 @@
 
 .aboutBody {
   margin-top: 1.2rem;
+
+  h3 {
+    font-family: $font-family-heading;
+    font-size: 18px;
+    color: $black;
+    margin: 1.6rem 0 0.75rem;
+  }
+
   p {
     font-size: 14px;
     line-height: 1.8;

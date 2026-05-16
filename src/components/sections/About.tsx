@@ -7,32 +7,46 @@ const About: React.FC = () => {
       <div className={styles.sectionWrap}>
         <div className={styles.aboutGrid}>
           <div>
-            <div className={styles.sectionEyebrow}>About me</div>
-            <div className={styles.sectionTitle}>
-              The engineer behind the work
-            </div>
+            <div className={styles.sectionEyebrow}>About Me</div>
             <div className={styles.aboutBody}>
               <p>
-                I'm a Full-Stack Software Engineer based in Bengaluru with 3+
-                years building secure, scalable platforms in C#, .NET Core, and
-                React. Microsoft Azure certified.
+                I am a Senior Software Engineer with 4+ years of experience
+                building secure, high-performance systems. I focus heavily on
+                System Design and Data Structures &amp; Algorithms to ensure the
+                platforms I build can scale efficiently.
+              </p>
+              <h3>How I Work</h3>
+              <p>
+                I take complete ownership of my engineering deliverables. From
+                estimating story points and clarifying requirements directly
+                from tickets, to deep-diving into documentation, I independently
+                execute features without needing direct oversight. I am also an
+                AI-augmented developer, utilizing advanced AI tools to learn
+                faster, solve complex architectural challenges, and enforce
+                rigorous code quality.
+              </p>
+              <h3>My Track Record</h3>
+              <p>
+                Mindfire Solutions : Currently building and scaling a
+                comprehensive self-service web platform, independently balancing
+                complex feature development with high-priority production
+                triage.
               </p>
               <p>
-                At Enstoa I reduced security vulnerabilities by 99% and saved
-                70% of manual effort via Active Directory automation. At EPAM I
-                resolved 600+ code issues and mentored 20+ engineers.
+                ENSTOA : Slashed security vulnerabilities by 99% and reduced
+                manual administrative workflows by 70% through robust
+                authentication automation.
               </p>
               <p>
-                Today at Mindfire Solutions I'm building a self-service web
-                platform with 20+ features — still obsessing over clean,
-                maintainable code.
+                EPAM Systems : Resolved 600+ code quality issues and actively
+                mentored 20+ engineers to accelerate team onboarding.
               </p>
             </div>
           </div>
 
           <div className={styles.aboutHighlights}>
             <div className={styles.highlightRow}>
-              <div className={styles.hiIcon}>🛡️</div>
+              <div className={styles.hiIcon}>01</div>
               <div>
                 <div className={styles.hiText}>Security-first engineering</div>
                 <div className={styles.hiSub}>
@@ -45,7 +59,7 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".1s" }}
             >
-              <div className={styles.hiIcon}>⚡</div>
+              <div className={styles.hiIcon}>02</div>
               <div>
                 <div className={styles.hiText}>Performance & reliability</div>
                 <div className={styles.hiSub}>
@@ -59,7 +73,7 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".2s" }}
             >
-              <div className={styles.hiIcon}>🤖</div>
+              <div className={styles.hiIcon}>03</div>
               <div>
                 <div className={styles.hiText}>AI-powered tooling</div>
                 <div className={styles.hiSub}>
@@ -72,7 +86,7 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".3s" }}
             >
-              <div className={styles.hiIcon}>🎓</div>
+              <div className={styles.hiIcon}>04</div>
               <div>
                 <div className={styles.hiText}>
                   Mentorship & knowledge sharing
@@ -88,11 +102,11 @@ const About: React.FC = () => {
               className={styles.highlightRow}
               style={{ transitionDelay: ".4s" }}
             >
-              <div className={styles.hiIcon}>☁️</div>
+              <div className={styles.hiIcon}>05</div>
               <div>
                 <div className={styles.hiText}>Microsoft Azure Certified</div>
                 <div className={styles.hiSub}>
-                  Azure Fundamentals — pipelines, boards, repos, branching
+                  Azure Fundamentals - pipelines, boards, repos, branching
                 </div>
               </div>
             </div>
