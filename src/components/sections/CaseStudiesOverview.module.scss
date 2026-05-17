@@ -98,8 +98,8 @@
 
 .carouselTrack {
   width: 100%;
-  max-width: 780px;
-  min-height: 280px;
+  max-width: 980px;
+  min-height: 440px;
   display: flex;
   align-items: stretch;
   position: relative;
@@ -109,10 +109,11 @@
 
 .testimonialCard {
   width: 100%;
+  min-height: 440px;
   background: $white;
   border: 1px solid $border;
   border-radius: 20px;
-  padding: 2.25rem 2.5rem;
+  padding: 2.75rem 3rem;
   display: flex;
   flex-direction: column;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
@@ -145,7 +146,8 @@
   }
 
   @media (max-width: 600px) {
-    padding: 1.75rem 1.5rem;
+    min-height: 520px;
+    padding: 2rem 1.5rem;
   }
 }
 
@@ -160,12 +162,12 @@
 }
 
 .quoteText {
-  font-size: 14px;
+  font-size: 15px;
   color: $gray;
-  line-height: 1.8;
+  line-height: 1.85;
   font-style: italic;
   flex: 1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .divider {
@@ -351,8 +353,8 @@
 
 .skeletonCard {
   width: 100%;
-  max-width: 780px;
-  height: 280px;
+  max-width: 980px;
+  height: 440px;
   border-radius: 20px;
   background: linear-gradient(90deg, $light 25%, $border 50%, $light 75%);
   background-size: 200% 100%;

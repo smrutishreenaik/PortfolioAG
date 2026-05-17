@@ -156,7 +156,7 @@ const Testimonials: React.FC = () => {
                       <p className={styles.authorName}>{current.personName}</p>
                       <p className={styles.authorRole}>
                         {current.position}
-                        {current.company && ` · ${current.company}`}
+                        {current.company && ` - ${current.company}`}
                       </p>
                     </div>
                     {current.linkedinUrl && (
