@@ -24,7 +24,7 @@ const LinkedInIcon = () => (
 
 type SubmitState = "idle" | "sending" | "sent" | "error";
 
-const contactEmail = "smrutishreenaik@gmail.com";
+const contactEmail = "smrutishree.naik123@gmail.com";
 const emailJsServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const emailJsTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const emailJsPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -103,16 +103,17 @@ const Contact: React.FC = () => {
       <div className={styles.contactWrap}>
         <div>
           <div className={styles.contactEyebrow}>Contact</div>
-          <div className={styles.contactTitle}>Ready to build something great?</div>
+          <div className={styles.contactTitle}>Let&apos;s talk tech.</div>
           <div className={styles.contactSub}>
-            A short conversation to understand your needs and see where we can create the most impact together.
+            I love connecting with people who are passionate about building
+            scalable, high-impact systems. Reach out if you&apos;d like to chat.
           </div>
           <div className={styles.contactInfo}>
             <a href={`mailto:${contactEmail}`}>
               <EmailIcon />
               {contactEmail}
             </a>
-            <a href="https://linkedin.com/in/smrutishreenaik" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/in/smrutishreenaik/" target="_blank" rel="noreferrer">
               <LinkedInIcon />
               linkedin.com/in/smrutishreenaik
             </a>
