@@ -4,9 +4,9 @@ import styles from "./Footer.module.scss";
 const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <span>&copy; 2025 Smrutishree Naik</span>
+      <span>&copy; 2026 Smrutishree Naik</span>
       <span>Bengaluru, India</span>
-      <span>Senior Software Engineer · C# · .NET · React</span>
+      <span>Senior Software Engineer · Problem Solving · System Design</span>
     </footer>
   );
 };
