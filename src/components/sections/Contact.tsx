@@ -123,11 +123,11 @@ const Contact: React.FC = () => {
         <form className={styles.contactForm} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="contact-name">FULL NAME</label>
-            <input id="contact-name" name="from_name" type="text" placeholder="e.g. Alex Carter" required />
+            <input id="contact-name" name="from_name" type="text" placeholder="e.g. Smrutishree" required />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="contact-email">EMAIL</label>
-            <input id="contact-email" name="from_email" type="email" placeholder="alex@company.com" required />
+            <input id="contact-email" name="from_email" type="email" placeholder="smrutishree@company.com" required />
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="contact-message">MESSAGE</label>
