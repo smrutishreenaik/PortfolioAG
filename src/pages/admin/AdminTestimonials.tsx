@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../services/firebase";
 import { Testimonial } from "../../types";
+import { sortByDisplayOrder } from "../../utils/firestoreOrdering";
 import useToast from "../../hooks/useToast";
 import ToastContainer from "../../components/ToastContainer";
 import adminStyles from "./Admin.module.scss";
@@ -36,9 +37,11 @@ const AdminTestimonials: React.FC = () => {
     try {
       const data = await getDocs(testimonialsCollectionRef);
       setTestimonials(
-        data.docs.map(
-          (document) =>
-            ({ ...document.data(), id: document.id }) as Testimonial,
+        sortByDisplayOrder(
+          data.docs.map(
+            (document) =>
+              ({ ...document.data(), id: document.id }) as Testimonial,
+          ),
         ),
       );
     } catch {
@@ -63,6 +66,8 @@ const AdminTestimonials: React.FC = () => {
     if (testimonial) {
       setCurrentTestimonial(testimonial);
       setIsEditing(true);
+    } else {
+      setCurrentTestimonial({ order: testimonials.length + 1 });
     }
     setShowModal(true);
   };
@@ -72,17 +77,25 @@ const AdminTestimonials: React.FC = () => {
     setLoading(true);
     try {
       const profilePicUrl = currentTestimonial.profilePicUrl || "";
+      const order = Number(currentTestimonial.order);
+
+      if (!Number.isInteger(order) || order < 1) {
+        showToast("Order must be a whole number greater than 0.", "error");
+        return;
+      }
 
       if (isEditing && currentTestimonial.id) {
         const testimonialDoc = doc(db, "testimonials", currentTestimonial.id);
         await updateDoc(testimonialDoc, {
           ...currentTestimonial,
+          order,
           profilePicUrl,
         });
         showToast("Testimonial updated successfully!", "success");
       } else {
         await addDoc(testimonialsCollectionRef, {
           ...currentTestimonial,
+          order,
           profilePicUrl,
           createdAt: new Date(),
         });
@@ -127,7 +140,10 @@ const AdminTestimonials: React.FC = () => {
             Manage recommendations, profile links, and quote metadata.
           </p>
         </div>
-        <button className={adminStyles.primaryButton} onClick={() => handleShow()}>
+        <button
+          className={adminStyles.primaryButton}
+          onClick={() => handleShow()}
+        >
           <FaPlus /> Add Testimonial
         </button>
       </div>
@@ -143,6 +159,7 @@ const AdminTestimonials: React.FC = () => {
             <Table responsive hover className={adminStyles.table}>
               <thead>
                 <tr>
+                  <th>Order</th>
                   <th>Person</th>
                   <th>Company</th>
                   <th>Position</th>
@@ -152,32 +169,33 @@ const AdminTestimonials: React.FC = () => {
               <tbody>
                 {testimonials.length === 0 ? (
                   <tr>
-                    <td colSpan={4} className={adminStyles.emptyState}>
+                    <td colSpan={5} className={adminStyles.emptyState}>
                       No testimonials found. Add one to get started!
                     </td>
                   </tr>
                 ) : (
                   testimonials.map((testimonial) => (
                     <tr key={testimonial.id}>
+                      <td>{testimonial.order ?? "-"}</td>
                       <td>{testimonial.personName}</td>
                       <td>{testimonial.company}</td>
                       <td>{testimonial.position}</td>
                       <td>
                         <div className={adminStyles.actionGroup}>
-                        <button
-                          className={adminStyles.iconButton}
-                          onClick={() => handleShow(testimonial)}
-                          aria-label={`Edit ${testimonial.personName}`}
-                        >
-                          <FaPen />
-                        </button>
-                        <button
-                          className={`${adminStyles.iconButton} ${adminStyles.deleteIconButton}`}
-                          onClick={() => confirmDelete(testimonial.id)}
-                          aria-label={`Delete ${testimonial.personName}`}
-                        >
-                          <FaTrash />
-                        </button>
+                          <button
+                            className={adminStyles.iconButton}
+                            onClick={() => handleShow(testimonial)}
+                            aria-label={`Edit ${testimonial.personName}`}
+                          >
+                            <FaPen />
+                          </button>
+                          <button
+                            className={`${adminStyles.iconButton} ${adminStyles.deleteIconButton}`}
+                            onClick={() => confirmDelete(testimonial.id)}
+                            aria-label={`Delete ${testimonial.personName}`}
+                          >
+                            <FaTrash />
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -202,6 +220,32 @@ const AdminTestimonials: React.FC = () => {
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
           <Modal.Body className={adminStyles.modalBody}>
+            <Form.Group className="mb-3">
+              <Form.Label>
+                Order <span className="text-danger">*</span>
+              </Form.Label>
+              <Form.Control
+                type="number"
+                required
+                min={1}
+                step={1}
+                value={currentTestimonial.order ?? ""}
+                onChange={(e) =>
+                  setCurrentTestimonial({
+                    ...currentTestimonial,
+                    order:
+                      e.target.value === ""
+                        ? undefined
+                        : Number(e.target.value),
+                  })
+                }
+                className={adminStyles.formControl}
+                placeholder="1"
+              />
+              <Form.Text className="text-muted">
+                Lower numbers appear first on the main page.
+              </Form.Text>
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
                 Person Name <span className="text-danger">*</span>

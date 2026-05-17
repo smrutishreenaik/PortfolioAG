@@ -32,6 +32,7 @@ export interface Experience {
 
 export interface Testimonial {
   id: string;
+  order?: number;
   personName: string;
   quote: string;
   linkedinUrl: string;
