@@ -16,7 +16,7 @@ import ToastContainer from "../../components/ToastContainer";
 import adminStyles from "./Admin.module.scss";
 import { FaPen, FaPlus, FaTrash } from "react-icons/fa";
 
-const MAX_QUOTE_LENGTH = 600;
+const MAX_QUOTE_LENGTH = 1500;
 
 const AdminTestimonials: React.FC = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
