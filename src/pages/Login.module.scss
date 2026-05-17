@@ -1,21 +1,220 @@
 @import "../styles/variables";
 
-.loginContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.loginPage {
   min-height: 100vh;
-  padding: 2rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background:
+    linear-gradient(180deg, rgba($green-light, 0.9), transparent 280px),
+    $bg-color;
+  display: grid;
+  place-items: center;
+}
+
+.loginShell {
+  display: grid;
+  width: min(100%, 980px);
+  min-height: 620px;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(340px, 1fr);
+  overflow: hidden;
+  border: 1px solid $outline-color;
+  border-radius: 8px;
+  background: $bg-surface;
+  box-shadow: 0 24px 80px rgba($black, 0.12);
+}
+
+.brandPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  background:
+    linear-gradient(160deg, rgba($primary-color, 0.18), transparent 58%),
+    $black;
+  color: $white;
+
+  h1 {
+    margin: 0;
+    color: $white;
+    font-family: $font-family-heading;
+    font-size: clamp(2.45rem, 5vw, 4.25rem);
+    line-height: 0.95;
+    letter-spacing: 0;
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba($white, 0.72);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: $white;
+  }
+}
+
+.eyebrow {
+  margin: 0 0 0.85rem;
+  color: $primary-color;
+  font-size: 0.75rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.lede {
+  max-width: 28rem;
+  margin: 1.25rem 0 0;
+  color: rgba($white, 0.68);
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+.brandFooter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  border-top: 1px solid rgba($white, 0.1);
+  padding-top: 1rem;
+  color: rgba($white, 0.56);
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
 .loginCard {
-  @include glassmorphism;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  color: $text-color;
+}
 
-  .card-body {
-    padding: 2.5rem;
+.cardHeader {
+  margin-bottom: 2rem;
+
+  h2 {
+    margin: 0;
+    color: $text-color;
+    font-family: $font-family-base;
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+}
+
+.alert {
+  border: 1px solid rgba(#dc3545, 0.2);
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.formGroup {
+  margin-bottom: 1rem;
+
+  label {
+    margin-bottom: 0.45rem;
+    color: $text-muted;
+    font-size: 0.76rem;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
+
+.inputWrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 48px;
+  border: 1px solid $outline-color;
+  border-radius: 8px;
+  background: $bg-surface;
+  padding: 0 0.9rem;
+  color: $text-muted;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+
+  &:focus-within {
+    border-color: rgba($primary-color, 0.75);
+    background: $white;
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.12);
+    color: $primary-color;
+  }
+}
+
+.formControl {
+  min-width: 0;
+  flex: 1;
+  border: 0 !important;
+  background: transparent !important;
+  color: $text-color !important;
+  box-shadow: none !important;
+  padding: 0.7rem 0;
+
+  &::placeholder {
+    color: rgba($text-muted, 0.65);
+  }
+}
+
+.submitButton {
+  display: inline-flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  border: 1px solid $primary-color;
+  border-radius: 8px;
+  background: $primary-color;
+  color: $white;
+  font-family: $font-family-base;
+  font-size: 0.95rem;
+  font-weight: 900;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    border-color: darken($primary-color, 8%);
+    background: darken($primary-color, 8%);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+}
+
+@media (max-width: 767px) {
+  .loginPage {
+    align-items: stretch;
+    padding: 1rem;
+  }
+
+  .loginShell {
+    min-height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .brandPanel {
+    min-height: 320px;
+  }
+
+  .loginCard {
+    justify-content: flex-start;
   }
 }

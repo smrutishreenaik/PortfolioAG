@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Container, Form, Card, Alert } from "react-bootstrap";
+import { Alert, Form } from "react-bootstrap";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../services/firebase";
 import styles from "./Login.module.scss";
 import { useAuth } from "../hooks/useAuth";
+import { FaArrowLeft, FaEnvelope, FaLock } from "react-icons/fa";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -40,46 +41,81 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Container className={styles.loginContainer}>
-      <Card className={styles.loginCard}>
-        <Card.Body>
-          <h2 className="text-center mb-4 text-white">Admin Login</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
+    <main className={styles.loginPage}>
+      <section className={styles.loginShell}>
+        <div className={styles.brandPanel}>
+          <Link to="/" className={styles.backLink}>
+            <FaArrowLeft />
+            Back to site
+          </Link>
+          <div>
+            <p className={styles.eyebrow}>Admin Console</p>
+            <h1>Welcome back.</h1>
+            <p className={styles.lede}>
+              Sign in to manage projects, case studies, experience, skills, and
+              testimonials.
+            </p>
+          </div>
+          <div className={styles.brandFooter}>
+            <span>PortfolioAG</span>
+            <span>Secure access</span>
+          </div>
+        </div>
+
+        <div className={styles.loginCard}>
+          <div className={styles.cardHeader}>
+            <p className={styles.eyebrow}>Sign in</p>
+            <h2>Management Console</h2>
+          </div>
+
+          {error && (
+            <Alert variant="danger" className={styles.alert}>
+              {error}
+            </Alert>
+          )}
 
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="email" className="mb-3">
-              <Form.Label className="text-white-50">Email</Form.Label>
-              <Form.Control
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="bg-transparent text-white"
-              />
+            <Form.Group id="email" className={styles.formGroup}>
+              <Form.Label>Email</Form.Label>
+              <div className={styles.inputWrap}>
+                <FaEnvelope />
+                <Form.Control
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="admin@example.com"
+                  className={styles.formControl}
+                />
+              </div>
             </Form.Group>
 
-            <Form.Group id="password" className="mb-4">
-              <Form.Label className="text-white-50">Password</Form.Label>
-              <Form.Control
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="bg-transparent text-white"
-              />
+            <Form.Group id="password" className={styles.formGroup}>
+              <Form.Label>Password</Form.Label>
+              <div className={styles.inputWrap}>
+                <FaLock />
+                <Form.Control
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className={styles.formControl}
+                />
+              </div>
             </Form.Group>
 
             <button
               disabled={loading}
-              className="w-100 btn btn-primary"
+              className={styles.submitButton}
               type="submit"
             >
-              Log In
+              {loading ? "Signing in..." : "Log In"}
             </button>
           </Form>
-        </Card.Body>
-      </Card>
-    </Container>
+        </div>
+      </section>
+    </main>
   );
 };
 
