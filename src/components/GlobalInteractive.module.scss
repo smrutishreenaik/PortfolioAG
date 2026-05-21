@@ -47,3 +47,10 @@
     background: rgba(61, 158, 106, 0.1);
   }
 }
+
+@media (hover: none), (pointer: coarse), (max-width: 768px) {
+  .cursorDot,
+  .cursorRing {
+    display: none;
+  }
+}

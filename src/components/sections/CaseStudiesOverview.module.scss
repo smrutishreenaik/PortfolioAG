@@ -25,6 +25,14 @@
   margin: 0 auto;
   padding: 100px 6vw;
   position: relative;
+
+  @media (max-width: 768px) {
+    padding: 72px 5vw;
+  }
+
+  @media (max-width: 420px) {
+    padding: 56px 5vw;
+  }
 }
 
 // ─── Header ───────────────────────────────────────────────────────────────────
@@ -32,6 +40,10 @@
 .headerBlock {
   text-align: center;
   margin-bottom: 4rem;
+
+  @media (max-width: 640px) {
+    margin-bottom: 2.5rem;
+  }
 }
 
 .sectionEyebrow {
@@ -103,6 +115,10 @@
   display: flex;
   align-items: stretch;
   position: relative;
+
+  @media (max-width: 700px) {
+    min-height: auto;
+  }
 }
 
 // ─── Card ─────────────────────────────────────────────────────────────────────
@@ -146,8 +162,9 @@
   }
 
   @media (max-width: 600px) {
-    min-height: 520px;
-    padding: 2rem 1.5rem;
+    min-height: auto;
+    border-radius: 8px;
+    padding: 1.5rem;
   }
 }
 
@@ -168,6 +185,11 @@
   font-style: italic;
   flex: 1;
   margin-bottom: 1.75rem;
+
+  @media (max-width: 600px) {
+    font-size: 14px;
+    line-height: 1.75;
+  }
 }
 
 .divider {
@@ -180,6 +202,10 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+
+  @media (max-width: 420px) {
+    align-items: flex-start;
+  }
 }
 
 .authorAvatar {
@@ -257,6 +283,13 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  @media (max-width: 420px) {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
 }
 
 .navBtn {
@@ -359,6 +392,11 @@
   background: linear-gradient(90deg, $light 25%, $border 50%, $light 75%);
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite;
+
+  @media (max-width: 600px) {
+    height: 340px;
+    border-radius: 8px;
+  }
 }
 
 @keyframes shimmer {

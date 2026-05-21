@@ -9,6 +9,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 6vw;
+
+  @media (max-width: 768px) {
+    padding: 72px 5vw;
+  }
+
+  @media (max-width: 420px) {
+    padding: 56px 5vw;
+  }
 }
 
 .sectionEyebrow {
@@ -61,6 +69,10 @@
   flex-direction: column;
   margin-top: 3.5rem;
   position: relative;
+
+  @media (max-width: 768px) {
+    margin-top: 2.5rem;
+  }
 
   &::before {
     content: "";
@@ -142,7 +154,9 @@
   text-align: center;
 
   @media (max-width: 768px) {
+    align-items: flex-start;
     gap: 14px;
+    text-align: left;
   }
 }
 
@@ -162,6 +176,10 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+  }
 }
 
 .expLogoFrame {
@@ -185,6 +203,10 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    justify-content: flex-start;
+  }
 }
 
 .expLogo {
@@ -207,7 +229,8 @@
   transition: all 0.3s;
   text-align: center;
   text-decoration: none;
-  white-space: nowrap;
+  max-width: 100%;
+  overflow-wrap: anywhere;
 
   &:hover,
   &:focus {
@@ -221,6 +244,10 @@
   font-weight: 700;
   color: $black;
   margin-bottom: 10px;
+
+  @media (max-width: 420px) {
+    font-size: 18px;
+  }
 }
 
 .expBullets {

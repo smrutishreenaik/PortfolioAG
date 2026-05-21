@@ -5,6 +5,10 @@
   height: 400vh; /* gives room to scroll */
   position: relative;
   border-bottom: 1px solid $border;
+
+  @media (max-width: 768px) {
+    height: auto;
+  }
 }
 
 .stickyOuter {
@@ -14,11 +18,26 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
 }
 
 .headerWrap {
   padding: 40px 6vw 0;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    padding: 72px 5vw 0;
+  }
+
+  @media (max-width: 420px) {
+    padding-top: 56px;
+  }
 }
 
 .sectionEyebrow {
@@ -59,12 +78,20 @@
   font-size: 13px;
   font-weight: 600;
   color: $green;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .progressDots {
   display: flex;
   gap: 6px;
   margin-top: 15px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .projDot {
@@ -86,19 +113,49 @@
   padding-bottom: 40px;
   padding-left: 6vw;
   overflow: hidden; /* Hide horizontal overflow */
+
+  @media (max-width: 768px) {
+    display: block;
+    padding: 2.5rem 5vw 72px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba($green, 0.35);
+      border-radius: 999px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    padding-bottom: 56px;
+  }
 }
 
 .trackWrap {
   display: flex;
   gap: 30px;
   will-change: transform;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+    width: max-content;
+    transform: none !important;
+    will-change: auto;
+  }
 }
 
 .projCard {
   background: $white;
   border: 1px solid $border;
   border-radius: 20px;
-  width: 440px;
+  width: clamp(340px, 34vw, 440px);
+  max-width: calc(100vw - 10vw);
   flex-shrink: 0;
   overflow: hidden;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
@@ -144,7 +201,13 @@
   }
 
   @media (max-width: 600px) {
-    width: 320px;
+    width: min(320px, calc(100vw - 10vw));
+    border-radius: 8px;
+    scroll-snap-align: start;
+
+    &::after {
+      display: none;
+    }
   }
 }
 
@@ -195,6 +258,10 @@
 
 .projBody {
   padding: 1.5rem;
+
+  @media (max-width: 420px) {
+    padding: 1.2rem;
+  }
 }
 
 .projType {
@@ -210,6 +277,11 @@
   font-weight: 700;
   color: $black;
   margin-bottom: 1rem;
+  overflow-wrap: anywhere;
+
+  @media (max-width: 420px) {
+    font-size: 18px;
+  }
 }
 
 .projLabel {
@@ -233,6 +305,10 @@
 
   &:last-child {
     margin-bottom: 0;
+  }
+
+  @media (max-width: 420px) {
+    font-size: 12px;
   }
 }
 

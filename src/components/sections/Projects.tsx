@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   motion,
   useMotionValueEvent,
@@ -87,11 +87,13 @@ const ProjectCard: React.FC<{
 const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeDot, setActiveDot] = useState(0);
+  const [isCompact, setIsCompact] = useState(false);
   const { activeProject, openModal, closeModal } = useProjectModal();
   const { projects } = useProjects();
 
   const dotCount = Math.max(projects.length, 1);
-  const trackEnd = projects.length > 1 ? `-${(projects.length - 1) * 25}%` : "0%";
+  const trackEnd =
+    !isCompact && projects.length > 1 ? `-${(projects.length - 1) * 25}%` : "0%";
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -100,7 +102,18 @@ const Projects: React.FC = () => {
 
   const trackX = useTransform(scrollYProgress, [0, 1], ["0%", trackEnd]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    const syncLayout = () => setIsCompact(mediaQuery.matches);
+
+    syncLayout();
+    mediaQuery.addEventListener("change", syncLayout);
+
+    return () => mediaQuery.removeEventListener("change", syncLayout);
+  }, []);
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (isCompact) return;
     const dot = Math.min(Math.floor(latest * dotCount), dotCount - 1);
     setActiveDot(Math.max(dot, 0));
   });

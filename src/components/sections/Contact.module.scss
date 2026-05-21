@@ -16,7 +16,12 @@
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
     gap: 48px;
-    padding: 60px 6vw;
+    padding: 60px 5vw;
+  }
+
+  @media (max-width: 420px) {
+    gap: 36px;
+    padding: 52px 5vw;
   }
 }
 
@@ -55,6 +60,10 @@
   line-height: 1.7;
   margin-bottom: 2rem;
   max-width: 420px;
+
+  @media (max-width: 900px) {
+    max-width: 620px;
+  }
 }
 
 .contactInfo {
@@ -71,6 +80,8 @@
     font-size: 14px;
     font-weight: 500;
     transition: color 0.2s;
+    min-width: 0;
+    overflow-wrap: anywhere;
 
     &:hover {
       color: #ffffff;
@@ -88,7 +99,12 @@
   padding: 2.5rem;
 
   @media (max-width: 600px) {
+    border-radius: 8px;
     padding: 1.75rem;
+  }
+
+  @media (max-width: 420px) {
+    padding: 1.25rem;
   }
 }
 
@@ -134,6 +150,10 @@
 
     &::placeholder {
       color: #aaa;
+    }
+
+    @media (max-width: 420px) {
+      padding: 11px 12px;
     }
   }
 

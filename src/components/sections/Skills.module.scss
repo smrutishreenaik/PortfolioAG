@@ -9,6 +9,14 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 100px 6vw;
+
+  @media (max-width: 768px) {
+    padding: 72px 5vw;
+  }
+
+  @media (max-width: 420px) {
+    padding: 56px 5vw;
+  }
 }
 
 .header {
@@ -79,6 +87,11 @@
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
+
+  @media (max-width: 480px) {
+    gap: 10px;
+    justify-content: stretch;
+  }
 }
 
 .skillPill {
@@ -93,9 +106,19 @@
   color: $black;
   background: $white;
   transition: all 0.2s ease;
+  max-width: 100%;
+  min-width: 0;
+  text-align: left;
 
   &:hover {
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 8px;
+    padding: 10px 14px;
   }
 }
 
