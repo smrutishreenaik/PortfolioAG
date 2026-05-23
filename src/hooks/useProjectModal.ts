@@ -12,6 +12,7 @@ export interface ProjectModalData {
   description: string;
   outcome: string;
   media: ProjectMediaItem[];
+  order?: number;
   techStack?: string[];
   githubLink?: string;
   liveLink?: string;

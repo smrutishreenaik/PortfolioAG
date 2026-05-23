@@ -61,6 +61,7 @@ const mapFirebaseProjectToModalData = (
   description: project.description,
   outcome: project.features?.join(" ") ?? "",
   techStack: project.techStack ?? [],
+  order: project.order,
   githubLink: project.githubLink ?? "",
   liveLink: project.liveLink ?? "",
   media: project.imageUrl
@@ -73,7 +74,9 @@ const useProjects = () => {
 
   const projects: ProjectModalData[] =
     !loading && firebaseProjects.length > 0
-      ? firebaseProjects.map(mapFirebaseProjectToModalData)
+      ? [...firebaseProjects]
+          .sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
+          .map(mapFirebaseProjectToModalData)
       : STATIC_FALLBACK;
 
   return { projects, loading };

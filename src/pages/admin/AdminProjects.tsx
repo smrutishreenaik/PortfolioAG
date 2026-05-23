@@ -35,11 +35,10 @@ const AdminProjects: React.FC = () => {
   const fetchProjects = async () => {
     try {
       const data = await getDocs(projectsCollectionRef);
-      setProjects(
-        data.docs.map(
-          (document) => ({ ...document.data(), id: document.id }) as Project,
-        ),
+      const fetchedProjects = data.docs.map(
+        (document) => ({ ...document.data(), id: document.id }) as Project,
       );
+      setProjects(fetchedProjects.sort((a, b) => (a.order ?? 999) - (b.order ?? 999)));
     } catch {
       showToast("Failed to load projects.", "error");
     } finally {
@@ -155,6 +154,7 @@ const AdminProjects: React.FC = () => {
             <Table responsive hover className={adminStyles.table}>
               <thead>
                 <tr>
+                  <th>Order</th>
                   <th>Title</th>
                   <th>Description</th>
                   <th className="text-end">Actions</th>
@@ -170,6 +170,7 @@ const AdminProjects: React.FC = () => {
                 ) : (
                   projects.map((proj) => (
                     <tr key={proj.id}>
+                      <td style={{ width: "80px" }}>{proj.order ?? "-"}</td>
                       <td className="w-25">{proj.title}</td>
                       <td
                         className="text-truncate"
@@ -217,6 +218,21 @@ const AdminProjects: React.FC = () => {
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
           <Modal.Body className={adminStyles.modalBody}>
+            <Form.Group className="mb-3">
+              <Form.Label>Display Order</Form.Label>
+              <Form.Control
+                type="number"
+                value={currentProject.order ?? ""}
+                onChange={(e) =>
+                  setCurrentProject({
+                    ...currentProject,
+                    order: e.target.value !== "" ? parseInt(e.target.value, 10) : undefined,
+                  })
+                }
+                className={adminStyles.formControl}
+                placeholder="e.g. 1"
+              />
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
                 Project Title <span className="text-danger">*</span>
