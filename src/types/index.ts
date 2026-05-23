@@ -13,6 +13,7 @@ export interface Project {
 
 export interface CaseStudy {
   id: string;
+  order?: number;
   title: string;
   content: string; // Rich text or HTML content
   imageUrl?: string;

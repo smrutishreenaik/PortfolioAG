@@ -32,11 +32,10 @@ const AdminCaseStudies: React.FC = () => {
   const fetchCaseStudies = async () => {
     try {
       const data = await getDocs(csCollectionRef);
-      setCaseStudies(
-        data.docs.map(
-          (document) => ({ ...document.data(), id: document.id }) as CaseStudy,
-        ),
+      const fetchedStudies = data.docs.map(
+        (document) => ({ ...document.data(), id: document.id }) as CaseStudy,
       );
+      setCaseStudies(fetchedStudies.sort((a, b) => (a.order ?? 999) - (b.order ?? 999)));
     } catch {
       showToast("Failed to load case studies.", "error");
     } finally {
@@ -136,6 +135,7 @@ const AdminCaseStudies: React.FC = () => {
             <Table responsive hover className={adminStyles.table}>
               <thead>
                 <tr>
+                  <th>Order</th>
                   <th>Title</th>
                   <th className="text-end">Actions</th>
                 </tr>
@@ -150,6 +150,7 @@ const AdminCaseStudies: React.FC = () => {
                 ) : (
                   caseStudies.map((study) => (
                     <tr key={study.id}>
+                      <td style={{ width: "80px" }}>{study.order ?? "-"}</td>
                       <td>{study.title}</td>
                       <td>
                         <div className={adminStyles.actionGroup}>
@@ -191,6 +192,21 @@ const AdminCaseStudies: React.FC = () => {
         </Modal.Header>
         <Form onSubmit={handleSubmit}>
           <Modal.Body className={adminStyles.modalBody}>
+            <Form.Group className="mb-3">
+              <Form.Label>Display Order</Form.Label>
+              <Form.Control
+                type="number"
+                value={currentStudy.order ?? ""}
+                onChange={(e) =>
+                  setCurrentStudy({
+                    ...currentStudy,
+                    order: e.target.value !== "" ? parseInt(e.target.value, 10) : undefined,
+                  })
+                }
+                className={adminStyles.formControl}
+                placeholder="e.g. 1"
+              />
+            </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
                 Title <span className="text-danger">*</span>

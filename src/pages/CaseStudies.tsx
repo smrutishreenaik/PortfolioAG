@@ -15,6 +15,8 @@ const CaseStudies: React.FC = () => {
   const [searchParams] = useSearchParams();
   const preselectedId = searchParams.get("id");
 
+  const sortedCaseStudies = [...caseStudies].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+
   const [selectedStudy, setSelectedStudy] = useState<CaseStudy | null>(null);
   const [contentVisible, setContentVisible] = useState(false);
   const hasInitialized = useRef(false);
@@ -24,11 +26,11 @@ const CaseStudies: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (caseStudies.length === 0 || hasInitialized.current) return;
+    if (sortedCaseStudies.length === 0 || hasInitialized.current) return;
 
     const targetStudy = preselectedId
-      ? (caseStudies.find((s) => s.id === preselectedId) ?? caseStudies[0])
-      : caseStudies[0];
+      ? (sortedCaseStudies.find((s) => s.id === preselectedId) ?? sortedCaseStudies[0])
+      : sortedCaseStudies[0];
 
     hasInitialized.current = true;
 
@@ -38,7 +40,7 @@ const CaseStudies: React.FC = () => {
     }, 0);
 
     return () => clearTimeout(timer);
-  }, [caseStudies, preselectedId]);
+  }, [sortedCaseStudies, preselectedId]);
 
   const handleSelectStudy = (study: CaseStudy) => {
     if (study.id === selectedStudy?.id) return;
@@ -71,14 +73,13 @@ const CaseStudies: React.FC = () => {
         <div className={styles.emptyState}>No case studies found.</div>
       ) : (
         <div className={styles.splitLayout}>
-          {/* ── Left sidebar ── */}
           <aside className={styles.sidebar}>
             <p className={styles.sidebarLabel}>
-              {caseStudies.length} case{" "}
-              {caseStudies.length === 1 ? "study" : "studies"}
+              {sortedCaseStudies.length} case{" "}
+              {sortedCaseStudies.length === 1 ? "study" : "studies"}
             </p>
             <ul className={styles.studyList}>
-              {caseStudies.map((study) => (
+              {sortedCaseStudies.map((study) => (
                 <li key={study.id}>
                   <button
                     className={`${styles.studyItem} ${

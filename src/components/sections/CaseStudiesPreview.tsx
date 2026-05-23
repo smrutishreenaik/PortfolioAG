@@ -23,7 +23,9 @@ const CaseStudiesPreview: React.FC = () => {
     openCaseStudiesPage(`/case-studies?id=${studyId}`);
   };
 
-  if (!loading && caseStudies.length === 0) return null;
+  const sortedCaseStudies = [...caseStudies].sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+
+  if (!loading && sortedCaseStudies.length === 0) return null;
 
   return (
     <section
@@ -50,7 +52,7 @@ const CaseStudiesPreview: React.FC = () => {
             ? [...Array(3)].map((_, i) => (
                 <div key={i} className={styles.skeletonCard} />
               ))
-            : caseStudies.map((study, i) => (
+            : sortedCaseStudies.map((study, i) => (
                 <motion.article
                   key={study.id}
                   className={styles.card}
