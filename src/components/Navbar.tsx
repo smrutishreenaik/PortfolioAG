@@ -22,6 +22,9 @@ const Navbar: React.FC = () => {
         <a href="/case-studies" target="_blank" rel="noopener noreferrer">
           Case Studies
         </a>
+        <a href="/games" target="_blank" rel="noopener noreferrer">
+          Games
+        </a>
         <a href={getHref("#contact")}>Contact</a>
       </div>
       <a className={styles.navCta} href={getHref("#contact")}>

@@ -8,9 +8,9 @@ interface UseIntersectionObserverOptions {
 
 const useIntersectionObserver = <T extends Element>(
   options: UseIntersectionObserverOptions = {}
-): [React.RefObject<T>, boolean] => {
+): [React.RefObject<T | null>, boolean] => {
   const { threshold = 0.15, rootMargin = "0px", triggerOnce = true } = options;
-  const targetRef = useRef<T>(null);
+  const targetRef = useRef<T | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

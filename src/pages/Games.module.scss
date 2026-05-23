@@ -1,0 +1,34 @@
+@import "../styles/variables";
+
+.pageWrapper {
+  padding-top: 100px;
+  min-height: 100vh;
+  background-color: $black;
+  color: $white;
+}
+
+.pageHeader {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 6vw;
+  text-align: center;
+}
+
+.pageTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(32px, 5vw, 64px);
+  margin-bottom: 1rem;
+}
+
+.pageSubtitle {
+  font-size: 1.1rem;
+  color: $gray;
+}
+
+.contentContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 6vw 100px;
+  text-align: center;
+  color: $gray;
+}

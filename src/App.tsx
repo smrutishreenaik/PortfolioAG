@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import CaseStudies from "./pages/CaseStudies";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
+import Games from "./pages/Games";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
@@ -54,6 +55,7 @@ const AppContent: React.FC = () => {
           <Route path="/" element={<Home statsReady={homeReady} />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/case-studies/:id" element={<CaseStudyDetail />} />
+          <Route path="/games" element={<Games />} />
           <Route path="/login" element={<Login />} />
 
           {/* Protected Admin Routes */}
