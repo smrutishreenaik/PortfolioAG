@@ -1,0 +1,53 @@
+@import "../styles/variables";
+
+.pageWrapper {
+  padding-top: 100px;
+  min-height: 100vh;
+  background-color: $black;
+  color: $white;
+}
+
+.backLink {
+  display: inline-block;
+  margin: 0 6vw 40px;
+  color: $green;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.gameHeader {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 6vw 40px;
+  text-align: center;
+}
+
+.gameTitle {
+  font-family: $font-family-heading;
+  font-size: clamp(32px, 4vw, 52px);
+  margin-bottom: 1rem;
+}
+
+.gameSubtitle {
+  font-size: 1.1rem;
+  color: $gray;
+}
+
+.playerContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 6vw 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.notFound {
+  text-align: center;
+  color: $gray;
+  padding: 100px 20px;
+}
