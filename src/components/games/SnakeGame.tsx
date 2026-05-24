@@ -413,6 +413,11 @@ const SnakeGame: React.FC = () => {
                 <span className={styles.statusValue}>{Math.floor(score / 50) + 1}</span>
                 <span className={styles.statusLabel}>Speed</span>
               </div>
+              <div className={styles.statusItem}>
+                <span className={styles.statusIcon}>⭐</span>
+                <span className={styles.statusValue}>{highScore}</span>
+                <span className={styles.statusLabel}>Best</span>
+              </div>
             </div>
           </div>
 
@@ -438,20 +443,6 @@ const SnakeGame: React.FC = () => {
             ) : (
               <p className={styles.panelText}>No scores yet. Be the first!</p>
             )}
-          </div>
-
-          {/* High Score Panel (Local) */}
-          <div className={styles.panel}>
-            <div className={styles.flexBetween}>
-              <div className={styles.panelHeader}>
-                <span className={styles.panelIconGold}>⭐</span>
-                <div>
-                  <h4 className={styles.mb0}>High Score</h4>
-                  <p className={styles.panelSubtext}>Personal Best</p>
-                </div>
-              </div>
-              <div className={styles.highScoreValue}>{highScore}</div>
-            </div>
           </div>
 
           {/* Action Button */}
