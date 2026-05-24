@@ -47,6 +47,7 @@ const SnakeGame: React.FC = () => {
   const [leaderboard, setLeaderboard] = useState<GameScore[]>([]);
   const [showNamePopup, setShowNamePopup] = useState(false);
   const [playerName, setPlayerName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Use refs for state accessed inside the game loop to avoid stale closures
   const snakeRef = useRef(snake);
@@ -242,6 +243,8 @@ const SnakeGame: React.FC = () => {
   };
 
   const submitScore = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     const nameToSubmit = playerName.trim() || "Anonymous";
     try {
       await addDoc(collection(db, "gameScores"), {
@@ -254,6 +257,8 @@ const SnakeGame: React.FC = () => {
       fetchLeaderboard();
     } catch (error) {
       console.error("Error saving score", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -348,10 +353,18 @@ const SnakeGame: React.FC = () => {
                   maxLength={15}
                 />
                 <div className={styles.popupActions}>
-                  <button className={styles.playButton} onClick={submitScore}>
-                    Submit Score
+                  <button 
+                    className={styles.playButton} 
+                    onClick={submitScore}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit Score"}
                   </button>
-                  <button className={styles.skipButton} onClick={skipSubmit}>
+                  <button 
+                    className={styles.skipButton} 
+                    onClick={skipSubmit}
+                    disabled={isSubmitting}
+                  >
                     Skip
                   </button>
                 </div>
