@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./SnakeGame.module.scss";
+import { db } from "../../services/firebase";
+import { collection, query, where, orderBy, limit, getDocs, addDoc, serverTimestamp } from "firebase/firestore";
+import { GameScore } from "../../types";
 
 // --- Types & Constants ---
 type Point = { x: number; y: number };
@@ -40,32 +43,69 @@ const SnakeGame: React.FC = () => {
   const [gameOver, setGameOver] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  // Leaderboard state
+  const [leaderboard, setLeaderboard] = useState<GameScore[]>([]);
+  const [showNamePopup, setShowNamePopup] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+
   // Use refs for state accessed inside the game loop to avoid stale closures
   const snakeRef = useRef(snake);
   const directionRef = useRef(direction);
   const isPlayingRef = useRef(isPlaying);
   const gameOverRef = useRef(gameOver);
+  const scoreRef = useRef(score);
 
   useEffect(() => {
     snakeRef.current = snake;
     directionRef.current = direction;
     isPlayingRef.current = isPlaying;
     gameOverRef.current = gameOver;
-  }, [snake, direction, isPlaying, gameOver]);
+    scoreRef.current = score;
+  }, [snake, direction, isPlaying, gameOver, score]);
 
-  // Load high score on mount
+  const fetchLeaderboard = useCallback(async () => {
+    try {
+      const q = query(
+        collection(db, "gameScores"),
+        where("gameId", "==", "snake"),
+        orderBy("score", "desc"),
+        limit(3)
+      );
+      const snapshot = await getDocs(q);
+      const scores = snapshot.docs.map(
+        (doc) => ({ id: doc.id, ...doc.data() } as GameScore)
+      );
+      setLeaderboard(scores);
+    } catch (error) {
+      console.warn("Index may be missing, falling back to local sort", error);
+      try {
+        const qFallback = query(collection(db, "gameScores"), where("gameId", "==", "snake"));
+        const snapshot = await getDocs(qFallback);
+        const scores = snapshot.docs.map(
+          (doc) => ({ id: doc.id, ...doc.data() } as GameScore)
+        );
+        scores.sort((a, b) => b.score - a.score);
+        setLeaderboard(scores.slice(0, 3));
+      } catch (fallbackError) {
+        console.error("Error fetching leaderboard", fallbackError);
+      }
+    }
+  }, []);
+
+  // Load high score and leaderboard on mount
   useEffect(() => {
     const savedScore = localStorage.getItem("snakeHighScore");
     if (savedScore) {
       setHighScore(parseInt(savedScore, 10));
     }
-    // Initialize food
     setFood(generateFood(INITIAL_SNAKE));
-  }, []);
+    fetchLeaderboard();
+  }, [fetchLeaderboard]);
 
   // --- Controls ---
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    // Prevent default scrolling for arrow keys
+    if (showNamePopup) return; // Disable game controls when popup is open
+
     if (
       ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(e.key)
     ) {
@@ -101,7 +141,7 @@ const SnakeGame: React.FC = () => {
         if (currentDir !== "LEFT") setDirection("RIGHT");
         break;
     }
-  }, []);
+  }, [showNamePopup]);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -166,7 +206,6 @@ const SnakeGame: React.FC = () => {
       setSnake(currentSnake);
     };
 
-    // Increase speed slightly as score increases (max speed capped)
     const speed = Math.max(50, BASE_SPEED - Math.floor(score / 50) * 10);
     const interval = setInterval(moveSnake, speed);
 
@@ -176,19 +215,50 @@ const SnakeGame: React.FC = () => {
   const handleGameOver = () => {
     setGameOver(true);
     setIsPlaying(false);
-    if (score > highScore) {
-      setHighScore(score);
-      localStorage.setItem("snakeHighScore", score.toString());
+    
+    const finalScore = scoreRef.current;
+    
+    if (finalScore > highScore) {
+      setHighScore(finalScore);
+      localStorage.setItem("snakeHighScore", finalScore.toString());
+    }
+
+    // Check if qualifies for top 3
+    if (finalScore > 0) {
+      if (leaderboard.length < 3 || finalScore > leaderboard[leaderboard.length - 1].score) {
+        setShowNamePopup(true);
+      }
     }
   };
 
   const resetGame = () => {
+    if (showNamePopup) return; // Prevent reset if popup is active
     setSnake(INITIAL_SNAKE);
     setDirection(INITIAL_DIRECTION);
     setScore(0);
     setGameOver(false);
     setFood(generateFood(INITIAL_SNAKE));
     setIsPlaying(true);
+  };
+
+  const submitScore = async () => {
+    const nameToSubmit = playerName.trim() || "Anonymous";
+    try {
+      await addDoc(collection(db, "gameScores"), {
+        gameId: "snake",
+        playerName: nameToSubmit,
+        score: score,
+        createdAt: serverTimestamp(),
+      });
+      setShowNamePopup(false);
+      fetchLeaderboard();
+    } catch (error) {
+      console.error("Error saving score", error);
+    }
+  };
+
+  const skipSubmit = () => {
+    setShowNamePopup(false);
   };
 
   // --- Rendering Helpers ---
@@ -245,7 +315,7 @@ const SnakeGame: React.FC = () => {
             </div>
 
             {/* Overlays */}
-            {!isPlaying && !gameOver && (
+            {!isPlaying && !gameOver && !showNamePopup && (
               <div className={styles.overlay}>
                 <h3>Ready?</h3>
                 <button className={styles.playButton} onClick={() => setIsPlaying(true)}>
@@ -254,12 +324,37 @@ const SnakeGame: React.FC = () => {
               </div>
             )}
 
-            {gameOver && (
+            {gameOver && !showNamePopup && (
               <div className={styles.overlay}>
                 <h3>Game Over!</h3>
                 <button className={styles.playButton} onClick={resetGame}>
                   Play Again
                 </button>
+              </div>
+            )}
+
+            {/* Name Entry Popup */}
+            {showNamePopup && (
+              <div className={styles.overlay}>
+                <h3>New High Score!</h3>
+                <p>You made it to the Top 3 with {score} points.</p>
+                <input
+                  type="text"
+                  placeholder="Enter your name (optional)"
+                  className={styles.popupInput}
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  autoFocus
+                  maxLength={15}
+                />
+                <div className={styles.popupActions}>
+                  <button className={styles.playButton} onClick={submitScore}>
+                    Submit Score
+                  </button>
+                  <button className={styles.skipButton} onClick={skipSubmit}>
+                    Skip
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -308,11 +403,35 @@ const SnakeGame: React.FC = () => {
             </div>
           </div>
 
-          {/* High Score Panel */}
+          {/* Leaderboard Panel */}
+          <div className={styles.panel}>
+            <div className={styles.panelHeader}>
+              <span className={styles.panelIconGold}>🏆</span>
+              <h4>Top 3 Players</h4>
+            </div>
+            
+            {leaderboard.length > 0 ? (
+              <div className={styles.leaderboardList}>
+                {leaderboard.map((entry, index) => (
+                  <div key={entry.id || index} className={`${styles.leaderboardItem} ${styles[`rank${index + 1}`]}`}>
+                    <div className={styles.playerInfo}>
+                      <span className={styles.rankBadge}>#{index + 1}</span>
+                      <span>{entry.playerName}</span>
+                    </div>
+                    <span className={styles.leaderboardScore}>{entry.score}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className={styles.panelText}>No scores yet. Be the first!</p>
+            )}
+          </div>
+
+          {/* High Score Panel (Local) */}
           <div className={styles.panel}>
             <div className={styles.flexBetween}>
               <div className={styles.panelHeader}>
-                <span className={styles.panelIconGold}>🏆</span>
+                <span className={styles.panelIconGold}>⭐</span>
                 <div>
                   <h4 className={styles.mb0}>High Score</h4>
                   <p className={styles.panelSubtext}>Personal Best</p>

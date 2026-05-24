@@ -45,6 +45,14 @@ export interface Testimonial {
   createdAt?: any;
 }
 
+export interface GameScore {
+  id?: string;
+  gameId: string;
+  playerName: string;
+  score: number;
+  createdAt: any;
+}
+
 export interface Skill {
   id: string;
   name: string;
