@@ -10,6 +10,13 @@ const GAMES_LIST = [
     tags: ["React State", "Game Loop", "Logic"],
     image: "/snake-bg.png",
   },
+  {
+    id: "untangle",
+    title: "Untangle",
+    description: "A highly satisfying visual puzzle. Drag the glowing nodes so that no connecting lines cross each other!",
+    tags: ["Graph Theory", "Geometry", "Puzzle"],
+    image: "/untangle-bg.png",
+  },
 ];
 
 const Games: React.FC = () => {

@@ -1,0 +1,433 @@
+@import "../../styles/variables.scss";
+
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.iconBox {
+  background: rgba($green, 0.1);
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 24px;
+}
+
+.title {
+  font-family: $font-family-heading;
+  font-size: clamp(32px, 4vw, 48px);
+  color: $white;
+  margin: 0;
+}
+
+.tag {
+  background: rgba($white, 0.1);
+  color: $green;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.subtitle {
+  color: $gray;
+  font-size: 1.1rem;
+}
+
+/* 2-Column Layout */
+.columns {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Game Board */
+.boardWrapper {
+  background: rgba(5, 2, 10, 0.6);
+  border-radius: 12px;
+  border: 1px solid rgba($white, 0.1);
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 1 / 1;
+}
+
+.board {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #1a0b1c 0%, #05020a 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.boardWin {
+  background: radial-gradient(circle at center, #0b1c11 0%, #020a05 100%);
+  transition: background 0.5s ease;
+}
+
+.svgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.edge {
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke 0.1s ease, filter 0.1s ease;
+}
+
+.edgeSafe {
+  stroke: rgba(#00f2fe, 0.7);
+  filter: drop-shadow(0 0 6px rgba(#00f2fe, 0.6));
+}
+
+.edgeIntersect {
+  stroke: rgba(#ff003c, 0.9);
+  filter: drop-shadow(0 0 8px rgba(#ff003c, 0.8));
+  stroke-width: 4;
+}
+
+.node {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff007f, #99004d);
+  box-shadow: 0 0 15px rgba(#ff007f, 0.8);
+  border: 2px solid #fff;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  z-index: 20;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+.nodeDragging {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.5);
+  box-shadow: 0 0 25px rgba(#fff, 0.9);
+  background: radial-gradient(circle at 30% 30%, #fff, #ff007f);
+}
+
+/* Overlays */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba($secondary-color, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 30;
+  text-align: center;
+  padding: 2rem;
+
+  h3 {
+    font-size: 2rem;
+    color: $white;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.playButton {
+  background: linear-gradient(135deg, #ff007f, #99004d);
+  color: $white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(#ff007f, 0.3);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(#ff007f, 0.5);
+  }
+  
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.popupInput {
+  background: rgba($white, 0.05);
+  border: 1px solid rgba($white, 0.2);
+  color: $white;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 250px;
+  text-align: center;
+  
+  &:focus {
+    outline: none;
+    border-color: #ff007f;
+    box-shadow: 0 0 0 2px rgba(#ff007f, 0.2);
+  }
+}
+
+.popupActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.skipButton {
+  background: transparent;
+  color: $text-muted;
+  border: 1px solid rgba($white, 0.2);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover:not(:disabled) {
+    background: rgba($white, 0.05);
+    color: $white;
+  }
+}
+
+/* Tip Section */
+.tipSection {
+  background: rgba($white, 0.03);
+  border: 1px solid rgba($white, 0.08);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.tipIcon {
+  font-size: 1.2rem;
+}
+
+.tipText {
+  color: $text-muted;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  strong {
+    color: $white;
+  }
+}
+
+/* Panels */
+.panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba($outline-color, 0.1);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  h4 {
+    margin: 0;
+    color: $white;
+    font-size: 1.05rem;
+  }
+}
+
+.panelIconLight {
+  color: #a0d8b3;
+}
+
+.panelIconGold {
+  color: #ffd700;
+}
+
+.panelText {
+  color: $text-muted;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+
+  strong {
+    color: $white;
+  }
+}
+
+.panelTitle {
+  margin: 0 0 16px 0;
+  color: $white;
+  font-size: 1.1rem;
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.statusItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.statusIcon {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+  color: $green;
+}
+
+.statusValue {
+  font-family: $font-family-heading;
+  font-size: 1.5rem;
+  color: $white;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.statusValueRed {
+  color: #ff003c;
+  text-shadow: 0 0 8px rgba(#ff003c, 0.5);
+}
+
+.statusValueGreen {
+  color: #00f2fe;
+  text-shadow: 0 0 8px rgba(#00f2fe, 0.5);
+}
+
+.statusLabel {
+  color: $text-muted;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.leaderboardList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leaderboardItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba($outline-color, 0.05);
+  font-size: 0.9rem;
+}
+
+.rank1 {
+  background: rgba(#ffd700, 0.05);
+  border-color: rgba(#ffd700, 0.3);
+  .rankBadge { color: #ffd700; }
+}
+
+.rank2 {
+  background: rgba(#c0c0c0, 0.05);
+  border-color: rgba(#c0c0c0, 0.3);
+  .rankBadge { color: #c0c0c0; }
+}
+
+.rank3 {
+  background: rgba(#cd7f32, 0.05);
+  border-color: rgba(#cd7f32, 0.3);
+  .rankBadge { color: #cd7f32; }
+}
+
+.playerInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: $white;
+  font-weight: 500;
+}
+
+.rankBadge {
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.leaderboardScore {
+  color: $green;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 1.1rem;
+}
+
+.giveUpBtn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(#ff4757, 0.4);
+  color: #ff4757;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0px;
+
+  &:hover {
+    background: rgba(#ff4757, 0.1);
+    border-color: #ff4757;
+  }
+}

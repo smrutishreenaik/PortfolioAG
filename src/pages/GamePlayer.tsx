@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import styles from "./GamePlayer.module.scss";
 import SnakeGame from "../components/games/SnakeGame";
+import UntangleGame from "../components/games/UntangleGame";
 
 const GamePlayer: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -15,6 +16,9 @@ const GamePlayer: React.FC = () => {
   switch (gameId) {
     case "snake":
       gameComponent = <SnakeGame />;
+      break;
+    case "untangle":
+      gameComponent = <UntangleGame />;
       break;
     default:
       return (
