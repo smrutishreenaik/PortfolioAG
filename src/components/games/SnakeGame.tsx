@@ -216,55 +216,118 @@ const SnakeGame: React.FC = () => {
   };
 
   return (
-    <div className={styles.gameContainer}>
-      <div className={styles.gameHeader}>
-        <div className={styles.scoreBoard}>
-          <div className={styles.scoreItem}>
-            <span>Score</span>
-            <strong>{score}</strong>
-          </div>
-          <div className={styles.scoreItem}>
-            <span>Best</span>
-            <strong>{highScore}</strong>
-          </div>
+    <div className={styles.layoutContainer}>
+      {/* ── Header ── */}
+      <div className={styles.header}>
+        <div className={styles.titleRow}>
+          <div className={styles.iconBox}>🐍</div>
+          <h1 className={styles.title}>Snake Game</h1>
+          <span className={styles.tag}>{"</>"}</span>
         </div>
+        <p className={styles.subtitle}>
+          The classic Nokia game. Eat food to grow, but don't bite yourself!
+        </p>
       </div>
 
-      <div className={styles.boardWrapper}>
-        <div
-          className={styles.board}
-          style={{
-            gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
-            gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
-          }}
-        >
-          {renderGrid()}
+      {/* ── Main Two-Column Layout ── */}
+      <div className={styles.columns}>
+        {/* Left Column: Game Board */}
+        <div className={styles.leftCol}>
+          <div className={styles.boardWrapper}>
+            <div
+              className={styles.board}
+              style={{
+                gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
+                gridTemplateRows: `repeat(${GRID_SIZE}, 1fr)`,
+              }}
+            >
+              {renderGrid()}
+            </div>
+
+            {/* Overlays */}
+            {!isPlaying && !gameOver && (
+              <div className={styles.overlay}>
+                <h3>Ready?</h3>
+                <button className={styles.playButton} onClick={() => setIsPlaying(true)}>
+                  Press Space to Start
+                </button>
+              </div>
+            )}
+
+            {gameOver && (
+              <div className={styles.overlay}>
+                <h3>Game Over!</h3>
+                <button className={styles.playButton} onClick={resetGame}>
+                  Play Again
+                </button>
+              </div>
+            )}
+          </div>
+          
+          <div className={styles.tipSection}>
+            <span className={styles.tipIcon}>✨</span>
+            <span className={styles.tipText}>
+              <strong>Tip:</strong> Look ahead and avoid trapping yourself against the walls!
+            </span>
+          </div>
         </div>
 
-        {/* Overlays */}
-        {!isPlaying && !gameOver && (
-          <div className={styles.overlay}>
-            <h3>Ready?</h3>
-            <p>Use arrow keys or WASD to move.</p>
-            <button className={styles.playButton} onClick={() => setIsPlaying(true)}>
-              Press Space to Start
-            </button>
+        {/* Right Column: Panels */}
+        <div className={styles.rightCol}>
+          
+          {/* How to Play Panel */}
+          <div className={styles.panel}>
+            <div className={styles.panelHeader}>
+              <span className={styles.panelIconLight}>💡</span>
+              <h4>How to Play</h4>
+            </div>
+            <p className={styles.panelText}>
+              Use <strong>WASD</strong> or <strong>Arrow Keys</strong> to move the snake. Eat the red apples to grow and increase your score. Be quick!
+            </p>
           </div>
-        )}
 
-        {gameOver && (
-          <div className={styles.overlay}>
-            <h3>Game Over!</h3>
-            <p>You scored {score} points.</p>
-            <button className={styles.playButton} onClick={resetGame}>
-              Play Again
-            </button>
+          {/* Game Status Panel */}
+          <div className={styles.panel}>
+            <h4 className={styles.panelTitle}>Game Status</h4>
+            <div className={styles.statusGrid}>
+              <div className={styles.statusItem}>
+                <span className={styles.statusIcon}>📏</span>
+                <span className={styles.statusValue}>{snake.length}</span>
+                <span className={styles.statusLabel}>Length</span>
+              </div>
+              <div className={styles.statusItem}>
+                <span className={styles.statusIcon}>🎯</span>
+                <span className={styles.statusValue}>{score}</span>
+                <span className={styles.statusLabel}>Score</span>
+              </div>
+              <div className={styles.statusItem}>
+                <span className={styles.statusIcon}>⚡</span>
+                <span className={styles.statusValue}>{Math.floor(score / 50) + 1}</span>
+                <span className={styles.statusLabel}>Speed</span>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
 
-      <div className={styles.controlsHint}>
-        Use <span>W A S D</span> or <span>Arrows</span> to move
+          {/* High Score Panel */}
+          <div className={styles.panel}>
+            <div className={styles.flexBetween}>
+              <div className={styles.panelHeader}>
+                <span className={styles.panelIconGold}>🏆</span>
+                <div>
+                  <h4 className={styles.mb0}>High Score</h4>
+                  <p className={styles.panelSubtext}>Personal Best</p>
+                </div>
+              </div>
+              <div className={styles.highScoreValue}>{highScore}</div>
+            </div>
+          </div>
+
+          {/* Action Button */}
+          <button className={styles.giveUpBtn} onClick={resetGame}>
+            {isPlaying ? "Give Up & Reset" : "Reset Game"}
+          </button>
+          
+        </div>
       </div>
     </div>
   );
