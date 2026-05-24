@@ -64,6 +64,8 @@
 .boardWrapper {
   position: relative;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   aspect-ratio: 1 / 1;
   background: $black;
   border: 1px solid rgba($outline-color, 0.1);
